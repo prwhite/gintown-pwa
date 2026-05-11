@@ -58,8 +58,8 @@ function createStore() {
     const hand: Hand = {
       index: state.game.hands.length + 1,
       ginnerIndex: input.ginnerIndex,
-      ginnerMeldPoints: input.ginnerMeldPoints,
-      defenderMeldPoints: input.defenderMeldPoints,
+      ginnerTotal: input.ginnerTotal,
+      defenderTotal: input.defenderTotal,
       defenderDeadwood: input.defenderDeadwood,
       defenderLayoffs: input.defenderLayoffs,
       scores,
@@ -82,7 +82,6 @@ function createStore() {
     const state = get({ subscribe });
     if (!state.game) return;
     const filtered = state.game.hands.filter((h) => h.index !== index);
-    // Re-index sequentially so display stays clean.
     const renumbered = filtered.map((h, i) => ({ ...h, index: i + 1 }));
     const totals: [number, number] = [totalFor(renumbered, 0), totalFor(renumbered, 1)];
     const w = winnerIfAny(totals, state.game.targetScore);

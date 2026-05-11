@@ -35,7 +35,7 @@
 
 {#if game}
   <header class="hero">
-    <img src="{base}/splash/ace-spades.svg" alt="" class="splash" />
+    <img src="{base}/splash/ace-spades.png" alt="" class="splash" />
     <h1>
       {game.winner !== null ? game.players[game.winner] : '—'} wins!
     </h1>

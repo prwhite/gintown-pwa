@@ -8,3 +8,8 @@ build/
 *.log
 .vite/
 dev-dist/
+
+# Global gitignore has `Icon?` (macOS Finder cruft) which matches our PWA
+# icon files case-insensitively. Re-include them.
+!static/icons/
+!static/icons/*.png

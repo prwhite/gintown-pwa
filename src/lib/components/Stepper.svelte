@@ -8,6 +8,8 @@
     label?: string;
     /** Optional reset target shown as a "↺" button. */
     resetTo?: number;
+    /** Compact variant for metadata fields. */
+    compact?: boolean;
   }
 
   let {
@@ -17,7 +19,8 @@
     max = Infinity,
     step = 5,
     label,
-    resetTo
+    resetTo,
+    compact = false
   }: Props = $props();
 
   let holdTimer: ReturnType<typeof setTimeout> | null = null;
@@ -33,8 +36,7 @@
   }
 
   function startHold(direction: -1 | 1) {
-    bump(direction); // immediate tick
-    // After 500ms hold, start repeating every 100ms.
+    bump(direction);
     holdTimer = setTimeout(() => {
       repeatTimer = setInterval(() => bump(direction), 100);
     }, 500);
@@ -56,7 +58,7 @@
   let atMax = $derived(value >= max);
 </script>
 
-<div class="stepper">
+<div class="stepper" class:compact>
   {#if label}
     <div class="label">{label}</div>
   {/if}
@@ -87,7 +89,7 @@
   </div>
   {#if resetTo !== undefined}
     <button type="button" class="reset" onclick={reset} disabled={value === resetTo}>
-      ↺ reset to {resetTo}
+      ↺ {resetTo}
     </button>
   {/if}
 </div>
@@ -96,25 +98,26 @@
   .stepper {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
   }
 
   .label {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--text-muted);
     letter-spacing: 0.5px;
     text-transform: uppercase;
   }
 
   .row {
+    /* Bump cells get more width than the strict tap-min so taps land easier. */
     display: grid;
-    grid-template-columns: var(--tap-min) 1fr var(--tap-min);
+    grid-template-columns: 88px 1fr 88px;
     align-items: stretch;
-    gap: 8px;
+    gap: 6px;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-md);
-    padding: 6px;
+    padding: 4px;
   }
 
   .bump {
@@ -122,10 +125,11 @@
     border-radius: var(--radius-sm);
     background: rgba(255, 255, 255, 0.08);
     color: var(--text);
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
     user-select: none;
     touch-action: manipulation;
+    padding: 0;
   }
 
   .bump:hover:not(:disabled) {
@@ -143,17 +147,31 @@
     align-items: center;
     justify-content: center;
     font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-    font-size: 32px;
+    font-size: 26px;
     font-weight: 700;
     color: var(--text);
     font-variant-numeric: tabular-nums;
   }
 
+  .compact .row {
+    grid-template-columns: 64px 1fr 64px;
+    padding: 3px;
+  }
+
+  .compact .bump {
+    height: 34px;
+    font-size: 13px;
+  }
+
+  .compact .value {
+    font-size: 18px;
+  }
+
   .reset {
     align-self: center;
-    font-size: 11px;
+    font-size: 10px;
     color: var(--text-muted);
-    padding: 4px 8px;
+    padding: 2px 6px;
     border-radius: 6px;
   }
 

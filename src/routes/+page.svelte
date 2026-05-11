@@ -30,7 +30,7 @@
 </script>
 
 <header class="hero">
-  <img src="{base}/splash/ace-spades.svg" alt="" class="splash" />
+  <img src="{base}/splash/ace-spades.png" alt="" class="splash" />
   <h1>Krusty Score</h1>
   <p class="subtitle">Offline scoring for in-person Krusty Gin.</p>
 </header>

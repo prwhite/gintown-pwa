@@ -17,22 +17,24 @@ import sharp from 'sharp';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, '..');
-const splashPath = resolve(root, 'static/splash/ace-spades.svg');
+const splashPath = resolve(root, 'static/splash/ace-spades.png');
 const outDir = resolve(root, 'static/icons');
 
 const BG = '#1a1a2e';
-const svg = readFileSync(splashPath);
+const splashBytes = readFileSync(splashPath);
 
 mkdirSync(outDir, { recursive: true });
 
-async function makeIcon({ size, inset, file, maskable = false }) {
-  // The card SVG is 96×136 (≈ 0.706:1). Fit it inside the inset box so the
-  // taller dimension is the constraint and the card stays wholly visible.
-  const box = size - 2 * inset;
-  const cardW = Math.round(box * (96 / 136));
-  const cardH = box;
+const splashMeta = await sharp(splashBytes).metadata();
+const splashAspect = (splashMeta.width ?? 1) / (splashMeta.height ?? 1);
 
-  const card = await sharp(svg, { density: 600 })
+async function makeIcon({ size, inset, file, maskable = false }) {
+  // Fit the card inside the inset box, height-constrained so the full card stays visible.
+  const box = size - 2 * inset;
+  const cardH = box;
+  const cardW = Math.round(box * splashAspect);
+
+  const card = await sharp(splashBytes)
     .resize(cardW, cardH, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
     .png()
     .toBuffer();

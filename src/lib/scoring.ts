@@ -1,25 +1,30 @@
 /**
- * Krusty Gin scoring math.
+ * Krusty Gin scoring inputs for in-person play.
  *
- * Rules reference: gintown/RULES.md §"Krusty Gin".
- * Canonical impl: gintown/backend/app/rules/krusty_gin.py
- *                 gintown/frontend/src/lib/utils/krusty_gin.ts
+ * Model (per user, after first iteration): players announce their *total* hand
+ * score at the table. The PWA records those totals directly — no melds/deadwood
+ * arithmetic. Deadwood and layoffs are tracked as metadata for posterity but
+ * are NOT summed into the score.
  *
- * In this PWA we don't model cards or melds; we accept user-entered totals
- * (all multiples of 5) and compute hand deltas + game progress.
+ *   ginnerTotal       — the ginner's announced hand score
+ *   defenderTotal     — the defender's announced hand score (can be negative)
+ *   defenderDeadwood  — metadata only
+ *   defenderLayoffs   — metadata only
  */
 
 export const STEP = 5;
+
 export const DEFAULTS = {
-  ginnerMeldPoints: 50,
-  defenderMeldPoints: 0,
+  ginnerTotal: 50,
+  defenderTotal: 50,
   defenderDeadwood: 0,
   defenderLayoffs: 0
 } as const;
 
 export const RANGES = {
-  ginnerMeldPoints: { min: 50, max: 120 },
-  defenderMeldPoints: { min: 0, max: 120 },
+  ginnerTotal: { min: 50, max: 120 },
+  // Defender can go net-negative (high deadwood, no melds), so allow downward range.
+  defenderTotal: { min: -120, max: 120 },
   defenderDeadwood: { min: 0, max: 120 },
   defenderLayoffs: { min: 0, max: 50 },
   targetScore: { min: 100, max: 500 }
@@ -29,38 +34,30 @@ export const DEFAULT_TARGET_SCORE = 300;
 
 export interface HandInput {
   ginnerIndex: 0 | 1;
-  ginnerMeldPoints: number;
-  defenderMeldPoints: number;
+  ginnerTotal: number;
+  defenderTotal: number;
   defenderDeadwood: number;
   defenderLayoffs: number;
 }
 
 /**
- * Compute per-player hand deltas.
- * - Ginner scores their meld points.
- * - Defender scores meld points − deadwood + layoffs (can be negative).
+ * Per-player hand deltas — now a direct copy of the entered totals into the
+ * right slots; no math.
  */
 export function scoreHand(h: HandInput): [number, number] {
-  const ginner = h.ginnerMeldPoints;
-  const defender = h.defenderMeldPoints - h.defenderDeadwood + h.defenderLayoffs;
-  return h.ginnerIndex === 0 ? [ginner, defender] : [defender, ginner];
+  return h.ginnerIndex === 0 ? [h.ginnerTotal, h.defenderTotal] : [h.defenderTotal, h.ginnerTotal];
 }
 
-/** Snap an arbitrary number to the nearest STEP increment. */
 export function snap(n: number, step = STEP): number {
   return Math.round(n / step) * step;
 }
 
-/** Sum of per-hand deltas for a single player index across hands. */
 export function totalFor(hands: { scores: [number, number] }[], playerIndex: 0 | 1): number {
   return hands.reduce((sum, h) => sum + h.scores[playerIndex], 0);
 }
 
 /**
- * Determine winner once any player reaches target.
- * Returns the index of the player with the highest score, or null if neither
- * has reached target yet. If both have reached target in the same hand, the
- * higher score wins (matches gintown's krusty_gin.is_game_over).
+ * Winner once any player reaches target. Highest score wins (matches gintown).
  */
 export function winnerIfAny(
   totals: [number, number],

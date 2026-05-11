@@ -34,11 +34,11 @@
   .picker {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
   }
 
   .label {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--text-muted);
     letter-spacing: 0.5px;
     text-transform: uppercase;
@@ -51,12 +51,12 @@
   }
 
   .tile {
-    height: 64px;
+    height: 48px;
     border-radius: var(--radius-md);
     background: rgba(255, 255, 255, 0.04);
     border: 2px solid rgba(255, 255, 255, 0.1);
     color: var(--text);
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
     transition: all 0.15s;
     touch-action: manipulation;
@@ -67,9 +67,9 @@
   }
 
   .tile.active {
-    background: rgba(233, 69, 96, 0.18);
-    border-color: var(--accent);
+    background: rgba(251, 191, 36, 0.16);
+    border-color: var(--warning);
     color: var(--text);
-    box-shadow: 0 0 18px rgba(233, 69, 96, 0.35);
+    box-shadow: 0 0 16px rgba(251, 191, 36, 0.32);
   }
 </style>

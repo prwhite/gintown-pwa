@@ -18,7 +18,7 @@
   --warning: #fbbf24;
   --danger: #ef4444;
 
-  --tap-min: 56px; /* Apple HIG min touch target +12 for spinner comfort */
+  --tap-min: 40px; /* Comfortable thumb size; spinner middle expands to fill */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;

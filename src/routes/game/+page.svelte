@@ -10,8 +10,8 @@
 
   // Inputs for the next hand — reset to defaults after each save.
   let ginnerIndex = $state<0 | 1>(0);
-  let ginnerMeldPoints = $state<number>(DEFAULTS.ginnerMeldPoints);
-  let defenderMeldPoints = $state<number>(DEFAULTS.defenderMeldPoints);
+  let ginnerTotal = $state<number>(DEFAULTS.ginnerTotal);
+  let defenderTotal = $state<number>(DEFAULTS.defenderTotal);
   let defenderDeadwood = $state<number>(DEFAULTS.defenderDeadwood);
   let defenderLayoffs = $state<number>(DEFAULTS.defenderLayoffs);
 
@@ -20,7 +20,6 @@
 
   onMount(async () => {
     await currentGame.hydrateFromStorage();
-    // No active game? Send them back.
     if (!$currentGame.game) {
       goto(`${base}/`);
     }
@@ -37,8 +36,8 @@
   let preview = $derived(() => {
     const input: HandInput = {
       ginnerIndex,
-      ginnerMeldPoints,
-      defenderMeldPoints,
+      ginnerTotal,
+      defenderTotal,
       defenderDeadwood,
       defenderLayoffs
     };
@@ -50,9 +49,8 @@
   }
 
   function resetInputs() {
-    ginnerIndex = ginnerIndex; // keep the winner from the previous hand by default; tweak as needed
-    ginnerMeldPoints = DEFAULTS.ginnerMeldPoints;
-    defenderMeldPoints = DEFAULTS.defenderMeldPoints;
+    ginnerTotal = DEFAULTS.ginnerTotal;
+    defenderTotal = DEFAULTS.defenderTotal;
     defenderDeadwood = DEFAULTS.defenderDeadwood;
     defenderLayoffs = DEFAULTS.defenderLayoffs;
   }
@@ -62,12 +60,11 @@
     const before = totals;
     const res = await currentGame.addHand({
       ginnerIndex,
-      ginnerMeldPoints,
-      defenderMeldPoints,
+      ginnerTotal,
+      defenderTotal,
       defenderDeadwood,
       defenderLayoffs
     });
-    // Trigger tick animation on whichever totals changed.
     const after = res.totals;
     if (after[0] !== before[0]) {
       tick0 = false;
@@ -79,7 +76,6 @@
     }
     resetInputs();
     if (res.winner !== null) {
-      // Small delay so the tick animation registers before navigating.
       setTimeout(() => goto(`${base}/game/done`), 700);
     }
   }
@@ -94,6 +90,8 @@
     if (remainingPoints <= 50) return 'amber';
     return '';
   }
+
+  let defenderIndex = $derived<0 | 1>(ginnerIndex === 0 ? 1 : 0);
 </script>
 
 {#if game}
@@ -103,6 +101,21 @@
     <div class="target">to {game.targetScore}</div>
   </header>
 
+  <!-- Hand history: chronological (hand 1 first), swipe-left to delete. -->
+  {#if game.hands.length > 0}
+    <section class="hands">
+      <h2>This game</h2>
+      <ul>
+        {#each game.hands as hand (hand.index)}
+          <li>
+            <HandRow {hand} players={game.players} onDelete={() => deleteHand(hand.index)} />
+          </li>
+        {/each}
+      </ul>
+    </section>
+  {/if}
+
+  <!-- Running totals -->
   <section class="totals">
     {#each [0, 1] as i (i)}
       <div class="total">
@@ -115,75 +128,69 @@
     {/each}
   </section>
 
-  <section class="inputs">
+  <!-- Editing frame -->
+  <section class="editor">
     <WinnerPicker players={game.players} value={ginnerIndex} onChange={(i) => (ginnerIndex = i)} />
 
     <Stepper
-      label="{game.players[ginnerIndex]} meld points"
-      value={ginnerMeldPoints}
-      onChange={(n) => (ginnerMeldPoints = n)}
-      min={RANGES.ginnerMeldPoints.min}
-      max={RANGES.ginnerMeldPoints.max}
-      resetTo={DEFAULTS.ginnerMeldPoints}
+      label="{game.players[ginnerIndex]} score (ginner)"
+      value={ginnerTotal}
+      onChange={(n) => (ginnerTotal = n)}
+      min={RANGES.ginnerTotal.min}
+      max={RANGES.ginnerTotal.max}
+      resetTo={DEFAULTS.ginnerTotal}
     />
 
     <Stepper
-      label="{game.players[ginnerIndex === 0 ? 1 : 0]} meld points"
-      value={defenderMeldPoints}
-      onChange={(n) => (defenderMeldPoints = n)}
-      min={RANGES.defenderMeldPoints.min}
-      max={RANGES.defenderMeldPoints.max}
-      resetTo={DEFAULTS.defenderMeldPoints}
+      label="{game.players[defenderIndex]} score"
+      value={defenderTotal}
+      onChange={(n) => (defenderTotal = n)}
+      min={RANGES.defenderTotal.min}
+      max={RANGES.defenderTotal.max}
+      resetTo={DEFAULTS.defenderTotal}
     />
 
-    <Stepper
-      label="{game.players[ginnerIndex === 0 ? 1 : 0]} deadwood"
-      value={defenderDeadwood}
-      onChange={(n) => (defenderDeadwood = n)}
-      min={RANGES.defenderDeadwood.min}
-      max={RANGES.defenderDeadwood.max}
-      resetTo={DEFAULTS.defenderDeadwood}
-    />
-
-    <Stepper
-      label="{game.players[ginnerIndex === 0 ? 1 : 0]} layoffs"
-      value={defenderLayoffs}
-      onChange={(n) => (defenderLayoffs = n)}
-      min={RANGES.defenderLayoffs.min}
-      max={RANGES.defenderLayoffs.max}
-      resetTo={DEFAULTS.defenderLayoffs}
-    />
-  </section>
-
-  <section class="preview">
-    <div class="player">
-      <span class="name">{game.players[0]}</span>
-      <span class="delta" class:pos={preview()[0] > 0} class:neg={preview()[0] < 0}>
-        {fmt(preview()[0])}
-      </span>
+    <div class="metadata">
+      <div class="meta-label">For posterity (not summed)</div>
+      <div class="meta-row">
+        <Stepper
+          label="Deadwood"
+          value={defenderDeadwood}
+          onChange={(n) => (defenderDeadwood = n)}
+          min={RANGES.defenderDeadwood.min}
+          max={RANGES.defenderDeadwood.max}
+          resetTo={DEFAULTS.defenderDeadwood}
+          compact
+        />
+        <Stepper
+          label="Layoffs"
+          value={defenderLayoffs}
+          onChange={(n) => (defenderLayoffs = n)}
+          min={RANGES.defenderLayoffs.min}
+          max={RANGES.defenderLayoffs.max}
+          resetTo={DEFAULTS.defenderLayoffs}
+          compact
+        />
+      </div>
     </div>
-    <div class="player">
-      <span class="name">{game.players[1]}</span>
-      <span class="delta" class:pos={preview()[1] > 0} class:neg={preview()[1] < 0}>
-        {fmt(preview()[1])}
-      </span>
+
+    <div class="preview">
+      <div class="player">
+        <span class="name">{game.players[0]}</span>
+        <span class="delta" class:pos={preview()[0] > 0} class:neg={preview()[0] < 0}>
+          {fmt(preview()[0])}
+        </span>
+      </div>
+      <div class="player">
+        <span class="name">{game.players[1]}</span>
+        <span class="delta" class:pos={preview()[1] > 0} class:neg={preview()[1] < 0}>
+          {fmt(preview()[1])}
+        </span>
+      </div>
     </div>
+
+    <button type="button" class="btn-primary save" onclick={save}>Save hand</button>
   </section>
-
-  <button type="button" class="btn-primary save" onclick={save}>Save hand</button>
-
-  {#if game.hands.length > 0}
-    <section class="hands">
-      <h2>This game ({game.hands.length})</h2>
-      <ul>
-        {#each [...game.hands].reverse() as hand (hand.index)}
-          <li>
-            <HandRow {hand} players={game.players} onDelete={() => deleteHand(hand.index)} />
-          </li>
-        {/each}
-      </ul>
-    </section>
-  {/if}
 {/if}
 
 <style>
@@ -191,15 +198,15 @@
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
-    gap: 16px;
-    padding: 12px 0 16px;
+    gap: 12px;
+    padding: 8px 0 12px;
   }
 
   .back {
     color: var(--text-muted);
     text-decoration: none;
-    font-size: 24px;
-    padding: 4px 8px;
+    font-size: 22px;
+    padding: 2px 6px;
   }
 
   .back:hover {
@@ -207,7 +214,7 @@
   }
 
   .title {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     text-align: center;
   }
@@ -219,38 +226,57 @@
     letter-spacing: 0.5px;
   }
 
+  .hands {
+    margin-bottom: 16px;
+  }
+
+  .hands h2 {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .hands ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
   .totals {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 24px;
+    gap: 10px;
+    margin-bottom: 16px;
   }
 
   .total {
-    padding: 12px;
+    padding: 10px;
     background: rgba(255, 255, 255, 0.04);
     border-radius: var(--radius-md);
     text-align: center;
   }
 
   .total .name {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
   }
 
   .total .score {
     font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-    font-size: 36px;
+    font-size: 28px;
     font-weight: 700;
     line-height: 1;
   }
 
   .remaining {
-    margin-top: 4px;
-    font-size: 11px;
+    margin-top: 2px;
+    font-size: 10px;
     color: var(--text-muted);
   }
 
@@ -268,22 +294,43 @@
     font-weight: 700;
   }
 
-  .inputs {
+  .editor {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    margin-bottom: 20px;
+    gap: 10px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-lg);
+  }
+
+  .metadata {
+    padding-top: 4px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.08);
+  }
+
+  .meta-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 4px 0 6px;
+    font-style: italic;
+  }
+
+  .meta-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
   }
 
   .preview {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    padding: 12px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px dashed rgba(255, 255, 255, 0.12);
-    border-radius: var(--radius-md);
-    margin-bottom: 16px;
+    gap: 6px;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.18);
+    border-radius: var(--radius-sm);
   }
 
   .preview .player {
@@ -292,16 +339,16 @@
 
   .preview .name {
     display: block;
-    font-size: 11px;
+    font-size: 10px;
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
   }
 
   .preview .delta {
     font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 700;
   }
 
@@ -314,30 +361,10 @@
   }
 
   .save {
-    width: 100%;
-    padding: 18px;
-    font-size: 16px;
+    padding: 14px;
+    font-size: 15px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
-  }
-
-  .hands {
-    margin-top: 32px;
-  }
-
-  .hands h2 {
-    font-size: 12px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
-  }
-
-  .hands ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
   }
 </style>
