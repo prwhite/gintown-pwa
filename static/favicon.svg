@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 136">
+  <!-- Card background inset 0.5px so 1px stroke stays inside viewBox -->
+  <rect x="0.5" y="0.5" width="95" height="135" rx="7.5" ry="7.5"
+        fill="white" stroke="#ddd" stroke-width="1"/>
+
+  <!-- Large top-left rank and suit -->
+  <text x="6" y="36" font-family="system-ui, sans-serif" font-size="35" font-weight="700" fill="#1a1a2e">A</text>
+  <text x="8" y="60" font-family="system-ui, sans-serif" font-size="26" fill="#1a1a2e">♠</text>
+
+  <!-- Bottom-right pips -->
+  <text x="70" y="95" font-family="system-ui, sans-serif" font-size="28" fill="#1a1a2e" text-anchor="middle" dominant-baseline="central">♠</text>
+</svg>
