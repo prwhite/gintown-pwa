@@ -1,11 +1,15 @@
 #!/usr/bin/env node
 /**
- * Generate PWA icons from static/splash/ace-spades.svg.
+ * Generate PWA icons from static/icon-source.png (the abs deck back).
+ *
+ * The source is a card (560×784, ~0.71:1). We center-crop the largest square
+ * out of it so the icon is filled edge-to-edge with the abstract back art.
  *
  * Outputs three PNGs into static/icons/:
- *   - icon-192.png            (192×192, tight artwork, dark background)
- *   - icon-512.png            (512×512, tight artwork, dark background)
- *   - icon-maskable-512.png   (512×512, artwork inset for safe zone)
+ *   - icon-192.png            (192×192, square-cropped back, no padding)
+ *   - icon-512.png            (512×512, same)
+ *   - icon-maskable-512.png   (512×512, art inset into the 80% safe zone with
+ *                              a dark plate for Android adaptive icons)
  *
  * Run via `npm run icons`.
  */
@@ -17,51 +21,62 @@ import sharp from 'sharp';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, '..');
-const splashPath = resolve(root, 'static/splash/ace-spades.png');
+const sourcePath = resolve(root, 'static/icon-source.png');
 const outDir = resolve(root, 'static/icons');
 
 const BG = '#1a1a2e';
-const splashBytes = readFileSync(splashPath);
+const sourceBytes = readFileSync(sourcePath);
 
 mkdirSync(outDir, { recursive: true });
 
-const splashMeta = await sharp(splashBytes).metadata();
-const splashAspect = (splashMeta.width ?? 1) / (splashMeta.height ?? 1);
+const meta = await sharp(sourceBytes).metadata();
+const w = meta.width ?? 0;
+const h = meta.height ?? 0;
+const side = Math.min(w, h);
+const cropLeft = Math.round((w - side) / 2);
+const cropTop = Math.round((h - side) / 2);
 
-async function makeIcon({ size, inset, file, maskable = false }) {
-  // Fit the card inside the inset box, height-constrained so the full card stays visible.
-  const box = size - 2 * inset;
-  const cardH = box;
-  const cardW = Math.round(box * splashAspect);
+// Pre-crop to the largest centered square once.
+const squareCard = await sharp(sourceBytes)
+  .extract({ left: cropLeft, top: cropTop, width: side, height: side })
+  .png()
+  .toBuffer();
 
-  const card = await sharp(splashBytes)
-    .resize(cardW, cardH, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+console.log(`Source: ${w}×${h} → centered square crop ${side}×${side}`);
+
+async function makeFlatIcon({ size, file }) {
+  const out = await sharp(squareCard)
+    .resize(size, size, { fit: 'cover' })
+    .png({ compressionLevel: 9 })
+    .toBuffer();
+  writeFileSync(resolve(outDir, file), out);
+  console.log(`  wrote ${file}  (${size}×${size}, edge-to-edge)`);
+}
+
+async function makeMaskableIcon({ size, file, safeZoneRatio = 0.8 }) {
+  // Android maskable: artwork must live inside the inner 80% safe zone; outer
+  // 10% on each side is liable to be cropped to a circle/squircle.
+  const innerSize = Math.round(size * safeZoneRatio);
+  const inset = Math.round((size - innerSize) / 2);
+
+  const innerArt = await sharp(squareCard)
+    .resize(innerSize, innerSize, { fit: 'cover' })
     .png()
     .toBuffer();
 
-  const top = Math.round((size - cardH) / 2);
-  const left = Math.round((size - cardW) / 2);
-
   const out = await sharp({
-    create: {
-      width: size,
-      height: size,
-      channels: 4,
-      background: BG
-    }
+    create: { width: size, height: size, channels: 4, background: BG }
   })
-    .composite([{ input: card, top, left }])
+    .composite([{ input: innerArt, top: inset, left: inset }])
     .png({ compressionLevel: 9 })
     .toBuffer();
 
-  const outPath = resolve(outDir, file);
-  writeFileSync(outPath, out);
-  console.log(`  wrote ${file}  (${size}×${size}${maskable ? ', maskable' : ''})`);
+  writeFileSync(resolve(outDir, file), out);
+  console.log(`  wrote ${file}  (${size}×${size}, maskable safe-zone ${Math.round(safeZoneRatio * 100)}%)`);
 }
 
 console.log('Generating PWA icons:');
-await makeIcon({ size: 192, inset: 18, file: 'icon-192.png' });
-await makeIcon({ size: 512, inset: 48, file: 'icon-512.png' });
-// Maskable: artwork must fit within a 80% safe zone (Android crops the outer 10% to a circle/rounded mask).
-await makeIcon({ size: 512, inset: 84, file: 'icon-maskable-512.png', maskable: true });
+await makeFlatIcon({ size: 192, file: 'icon-192.png' });
+await makeFlatIcon({ size: 512, file: 'icon-512.png' });
+await makeMaskableIcon({ size: 512, file: 'icon-maskable-512.png' });
 console.log('Done.');

@@ -34,7 +34,11 @@
     decided = null;
     dragging = true;
     snapping = false;
-    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    // Critical: do NOT setPointerCapture here. Capturing on pointerdown
+    // suppresses the synthetic click that fires on a tap (no movement),
+    // which kills tap-to-navigate on anchors inside the swipe surface.
+    // We capture later, in onPointerMove, only after the gesture is
+    // confirmed as a horizontal swipe.
   }
 
   function onPointerMove(e: PointerEvent) {
@@ -48,6 +52,13 @@
           dragging = false;
           dragX = 0;
           return;
+        }
+        // Now that we know it's a horizontal swipe, capture so the gesture
+        // continues even if the pointer leaves the surface mid-drag.
+        try {
+          (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+        } catch {
+          /* ignore — older Safari may throw if pointer already released */
         }
       }
     }
