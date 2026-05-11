@@ -196,9 +196,9 @@
       {/each}
     </div>
 
-    <!-- Row 3: Deadwood, positioned in the winner's column. -->
+    <!-- Row 3: Deadwood, positioned in the defender's (loser's) column. -->
     <div class="grid-2 metadata-row">
-      <div style="grid-column: {ginnerIndex + 1}">
+      <div style="grid-column: {2 - ginnerIndex}">
         <Stepper
           label="Deadwood"
           value={defenderDeadwood}
@@ -211,9 +211,9 @@
       </div>
     </div>
 
-    <!-- Row 4: Layoffs, also on the winner's side. -->
+    <!-- Row 4: Layoffs, also on the defender's side. -->
     <div class="grid-2">
-      <div style="grid-column: {ginnerIndex + 1}">
+      <div style="grid-column: {2 - ginnerIndex}">
         <Stepper
           label="Layoffs"
           value={defenderLayoffs}
@@ -229,13 +229,14 @@
     <button type="button" class="btn-primary save" onclick={save}>Save hand</button>
   </section>
 
-  <!-- Ducked match-level controls -->
+  <!-- Match-level controls — small but clearly buttons. -->
   <section class="match-actions">
+    <a class="btn-secondary back-btn" href="{base}/">Back</a>
     {#if confirmingDelete}
       <button type="button" class="btn-danger" onclick={doDeleteMatch}>Confirm delete</button>
-      <button type="button" class="btn-ghost" onclick={() => (confirmingDelete = false)}>Cancel</button>
+      <button type="button" class="btn-secondary" onclick={() => (confirmingDelete = false)}>Cancel</button>
     {:else}
-      <button type="button" class="btn-ghost delete" onclick={() => (confirmingDelete = true)}>Delete match</button>
+      <button type="button" class="btn-secondary" onclick={() => (confirmingDelete = true)}>Delete</button>
     {/if}
   </section>
 {/if}
@@ -420,10 +421,18 @@
     border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
 
-  .match-actions button {
-    padding: 8px 16px;
+  .match-actions button,
+  .match-actions .back-btn {
+    padding: 8px 18px;
     font-size: 13px;
     font-weight: 600;
+  }
+
+  .match-actions .back-btn {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    border-radius: var(--radius-sm);
   }
 
   .btn-danger {
@@ -435,13 +444,5 @@
 
   .btn-danger:hover {
     background: rgba(239, 68, 68, 0.28);
-  }
-
-  .delete {
-    color: var(--text-muted);
-  }
-
-  .delete:hover {
-    color: var(--accent);
   }
 </style>

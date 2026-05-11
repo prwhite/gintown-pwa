@@ -90,17 +90,18 @@
     {/each}
   </section>
 
-  <!-- Actions (bottom, ducked). -->
+  <!-- Actions (bottom): Back, Rematch (if applicable), Delete — small but
+       clearly buttons; all btn-secondary so they're subordinate to the totals. -->
   <section class="actions">
+    <button type="button" class="btn-secondary" onclick={backToMain}>Back</button>
     {#if game.winner !== null}
       <button type="button" class="btn-secondary" onclick={rematch}>Rematch</button>
     {/if}
-    <button type="button" class="btn-ghost" onclick={backToMain}>Back to main</button>
     {#if confirmingDelete}
       <button type="button" class="btn-danger" onclick={doDelete}>Confirm delete</button>
-      <button type="button" class="btn-ghost cancel" onclick={() => (confirmingDelete = false)}>Cancel</button>
+      <button type="button" class="btn-secondary" onclick={() => (confirmingDelete = false)}>Cancel</button>
     {:else}
-      <button type="button" class="btn-ghost delete" onclick={() => (confirmingDelete = true)}>Delete match</button>
+      <button type="button" class="btn-secondary" onclick={() => (confirmingDelete = true)}>Delete</button>
     {/if}
   </section>
 {:else}
@@ -222,7 +223,7 @@
     color: var(--warning);
   }
 
-  /* Buttons are visually ducked — small, secondary/ghost styling. */
+  /* Buttons subordinate to the totals — small but clearly buttons. */
   .actions {
     display: flex;
     flex-wrap: wrap;
@@ -234,7 +235,7 @@
   }
 
   .actions button {
-    padding: 8px 16px;
+    padding: 8px 18px;
     font-size: 13px;
     font-weight: 600;
   }
@@ -248,14 +249,5 @@
 
   .btn-danger:hover {
     background: rgba(239, 68, 68, 0.28);
-  }
-
-  .delete,
-  .cancel {
-    color: var(--text-muted);
-  }
-
-  .delete:hover {
-    color: var(--accent);
   }
 </style>

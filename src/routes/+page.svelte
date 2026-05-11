@@ -33,6 +33,18 @@
     await deleteGame(id);
     await history.refresh();
   }
+
+  // In-progress games resume in the editor; completed ones open the summary.
+  function gameHref(g: Game): string {
+    return g.winner === null ? `${base}/game` : `${base}/game/done?id=${g.id}`;
+  }
+
+  function onGameClick(g: Game) {
+    if (g.winner === null) {
+      // Set this as the active game so /game's hydrate picks it up.
+      localStorage.setItem('gintown-pwa.currentGameId', g.id);
+    }
+  }
 </script>
 
 <header class="hero">
@@ -57,7 +69,8 @@
           <SwipeRow onDelete={() => onDelete(g.id)}>
             <a
               class="game"
-              href="{base}/game/done?id={g.id}"
+              href={gameHref(g)}
+              onclick={() => onGameClick(g)}
               data-sveltekit-preload-data="off"
               draggable="false"
               ondragstart={(e) => e.preventDefault()}
