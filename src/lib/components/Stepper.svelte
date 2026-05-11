@@ -146,7 +146,6 @@
     font-size: 32px;
     font-weight: 700;
     color: var(--text);
-    tabular-nums: 1;
     font-variant-numeric: tabular-nums;
   }
 
