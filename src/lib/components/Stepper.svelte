@@ -8,8 +8,8 @@
     label?: string;
     /** Optional reset target shown as a "↺" button. */
     resetTo?: number;
-    /** Compact variant for metadata fields. */
-    compact?: boolean;
+    /** 'normal' (full-width primary), 'narrow' (two-up score), 'compact' (metadata). */
+    size?: 'normal' | 'narrow' | 'compact';
   }
 
   let {
@@ -20,7 +20,7 @@
     step = 5,
     label,
     resetTo,
-    compact = false
+    size = 'normal'
   }: Props = $props();
 
   let holdTimer: ReturnType<typeof setTimeout> | null = null;
@@ -58,7 +58,7 @@
   let atMax = $derived(value >= max);
 </script>
 
-<div class="stepper" class:compact>
+<div class="stepper {size}">
   {#if label}
     <div class="label">{label}</div>
   {/if}
@@ -99,6 +99,7 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+    min-width: 0;
   }
 
   .label {
@@ -109,9 +110,7 @@
   }
 
   .row {
-    /* Bump cells get more width than the strict tap-min so taps land easier. */
     display: grid;
-    grid-template-columns: 88px 1fr 88px;
     align-items: stretch;
     gap: 6px;
     background: rgba(255, 255, 255, 0.04);
@@ -121,11 +120,9 @@
   }
 
   .bump {
-    height: var(--tap-min);
     border-radius: var(--radius-sm);
     background: rgba(255, 255, 255, 0.08);
     color: var(--text);
-    font-size: 15px;
     font-weight: 700;
     user-select: none;
     touch-action: manipulation;
@@ -147,24 +144,49 @@
     align-items: center;
     justify-content: center;
     font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-    font-size: 26px;
     font-weight: 700;
     color: var(--text);
     font-variant-numeric: tabular-nums;
   }
 
-  .compact .row {
-    grid-template-columns: 64px 1fr 64px;
+  /* normal: full-width primary stepper */
+  .normal .row {
+    grid-template-columns: 88px 1fr 88px;
+  }
+  .normal .bump {
+    height: var(--tap-min);
+    font-size: 15px;
+  }
+  .normal .value {
+    font-size: 26px;
+  }
+
+  /* narrow: two-up side-by-side score stepper */
+  .narrow .row {
+    grid-template-columns: 48px 1fr 48px;
+    gap: 4px;
     padding: 3px;
   }
-
-  .compact .bump {
-    height: 34px;
+  .narrow .bump {
+    height: 38px;
     font-size: 13px;
   }
+  .narrow .value {
+    font-size: 22px;
+  }
 
+  /* compact: smallest, for posterity metadata */
+  .compact .row {
+    grid-template-columns: 48px 1fr 48px;
+    gap: 4px;
+    padding: 3px;
+  }
+  .compact .bump {
+    height: 32px;
+    font-size: 12px;
+  }
   .compact .value {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .reset {
@@ -173,6 +195,10 @@
     color: var(--text-muted);
     padding: 2px 6px;
     border-radius: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
   }
 
   .reset:hover:not(:disabled) {

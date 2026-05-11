@@ -2,7 +2,8 @@
   import { base } from '$app/paths';
   import { onMount } from 'svelte';
   import { history } from '$lib/stores/history';
-  import type { Game } from '$lib/db';
+  import { deleteGame, type Game } from '$lib/db';
+  import SwipeRow from '$lib/components/SwipeRow.svelte';
 
   onMount(() => history.refresh());
 
@@ -27,6 +28,11 @@
     if (g.winner === null) return 'In progress';
     return `${g.players[g.winner]} wins`;
   }
+
+  async function onDelete(id: string) {
+    await deleteGame(id);
+    await history.refresh();
+  }
 </script>
 
 <header class="hero">
@@ -48,23 +54,25 @@
       {#each $history as g (g.id)}
         {@const t = totals(g)}
         <li>
-          <a class="game" href="{base}/game?id={g.id}" data-sveltekit-preload-data="off">
-            <div class="meta">
-              <span class="date">{formatDate(g.createdAt)}</span>
-              <span class="status" class:done={g.winner !== null}>{winnerLabel(g)}</span>
-            </div>
-            <div class="players">
-              <div class="player" class:winner={g.winner === 0}>
-                <span class="name">{g.players[0] || 'P1'}</span>
-                <span class="score">{t[0]}</span>
+          <SwipeRow onDelete={() => onDelete(g.id)}>
+            <a class="game" href="{base}/game/done?id={g.id}" data-sveltekit-preload-data="off">
+              <div class="meta">
+                <span class="date">{formatDate(g.createdAt)}</span>
+                <span class="status" class:done={g.winner !== null}>{winnerLabel(g)}</span>
               </div>
-              <div class="player" class:winner={g.winner === 1}>
-                <span class="name">{g.players[1] || 'P2'}</span>
-                <span class="score">{t[1]}</span>
+              <div class="players">
+                <div class="player" class:winner={g.winner === 0}>
+                  <span class="name">{g.players[0] || 'P1'}</span>
+                  <span class="score">{t[0]}</span>
+                </div>
+                <div class="player" class:winner={g.winner === 1}>
+                  <span class="name">{g.players[1] || 'P2'}</span>
+                  <span class="score">{t[1]}</span>
+                </div>
               </div>
-            </div>
-            <div class="target">to {g.targetScore} · {g.hands.length} hand{g.hands.length === 1 ? '' : 's'}</div>
-          </a>
+              <div class="target">to {g.targetScore} · {g.hands.length} hand{g.hands.length === 1 ? '' : 's'}</div>
+            </a>
+          </SwipeRow>
         </li>
       {/each}
     </ul>
@@ -142,16 +150,8 @@
   .game {
     display: block;
     padding: 14px 16px;
-    border-radius: var(--radius-md);
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
     text-decoration: none;
     color: var(--text);
-    transition: background 0.15s;
-  }
-
-  .game:hover {
-    background: rgba(255, 255, 255, 0.07);
   }
 
   .meta {
@@ -165,7 +165,7 @@
   }
 
   .status.done {
-    color: var(--success);
+    color: var(--warning);
   }
 
   .players {
@@ -177,6 +177,7 @@
   .player {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
 
   .player .name {
@@ -191,16 +192,17 @@
   }
 
   .player.winner .name {
-    color: var(--success);
+    color: var(--warning);
   }
 
   .player.winner .score {
-    color: var(--success);
+    color: var(--warning);
   }
 
   .target {
     margin-top: 8px;
     font-size: 11px;
     color: var(--text-muted);
+    text-align: center;
   }
 </style>

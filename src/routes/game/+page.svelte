@@ -3,12 +3,12 @@
   import { goto } from '$app/navigation';
   import { onMount } from 'svelte';
   import Stepper from '$lib/components/Stepper.svelte';
-  import WinnerPicker from '$lib/components/WinnerPicker.svelte';
   import HandRow from '$lib/components/HandRow.svelte';
   import { currentGame } from '$lib/stores/currentGame';
+  import { deleteGame } from '$lib/db';
+  import { history } from '$lib/stores/history';
   import { DEFAULTS, RANGES, scoreHand, totalFor, type HandInput } from '$lib/scoring';
 
-  // Inputs for the next hand — reset to defaults after each save.
   let ginnerIndex = $state<0 | 1>(0);
   let ginnerTotal = $state<number>(DEFAULTS.ginnerTotal);
   let defenderTotal = $state<number>(DEFAULTS.defenderTotal);
@@ -18,11 +18,11 @@
   let tick0 = $state(false);
   let tick1 = $state(false);
 
+  let confirmingDelete = $state(false);
+
   onMount(async () => {
     await currentGame.hydrateFromStorage();
-    if (!$currentGame.game) {
-      goto(`${base}/`);
-    }
+    if (!$currentGame.game) goto(`${base}/`);
   });
 
   let game = $derived($currentGame.game);
@@ -30,8 +30,43 @@
     game ? [totalFor(game.hands, 0), totalFor(game.hands, 1)] : [0, 0]
   );
   let remaining = $derived<[number, number]>(
-    game ? [Math.max(0, game.targetScore - totals[0]), Math.max(0, game.targetScore - totals[1])] : [0, 0]
+    game
+      ? [Math.max(0, game.targetScore - totals[0]), Math.max(0, game.targetScore - totals[1])]
+      : [0, 0]
   );
+
+  // Each player's score input is bound by index; ginner=that-player picks the range.
+  function isGinner(i: 0 | 1) {
+    return i === ginnerIndex;
+  }
+  function setPlayerTotal(i: 0 | 1, v: number) {
+    if (isGinner(i)) ginnerTotal = v;
+    else defenderTotal = v;
+  }
+  function playerTotal(i: 0 | 1): number {
+    return isGinner(i) ? ginnerTotal : defenderTotal;
+  }
+  function playerMin(i: 0 | 1): number {
+    return isGinner(i) ? RANGES.ginnerTotal.min : RANGES.defenderTotal.min;
+  }
+  function playerMax(i: 0 | 1): number {
+    return isGinner(i) ? RANGES.ginnerTotal.max : RANGES.defenderTotal.max;
+  }
+  function playerDefault(i: 0 | 1): number {
+    return isGinner(i) ? DEFAULTS.ginnerTotal : DEFAULTS.defenderTotal;
+  }
+
+  function pickGinner(i: 0 | 1) {
+    // When the user changes ginner, the role flips. Preserve their entered values
+    // by swapping ginnerTotal ↔ defenderTotal so the displayed numbers stay put
+    // under each player's name.
+    if (i === ginnerIndex) return;
+    [ginnerTotal, defenderTotal] = [defenderTotal, ginnerTotal];
+    // Re-clamp into new ranges.
+    ginnerTotal = Math.max(RANGES.ginnerTotal.min, Math.min(RANGES.ginnerTotal.max, ginnerTotal));
+    defenderTotal = Math.max(RANGES.defenderTotal.min, Math.min(RANGES.defenderTotal.max, defenderTotal));
+    ginnerIndex = i;
+  }
 
   let preview = $derived(() => {
     const input: HandInput = {
@@ -84,14 +119,20 @@
     await currentGame.removeHand(index);
   }
 
+  async function doDeleteMatch() {
+    if (!game) return;
+    await deleteGame(game.id);
+    await currentGame.clear();
+    await history.refresh();
+    goto(`${base}/`);
+  }
+
   function urgency(remainingPoints: number): string {
     if (remainingPoints <= 0) return 'won';
     if (remainingPoints <= 25) return 'red';
     if (remainingPoints <= 50) return 'amber';
     return '';
   }
-
-  let defenderIndex = $derived<0 | 1>(ginnerIndex === 0 ? 1 : 0);
 </script>
 
 {#if game}
@@ -101,7 +142,7 @@
     <div class="target">to {game.targetScore}</div>
   </header>
 
-  <!-- Hand history: chronological (hand 1 first), swipe-left to delete. -->
+  <!-- Hand history (top), chronological. -->
   {#if game.hands.length > 0}
     <section class="hands">
       <h2>This game</h2>
@@ -115,7 +156,7 @@
     </section>
   {/if}
 
-  <!-- Running totals -->
+  <!-- Running totals (centered numbers). -->
   <section class="totals">
     {#each [0, 1] as i (i)}
       <div class="total">
@@ -130,29 +171,38 @@
 
   <!-- Editing frame -->
   <section class="editor">
-    <WinnerPicker players={game.players} value={ginnerIndex} onChange={(i) => (ginnerIndex = i)} />
+    <!-- Row 1: Who ginned? -->
+    <div class="label">Who ginned?</div>
+    <div class="grid-2">
+      {#each [0, 1] as i (i)}
+        <button
+          type="button"
+          class="winner-tile"
+          class:active={ginnerIndex === i}
+          onclick={() => pickGinner(i as 0 | 1)}
+        >
+          {game.players[i] || `Player ${i + 1}`}
+        </button>
+      {/each}
+    </div>
 
-    <Stepper
-      label="{game.players[ginnerIndex]} score (ginner)"
-      value={ginnerTotal}
-      onChange={(n) => (ginnerTotal = n)}
-      min={RANGES.ginnerTotal.min}
-      max={RANGES.ginnerTotal.max}
-      resetTo={DEFAULTS.ginnerTotal}
-    />
+    <!-- Row 2: Player score steppers, side by side. -->
+    <div class="grid-2 row-spacing">
+      {#each [0, 1] as i (i)}
+        <Stepper
+          value={playerTotal(i as 0 | 1)}
+          onChange={(n) => setPlayerTotal(i as 0 | 1, n)}
+          min={playerMin(i as 0 | 1)}
+          max={playerMax(i as 0 | 1)}
+          resetTo={playerDefault(i as 0 | 1)}
+          size="narrow"
+        />
+      {/each}
+    </div>
 
-    <Stepper
-      label="{game.players[defenderIndex]} score"
-      value={defenderTotal}
-      onChange={(n) => (defenderTotal = n)}
-      min={RANGES.defenderTotal.min}
-      max={RANGES.defenderTotal.max}
-      resetTo={DEFAULTS.defenderTotal}
-    />
-
-    <div class="metadata">
-      <div class="meta-label">For posterity (not summed)</div>
-      <div class="meta-row">
+    <!-- Row 3: Deadwood, positioned in the winner's column. -->
+    <div class="grid-2 metadata-row">
+      <div style="grid-column: {ginnerIndex + 1}">
         <Stepper
           label="Deadwood"
           value={defenderDeadwood}
@@ -160,8 +210,14 @@
           min={RANGES.defenderDeadwood.min}
           max={RANGES.defenderDeadwood.max}
           resetTo={DEFAULTS.defenderDeadwood}
-          compact
+          size="compact"
         />
+      </div>
+    </div>
+
+    <!-- Row 4: Layoffs, also on the winner's side. -->
+    <div class="grid-2">
+      <div style="grid-column: {ginnerIndex + 1}">
         <Stepper
           label="Layoffs"
           value={defenderLayoffs}
@@ -169,11 +225,12 @@
           min={RANGES.defenderLayoffs.min}
           max={RANGES.defenderLayoffs.max}
           resetTo={DEFAULTS.defenderLayoffs}
-          compact
+          size="compact"
         />
       </div>
     </div>
 
+    <!-- Preview computed deltas -->
     <div class="preview">
       <div class="player">
         <span class="name">{game.players[0]}</span>
@@ -190,6 +247,16 @@
     </div>
 
     <button type="button" class="btn-primary save" onclick={save}>Save hand</button>
+  </section>
+
+  <!-- Ducked match-level controls -->
+  <section class="match-actions">
+    {#if confirmingDelete}
+      <button type="button" class="btn-danger" onclick={doDeleteMatch}>Confirm delete</button>
+      <button type="button" class="btn-ghost" onclick={() => (confirmingDelete = false)}>Cancel</button>
+    {:else}
+      <button type="button" class="btn-ghost delete" onclick={() => (confirmingDelete = true)}>Delete match</button>
+    {/if}
   </section>
 {/if}
 
@@ -297,31 +364,57 @@
   .editor {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
     padding: 12px;
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: var(--radius-lg);
   }
 
-  .metadata {
-    padding-top: 4px;
-    border-top: 1px dashed rgba(255, 255, 255, 0.08);
-  }
-
-  .meta-label {
-    font-size: 10px;
+  .label {
+    font-size: 11px;
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin: 4px 0 6px;
-    font-style: italic;
   }
 
-  .meta-row {
+  .grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
+    min-width: 0;
+  }
+
+  .row-spacing {
+    margin-top: 2px;
+  }
+
+  .metadata-row {
+    margin-top: 4px;
+  }
+
+  .winner-tile {
+    height: 44px;
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.04);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.15s;
+    touch-action: manipulation;
+    padding: 0;
+  }
+
+  .winner-tile:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .winner-tile.active {
+    background: rgba(251, 191, 36, 0.16);
+    border-color: var(--warning);
+    color: var(--text);
+    box-shadow: 0 0 16px rgba(251, 191, 36, 0.32);
   }
 
   .preview {
@@ -331,6 +424,7 @@
     padding: 8px;
     background: rgba(0, 0, 0, 0.18);
     border-radius: var(--radius-sm);
+    margin-top: 4px;
   }
 
   .preview .player {
@@ -366,5 +460,41 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
+    margin-top: 6px;
+  }
+
+  .match-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .match-actions button {
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .btn-danger {
+    background: rgba(239, 68, 68, 0.18);
+    color: var(--danger);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    border-radius: var(--radius-sm);
+  }
+
+  .btn-danger:hover {
+    background: rgba(239, 68, 68, 0.28);
+  }
+
+  .delete {
+    color: var(--text-muted);
+  }
+
+  .delete:hover {
+    color: var(--accent);
   }
 </style>
