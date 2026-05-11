@@ -4,6 +4,7 @@
   import { history } from '$lib/stores/history';
   import { deleteGame, type Game } from '$lib/db';
   import SwipeRow from '$lib/components/SwipeRow.svelte';
+  import CardFan from '$lib/components/CardFan.svelte';
 
   onMount(() => history.refresh());
 
@@ -48,7 +49,7 @@
 </script>
 
 <header class="hero">
-  <img src="{base}/splash/ace-spades.png" alt="" class="splash" />
+  <CardFan />
   <h1>Krusty Score</h1>
   <p class="subtitle">Offline scoring for in-person Krusty Gin.</p>
 </header>
@@ -101,14 +102,7 @@
 <style>
   .hero {
     text-align: center;
-    padding: 24px 0 8px;
-  }
-
-  .splash {
-    width: 72px;
-    height: auto;
-    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
-    margin-bottom: 12px;
+    padding: 16px 0 8px;
   }
 
   h1 {
