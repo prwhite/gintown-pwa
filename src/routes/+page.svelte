@@ -55,7 +55,12 @@
         {@const t = totals(g)}
         <li>
           <SwipeRow onDelete={() => onDelete(g.id)}>
-            <a class="game" href="{base}/game/done?id={g.id}" data-sveltekit-preload-data="off">
+            <a
+              class="game"
+              href="{base}/game/done?id={g.id}"
+              data-sveltekit-preload-data="off"
+              draggable="false"
+            >
               <div class="meta">
                 <span class="date">{formatDate(g.createdAt)}</span>
                 <span class="status" class:done={g.winner !== null}>{winnerLabel(g)}</span>
@@ -152,6 +157,17 @@
     padding: 14px 16px;
     text-decoration: none;
     color: var(--text);
+    /* Suppress Safari's link drag preview and long-press callout so swipe-to-delete
+       wins the gesture instead of the browser hijacking the touch. */
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .game * {
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
   }
 
   .meta {

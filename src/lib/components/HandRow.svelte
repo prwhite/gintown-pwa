@@ -6,9 +6,11 @@
     hand: Hand;
     players: [string, string];
     onDelete?: () => void;
+    /** Show the leading "#N" hand index. Hidden on the live match view. */
+    showIndex?: boolean;
   }
 
-  let { hand, players, onDelete }: Props = $props();
+  let { hand, players, onDelete, showIndex = true }: Props = $props();
 
   function fmt(n: number): string {
     return n > 0 ? `+${n}` : String(n);
@@ -16,32 +18,39 @@
 </script>
 
 <SwipeRow {onDelete}>
-  <div class="row">
-    <div class="index">#{hand.index}</div>
+  <div class="row" class:no-index={!showIndex}>
+    {#if showIndex}
+      <div class="index">#{hand.index}</div>
+    {/if}
 
-    <div class="player">
-      <div class="name" class:winner={hand.ginnerIndex === 0}>{players[0]}</div>
-      <div
-        class="score"
-        class:pos={hand.scores[0] > 0}
-        class:neg={hand.scores[0] < 0}
-        class:ginner={hand.ginnerIndex === 0}
-      >
-        {fmt(hand.scores[0])}
-      </div>
-    </div>
+    {#each [0, 1] as i (i)}
+      {@const isGinner = hand.ginnerIndex === i}
+      {@const isDefender = !isGinner}
+      <div class="player">
+        <div class="name" class:winner={isGinner}>{players[i]}</div>
+        <div class="score-wrap">
+          <span
+            class="score"
+            class:pos={hand.scores[i] > 0}
+            class:neg={hand.scores[i] < 0}
+            class:ginner={isGinner}
+          >
+            {fmt(hand.scores[i])}
+          </span>
 
-    <div class="player">
-      <div class="name" class:winner={hand.ginnerIndex === 1}>{players[1]}</div>
-      <div
-        class="score"
-        class:pos={hand.scores[1] > 0}
-        class:neg={hand.scores[1] < 0}
-        class:ginner={hand.ginnerIndex === 1}
-      >
-        {fmt(hand.scores[1])}
+          {#if isDefender}
+            <span class="meta" aria-label="deadwood and layoffs">
+              <span class="dw" class:zero={hand.defenderDeadwood === 0}>
+                {hand.defenderDeadwood === 0 ? '0' : `-${hand.defenderDeadwood}`}
+              </span>
+              <span class="lo" class:zero={hand.defenderLayoffs === 0}>
+                {hand.defenderLayoffs === 0 ? '0' : `+${hand.defenderLayoffs}`}
+              </span>
+            </span>
+          {/if}
+        </div>
       </div>
-    </div>
+    {/each}
   </div>
 </SwipeRow>
 
@@ -52,6 +61,10 @@
     align-items: center;
     gap: 10px;
     padding: 8px 10px;
+  }
+
+  .row.no-index {
+    grid-template-columns: 1fr 1fr;
   }
 
   .index {
@@ -78,6 +91,14 @@
     color: var(--warning);
   }
 
+  /* Score remains centered inside the player column; .meta is absolutely
+     positioned to the right and doesn't affect that centering. */
+  .score-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+
   .score {
     font-family: ui-monospace, 'SF Mono', Menlo, monospace;
     font-size: 16px;
@@ -99,5 +120,33 @@
     text-decoration-color: var(--warning);
     text-decoration-thickness: 2px;
     text-underline-offset: 3px;
+  }
+
+  .meta {
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: 4px;
+    display: flex;
+    flex-direction: column;
+    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+    font-size: 9px;
+    line-height: 1.1;
+    font-weight: 600;
+    text-align: left;
+    pointer-events: none;
+  }
+
+  .meta .dw {
+    color: #f59797; /* mid red */
+  }
+
+  .meta .lo {
+    color: #8fdba1; /* mid green */
+  }
+
+  .meta .zero {
+    color: var(--text-muted);
   }
 </style>

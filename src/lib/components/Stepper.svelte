@@ -10,6 +10,8 @@
     resetTo?: number;
     /** 'normal' (full-width primary), 'narrow' (two-up score), 'compact' (metadata). */
     size?: 'normal' | 'narrow' | 'compact';
+    /** Color of the value display. 'positive' uses --success (for meld score entry). */
+    tone?: 'normal' | 'positive';
   }
 
   let {
@@ -20,7 +22,8 @@
     step = 5,
     label,
     resetTo,
-    size = 'normal'
+    size = 'normal',
+    tone = 'normal'
   }: Props = $props();
 
   let holdTimer: ReturnType<typeof setTimeout> | null = null;
@@ -74,7 +77,7 @@
       onpointerleave={endHold}
     >−{step}</button>
 
-    <div class="value" aria-live="polite">{value}</div>
+    <div class="value" class:positive={tone === 'positive'} aria-live="polite">{value}</div>
 
     <button
       type="button"
@@ -147,6 +150,10 @@
     font-weight: 700;
     color: var(--text);
     font-variant-numeric: tabular-nums;
+  }
+
+  .value.positive {
+    color: var(--success);
   }
 
   /* normal: full-width primary stepper */

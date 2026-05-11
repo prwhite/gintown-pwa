@@ -7,7 +7,7 @@
   import { currentGame } from '$lib/stores/currentGame';
   import { deleteGame } from '$lib/db';
   import { history } from '$lib/stores/history';
-  import { DEFAULTS, RANGES, scoreHand, totalFor, type HandInput } from '$lib/scoring';
+  import { DEFAULTS, RANGES, totalFor } from '$lib/scoring';
 
   let ginnerIndex = $state<0 | 1>(0);
   let ginnerTotal = $state<number>(DEFAULTS.ginnerTotal);
@@ -66,21 +66,6 @@
     ginnerTotal = Math.max(RANGES.ginnerTotal.min, Math.min(RANGES.ginnerTotal.max, ginnerTotal));
     defenderTotal = Math.max(RANGES.defenderTotal.min, Math.min(RANGES.defenderTotal.max, defenderTotal));
     ginnerIndex = i;
-  }
-
-  let preview = $derived(() => {
-    const input: HandInput = {
-      ginnerIndex,
-      ginnerTotal,
-      defenderTotal,
-      defenderDeadwood,
-      defenderLayoffs
-    };
-    return scoreHand(input);
-  });
-
-  function fmt(n: number): string {
-    return n > 0 ? `+${n}` : String(n);
   }
 
   function resetInputs() {
@@ -149,19 +134,29 @@
       <ul>
         {#each game.hands as hand (hand.index)}
           <li>
-            <HandRow {hand} players={game.players} onDelete={() => deleteHand(hand.index)} />
+            <HandRow
+              {hand}
+              players={game.players}
+              onDelete={() => deleteHand(hand.index)}
+              showIndex={false}
+            />
           </li>
         {/each}
       </ul>
     </section>
   {/if}
 
-  <!-- Running totals (centered numbers). -->
+  <!-- Running totals (centered numbers). Leader shown in green. -->
   <section class="totals">
     {#each [0, 1] as i (i)}
+      {@const leading = totals[i] > totals[1 - i] && totals[i] !== totals[1 - i]}
       <div class="total">
         <div class="name">{game.players[i]}</div>
-        <div class="score" class:score-tick={i === 0 ? tick0 : tick1}>{totals[i]}</div>
+        <div
+          class="score"
+          class:score-tick={i === 0 ? tick0 : tick1}
+          class:leading
+        >{totals[i]}</div>
         <div class="remaining {urgency(remaining[i])}">
           {remaining[i] === 0 ? '✓' : `${remaining[i]} to go`}
         </div>
@@ -196,6 +191,7 @@
           max={playerMax(i as 0 | 1)}
           resetTo={playerDefault(i as 0 | 1)}
           size="narrow"
+          tone="positive"
         />
       {/each}
     </div>
@@ -227,22 +223,6 @@
           resetTo={DEFAULTS.defenderLayoffs}
           size="compact"
         />
-      </div>
-    </div>
-
-    <!-- Preview computed deltas -->
-    <div class="preview">
-      <div class="player">
-        <span class="name">{game.players[0]}</span>
-        <span class="delta" class:pos={preview()[0] > 0} class:neg={preview()[0] < 0}>
-          {fmt(preview()[0])}
-        </span>
-      </div>
-      <div class="player">
-        <span class="name">{game.players[1]}</span>
-        <span class="delta" class:pos={preview()[1] > 0} class:neg={preview()[1] < 0}>
-          {fmt(preview()[1])}
-        </span>
       </div>
     </div>
 
@@ -341,6 +321,10 @@
     line-height: 1;
   }
 
+  .total .score.leading {
+    color: var(--success);
+  }
+
   .remaining {
     margin-top: 2px;
     font-size: 10px;
@@ -415,43 +399,6 @@
     border-color: var(--warning);
     color: var(--text);
     box-shadow: 0 0 16px rgba(251, 191, 36, 0.32);
-  }
-
-  .preview {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-    padding: 8px;
-    background: rgba(0, 0, 0, 0.18);
-    border-radius: var(--radius-sm);
-    margin-top: 4px;
-  }
-
-  .preview .player {
-    text-align: center;
-  }
-
-  .preview .name {
-    display: block;
-    font-size: 10px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 2px;
-  }
-
-  .preview .delta {
-    font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-    font-size: 18px;
-    font-weight: 700;
-  }
-
-  .preview .pos {
-    color: var(--success);
-  }
-
-  .preview .neg {
-    color: var(--accent);
   }
 
   .save {
