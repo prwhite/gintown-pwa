@@ -60,6 +60,7 @@
               href="{base}/game/done?id={g.id}"
               data-sveltekit-preload-data="off"
               draggable="false"
+              ondragstart={(e) => e.preventDefault()}
             >
               <div class="meta">
                 <span class="date">{formatDate(g.createdAt)}</span>
@@ -157,16 +158,9 @@
     padding: 14px 16px;
     text-decoration: none;
     color: var(--text);
-    /* Suppress Safari's link drag preview and long-press callout so swipe-to-delete
-       wins the gesture instead of the browser hijacking the touch. */
-    -webkit-user-drag: none;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
-  }
-
-  .game * {
-    -webkit-user-drag: none;
+    /* Suppress Safari's long-press link callout so swipe-to-delete wins the
+       gesture. Crucially we do NOT add user-select:none here — that breaks
+       iOS Safari's synthetic click on the anchor. */
     -webkit-touch-callout: none;
   }
 
