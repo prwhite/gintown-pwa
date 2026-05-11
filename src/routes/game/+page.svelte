@@ -232,13 +232,26 @@
   <!-- Match-level controls — small but clearly buttons. -->
   <section class="match-actions">
     <a class="btn-secondary back-btn" href="{base}/">Back</a>
-    {#if confirmingDelete}
-      <button type="button" class="btn-danger" onclick={doDeleteMatch}>Confirm delete</button>
-      <button type="button" class="btn-secondary" onclick={() => (confirmingDelete = false)}>Cancel</button>
-    {:else}
-      <button type="button" class="btn-secondary" onclick={() => (confirmingDelete = true)}>Delete</button>
-    {/if}
+    <button type="button" class="btn-secondary" onclick={() => (confirmingDelete = true)}>Delete</button>
   </section>
+
+  {#if confirmingDelete}
+    <!-- svelte-ignore a11y_click_events_have_key_events -->
+    <!-- svelte-ignore a11y_no_static_element_interactions -->
+    <div
+      class="modal-overlay"
+      onclick={(e) => { if (e.target === e.currentTarget) confirmingDelete = false; }}
+    >
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="delete-match-title">
+        <h2 id="delete-match-title">Delete this match?</h2>
+        <p class="modal-body">This can't be undone.</p>
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" onclick={() => (confirmingDelete = false)}>Cancel</button>
+          <button type="button" class="btn-danger" onclick={doDeleteMatch}>Delete</button>
+        </div>
+      </div>
+    </div>
+  {/if}
 {/if}
 
 <style>
@@ -444,5 +457,23 @@
 
   .btn-danger:hover {
     background: rgba(239, 68, 68, 0.28);
+  }
+
+  .modal-body {
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    font-size: 14px;
+  }
+
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .modal-actions button {
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
   }
 </style>

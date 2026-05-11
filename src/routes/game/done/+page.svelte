@@ -38,8 +38,13 @@
 
   async function rematch() {
     if (!game) return;
+    // `game` is held in $state, so its nested fields come back as Proxies.
+    // IndexedDB can't structured-clone a Proxy, so unwrap to plain values
+    // before handing off to currentGame.start().
+    const players: [string, string] = [game.players[0], game.players[1]];
+    const targetScore = game.targetScore;
     await currentGame.clear();
-    await currentGame.start(game.players, game.targetScore);
+    await currentGame.start(players, targetScore);
     goto(`${base}/game`);
   }
 
@@ -97,13 +102,26 @@
     {#if game.winner !== null}
       <button type="button" class="btn-secondary" onclick={rematch}>Rematch</button>
     {/if}
-    {#if confirmingDelete}
-      <button type="button" class="btn-danger" onclick={doDelete}>Confirm delete</button>
-      <button type="button" class="btn-secondary" onclick={() => (confirmingDelete = false)}>Cancel</button>
-    {:else}
-      <button type="button" class="btn-secondary" onclick={() => (confirmingDelete = true)}>Delete</button>
-    {/if}
+    <button type="button" class="btn-secondary" onclick={() => (confirmingDelete = true)}>Delete</button>
   </section>
+
+  {#if confirmingDelete}
+    <!-- svelte-ignore a11y_click_events_have_key_events -->
+    <!-- svelte-ignore a11y_no_static_element_interactions -->
+    <div
+      class="modal-overlay"
+      onclick={(e) => { if (e.target === e.currentTarget) confirmingDelete = false; }}
+    >
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="delete-title">
+        <h2 id="delete-title">Delete this match?</h2>
+        <p class="modal-body">This can't be undone.</p>
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" onclick={() => (confirmingDelete = false)}>Cancel</button>
+          <button type="button" class="btn-danger" onclick={doDelete}>Delete</button>
+        </div>
+      </div>
+    </div>
+  {/if}
 {:else}
   <p class="loading">Match not found.</p>
 {/if}
@@ -249,5 +267,23 @@
 
   .btn-danger:hover {
     background: rgba(239, 68, 68, 0.28);
+  }
+
+  .modal-body {
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    font-size: 14px;
+  }
+
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  .modal-actions button {
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
   }
 </style>
