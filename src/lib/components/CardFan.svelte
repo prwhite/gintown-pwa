@@ -75,7 +75,7 @@
       draggable="false"
       style="
         transform: translateX(calc(-50% + {offset * stridePx}px)) rotate({offset * rotPerCard}deg);
-        z-index: {handSize - Math.round(Math.abs(offset))};
+        z-index: {i};
       "
     />
   {/each}
