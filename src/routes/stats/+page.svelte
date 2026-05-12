@@ -15,6 +15,7 @@
   } from '$lib/stats';
   import Doughnut from '$lib/components/charts/Doughnut.svelte';
   import BarChart from '$lib/components/charts/BarChart.svelte';
+  import BackButton from '$lib/components/BackButton.svelte';
 
   // ---- colors ----
   const C_P1 = 'var(--success)';      // green
@@ -112,8 +113,11 @@
   }
 </script>
 
+<div class="top-bar">
+  <BackButton href="{base}/" />
+</div>
+
 <header class="header">
-  <a class="back" href="{base}/" aria-label="Back to main">‹</a>
   {#if stats}
     <h1>{stats.pair[0]} <span class="vs">vs</span> {stats.pair[1]}</h1>
     {#if stats.firstGameAt !== null}
@@ -183,6 +187,7 @@
           { label: stats.pair[0] + ' wins', color: C_P1, data: mbins.p1 },
           { label: stats.pair[1] + ' wins', color: C_P2, data: mbins.p2 }
         ]}
+        labelEvery={2}
       />
     </div>
     <div class="card">
@@ -209,6 +214,7 @@
           { label: stats.pair[1], color: C_P2, data: hsbins.p2 }
         ]}
         height={240}
+        labelEvery={2}
       />
     </div>
     <div class="card">
@@ -250,7 +256,6 @@
           labels={glb.labels}
           datasets={[{ label: 'games', color: 'rgba(255,255,255,0.5)', data: glb.counts }]}
           showLegend={false}
-          xLabel="hands"
         />
       </div>
       <div class="card">
@@ -262,7 +267,6 @@
             { label: stats.pair[1] + ' won', color: C_P2, data: glb.p2 }
           ]}
           stacked
-          xLabel="hands"
         />
       </div>
     </div>
@@ -310,7 +314,6 @@
           ]}
           stacked
           orientation="horizontal"
-          xLabel="hands"
         />
       </div>
     </div>
@@ -326,7 +329,6 @@
         labels={fhb.labels}
         datasets={[{ label: 'games', color: C_GOLD, data: fhb.counts }]}
         showLegend={false}
-        xLabel="final hand score"
       />
     </div>
   </section>
@@ -373,22 +375,14 @@
 {/if}
 
 <style>
-  .header {
-    padding: 12px 0 14px;
-    text-align: center;
-    position: relative;
+  .top-bar {
+    padding-top: 8px;
   }
 
-  .back {
-    position: absolute;
-    left: 0;
-    top: 8px;
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 22px;
-    padding: 2px 8px;
+  .header {
+    padding: 4px 0 14px;
+    text-align: center;
   }
-  .back:hover { color: var(--text); }
 
   h1 {
     font-size: 24px;

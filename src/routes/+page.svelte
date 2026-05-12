@@ -240,8 +240,8 @@
      click stops propagation so the card's main navigation isn't triggered. */
   .stats-corner {
     position: absolute;
-    right: 10px;
-    bottom: 10px;
+    right: 16px;
+    bottom: 12px;
     z-index: 2;
   }
 </style>

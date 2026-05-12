@@ -4,6 +4,7 @@
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
   import HandRow from '$lib/components/HandRow.svelte';
+  import BackButton from '$lib/components/BackButton.svelte';
   import { currentGame } from '$lib/stores/currentGame';
   import { deleteGame, getGame, type Game } from '$lib/db';
   import { history } from '$lib/stores/history';
@@ -30,9 +31,10 @@
     game ? [totalFor(game.hands, 0), totalFor(game.hands, 1)] : [0, 0]
   );
 
-  async function backToMain() {
+  async function clearOnExit() {
+    // When viewing the just-finished current game, clear it from localStorage so
+    // the main page doesn't keep it as "in progress" forever.
     if (isCurrent) await currentGame.clear();
-    goto(`${base}/`);
   }
 
   async function rematch() {
@@ -60,6 +62,9 @@
 {#if loading}
   <p class="loading">Loading…</p>
 {:else if game}
+  <div class="top-bar">
+    <BackButton href="{base}/" onclick={clearOnExit} />
+  </div>
   <header class="hero" class:in-progress={game.winner === null}>
     <img src="{base}/splash/ace-spades.png" alt="" class="splash" />
     {#if game.winner !== null}
@@ -98,7 +103,6 @@
   </section>
 
   <section class="actions">
-    <button type="button" class="btn-secondary" onclick={backToMain}>Back</button>
     {#if game.winner !== null}
       <button type="button" class="btn-secondary" onclick={rematch}>Rematch</button>
     {/if}
@@ -131,6 +135,10 @@
     text-align: center;
     color: var(--text-muted);
     margin-top: 48px;
+  }
+
+  .top-bar {
+    padding-top: 8px;
   }
 
   .hero {

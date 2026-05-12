@@ -3,6 +3,7 @@
   import { goto } from '$app/navigation';
   import { onMount } from 'svelte';
   import Stepper from '$lib/components/Stepper.svelte';
+  import BackButton from '$lib/components/BackButton.svelte';
   import { getMeta } from '$lib/db';
   import { currentGame } from '$lib/stores/currentGame';
   import { DEFAULT_TARGET_SCORE, RANGES } from '$lib/scoring';
@@ -34,7 +35,7 @@
 </script>
 
 <header class="header">
-  <a class="back" href="{base}/" aria-label="Back">‹ Back</a>
+  <BackButton href="{base}/" />
   <h1>New game</h1>
 </header>
 
@@ -91,18 +92,8 @@
   .header {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 16px 0 24px;
-  }
-
-  .back {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 14px;
-  }
-
-  .back:hover {
-    color: var(--text);
+    gap: 12px;
+    padding: 12px 0 20px;
   }
 
   h1 {

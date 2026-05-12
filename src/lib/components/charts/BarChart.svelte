@@ -23,8 +23,9 @@
     stacked?: boolean;
     showLegend?: boolean;
     height?: number;
-    yLabel?: string;
-    xLabel?: string;
+    /** Render every Nth category label (default 1 = all). Useful when bucket
+        labels are wider than their bucket and would overlap. */
+    labelEvery?: number;
   }
 
   let {
@@ -34,8 +35,7 @@
     stacked = false,
     showLegend = true,
     height = 220,
-    yLabel,
-    xLabel
+    labelEvery = 1
   }: Props = $props();
 
   function barColor(ds: Dataset, value: number, idx: number): string {
@@ -190,21 +190,16 @@
           {/each}
         {/if}
 
-        <!-- category label -->
-        <text
-          class="axis-text"
-          x={groupX + vGroupWidth / 2}
-          y={height - 8}
-          text-anchor="middle"
-        >{label}</text>
+        <!-- category label (every Nth to avoid overlap when buckets are narrow) -->
+        {#if gi % labelEvery === 0}
+          <text
+            class="axis-text"
+            x={groupX + vGroupWidth / 2}
+            y={height - 8}
+            text-anchor="middle"
+          >{label}</text>
+        {/if}
       {/each}
-
-      {#if yLabel}
-        <text class="axis-title" x={12} y={padding.top + 4} text-anchor="start">{yLabel}</text>
-      {/if}
-      {#if xLabel}
-        <text class="axis-title" x={vWidth - 6} y={height - 22} text-anchor="end">{xLabel}</text>
-      {/if}
     </svg>
   </div>
 {:else}

@@ -35,13 +35,15 @@
     padding: 0;
     border: none;
     background: none;
-    color: var(--accent);
+    /* 50% alpha blue — softer than full accent red so it integrates rather
+       than dominates; signals "stats-thing" via color category. */
+    color: rgba(80, 140, 220, 0.5);
     cursor: pointer;
     touch-action: manipulation;
     transition: transform 0.15s, filter 0.15s;
   }
   .stats-btn:hover {
-    filter: drop-shadow(0 0 6px rgba(233, 69, 96, 0.5));
+    filter: drop-shadow(0 0 6px rgba(80, 140, 220, 0.4));
   }
   .stats-btn:active {
     transform: scale(0.94);

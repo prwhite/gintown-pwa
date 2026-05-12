@@ -4,6 +4,7 @@
   import { onMount } from 'svelte';
   import Stepper from '$lib/components/Stepper.svelte';
   import HandRow from '$lib/components/HandRow.svelte';
+  import BackButton from '$lib/components/BackButton.svelte';
   import { currentGame } from '$lib/stores/currentGame';
   import { deleteGame } from '$lib/db';
   import { history } from '$lib/stores/history';
@@ -122,7 +123,7 @@
 
 {#if game}
   <header class="header">
-    <a class="back" href="{base}/" aria-label="Back to main">‹</a>
+    <BackButton href="{base}/" />
     <div class="title">Hand #{game.hands.length + 1}</div>
     <div class="target">to {game.targetScore}</div>
   </header>
@@ -231,7 +232,6 @@
   </section>
 
   <section class="match-actions">
-    <a class="btn-secondary back-btn" href="{base}/">Back</a>
     <button type="button" class="btn-secondary" onclick={() => (confirmingDelete = true)}>Delete</button>
   </section>
 
@@ -261,17 +261,6 @@
     align-items: center;
     gap: 12px;
     padding: 8px 0 12px;
-  }
-
-  .back {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 22px;
-    padding: 2px 6px;
-  }
-
-  .back:hover {
-    color: var(--text);
   }
 
   .title {
@@ -440,18 +429,10 @@
     border-top: 1px solid rgba(255, 255, 255, 0.06);
   }
 
-  .match-actions button,
-  .match-actions .back-btn {
+  .match-actions button {
     padding: 8px 18px;
     font-size: 13px;
     font-weight: 600;
-  }
-
-  .match-actions .back-btn {
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    border-radius: var(--radius-sm);
   }
 
   .btn-danger {
