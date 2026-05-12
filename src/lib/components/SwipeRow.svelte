@@ -126,7 +126,11 @@
   }
   .surface {
     position: relative;
-    background: rgba(20, 24, 40, 0.95);
+    /* Fully opaque so the red delete-tray underneath is completely hidden
+       until the user actually drags the surface left to reveal it. (At 0.95
+       alpha the tray's red gradient was bleeding ~4% onto the gold "wins"
+       status text and the stats button, shifting them toward coral.) */
+    background: rgb(20, 24, 40);
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 10px;
     user-select: none;
