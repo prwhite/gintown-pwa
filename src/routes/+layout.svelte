@@ -59,19 +59,26 @@
 {/if}
 
 <style>
+  /* Padding respects iOS safe-area-insets so content (and esp. the back button
+     + main-page card fan) clears the status bar / notch and home indicator on
+     PWA installs. apple-mobile-web-app-status-bar-style is black-translucent
+     and viewport-fit=cover (see app.html), so env() gives the actual inset. */
   .shell {
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
     max-width: 640px;
     margin: 0 auto;
-    padding: 16px;
+    padding-top: max(16px, calc(env(safe-area-inset-top) + 8px));
+    padding-right: max(16px, env(safe-area-inset-right));
+    padding-bottom: max(16px, calc(env(safe-area-inset-bottom) + 8px));
+    padding-left: max(16px, env(safe-area-inset-left));
   }
 
   .update-toast {
     position: fixed;
     left: 50%;
-    bottom: 16px;
+    bottom: max(16px, calc(env(safe-area-inset-bottom) + 16px));
     transform: translateX(-50%);
     display: flex;
     align-items: center;

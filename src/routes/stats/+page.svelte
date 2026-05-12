@@ -375,13 +375,14 @@
 {/if}
 
 <style>
-  /* Sticks to the top of the viewport while the long stats page scrolls. */
+  /* Sticks to the top of the viewport while the long stats page scrolls.
+     Top offset includes the iOS status-bar safe-area so it doesn't slip
+     behind the notch on PWA installs. */
   .top-bar {
     position: sticky;
-    top: 8px;
+    top: calc(env(safe-area-inset-top) + 8px);
     z-index: 100;
     padding-top: 8px;
-    /* Don't intercept clicks on the surrounding strip — only the button itself. */
     pointer-events: none;
     width: max-content;
   }
