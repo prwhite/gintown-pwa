@@ -303,10 +303,12 @@
       </div>
       <div class="card">
         <h3>Win rate when dealing</h3>
+        {@const p1Pct = stats.p1DealtCount > 0 ? Math.round((100 * stats.p1DealtWon) / stats.p1DealtCount) : 0}
+        {@const p2Pct = stats.p2DealtCount > 0 ? Math.round((100 * stats.p2DealtWon) / stats.p2DealtCount) : 0}
         <BarChart
           labels={[
-            stats.pair[0] + ' (' + stats.p1DealtCount + ')',
-            stats.pair[1] + ' (' + stats.p2DealtCount + ')'
+            `${stats.pair[0]} ${p1Pct}%`,
+            `${stats.pair[1]} ${p2Pct}%`
           ]}
           datasets={[
             { label: 'Dealt → won', color: C_GOLD, data: [stats.p1DealtWon, stats.p2DealtWon] },
