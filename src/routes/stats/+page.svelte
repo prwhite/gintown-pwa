@@ -223,7 +223,7 @@
         <thead><tr><th>Player</th><th>n</th><th>Mean</th><th>Median</th><th>Stdev</th><th>Min</th><th>Max</th></tr></thead>
         <tbody>
           <tr>
-            <td><span class="p1-dot"></span>{stats.pair[0]}</td>
+            <td class="player-cell" style="color: var(--success);">{stats.pair[0]}</td>
             <td>{stats.p1HandScores.length}</td>
             <td>{mean(stats.p1HandScores).toFixed(1)}</td>
             <td>{median(stats.p1HandScores)}</td>
@@ -232,7 +232,7 @@
             <td>{stats.p1HandScores.length ? Math.max(...stats.p1HandScores) : '—'}</td>
           </tr>
           <tr>
-            <td><span class="p2-dot"></span>{stats.pair[1]}</td>
+            <td class="player-cell" style="color: var(--accent);">{stats.pair[1]}</td>
             <td>{stats.p2HandScores.length}</td>
             <td>{mean(stats.p2HandScores).toFixed(1)}</td>
             <td>{median(stats.p2HandScores)}</td>
@@ -351,10 +351,7 @@
               {@const winnerName = c.game.winner_index === 0 ? stats.pair[0] : stats.pair[1]}
               {@const winnerColor = c.game.winner_index === 0 ? C_P1 : C_P2}
               <tr>
-                <td>
-                  <span class="dot" style="background: {winnerColor}"></span>
-                  {winnerName}
-                </td>
+                <td class="player-cell" style="color: {winnerColor};">{winnerName}</td>
                 <td class="mono">{c.game.p1_total}–{c.game.p2_total}</td>
                 <td>{c.trailingAt.join(', ')}</td>
                 <td class="mono">{c.maxDeficit}</td>
@@ -522,16 +519,9 @@
   .stats-table td:first-child {
     font-family: inherit;
   }
-  .p1-dot, .p2-dot, .dot {
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    margin-right: 6px;
-    vertical-align: middle;
+  .player-cell {
+    font-weight: 600;
   }
-  .p1-dot { background: var(--success); }
-  .p2-dot { background: var(--accent); }
 
   /* ---- Comebacks ---- */
   .cb-table {
