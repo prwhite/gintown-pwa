@@ -35,7 +35,7 @@
 
   type Status =
     | { kind: 'idle' }
-    | { kind: 'previewing'; gameCount: number; handCount: number; games: Game[] }
+    | { kind: 'previewing'; gameCount: number; handCount: number }
     | { kind: 'importing' }
     | { kind: 'imported'; gameCount: number; handCount: number; skipped: number }
     | { kind: 'confirmingClear'; count: number }
@@ -46,6 +46,11 @@
   let status = $state<Status>({ kind: 'idle' });
   let fileInput: HTMLInputElement | undefined = $state();
   let saving = $state(false);
+
+  // The pending parsed games live OUTSIDE $state on purpose. If they were in
+  // $state, Svelte 5 would wrap each Game in a Proxy, and IDB's structured-
+  // clone algorithm refuses Proxies with "The object can not be cloned".
+  let pendingGames: Game[] = [];
 
   async function onSave() {
     if (saving) return;
@@ -85,11 +90,11 @@
       } else if (bundle.games.length === 0) {
         status = { kind: 'error', message: 'File has 0 valid games — nothing to import.' };
       } else {
+        pendingGames = bundle.games;
         status = {
           kind: 'previewing',
           gameCount: bundle.games.length,
-          handCount: countHands(bundle.games),
-          games: bundle.games
+          handCount: countHands(bundle.games)
         };
       }
     } catch (err) {
@@ -102,7 +107,7 @@
 
   async function doImport() {
     if (status.kind !== 'previewing') return;
-    const { games } = status;
+    const games = pendingGames;
     status = { kind: 'importing' };
     try {
       // Skip games whose id already lives in IDB.
@@ -112,6 +117,7 @@
       const handCount = countHands(fresh);
       await bulkPutGames(fresh);
       await history.refresh();
+      pendingGames = [];
       status = { kind: 'imported', gameCount: fresh.length, handCount, skipped };
     } catch (e) {
       status = { kind: 'error', message: `Import failed: ${(e as Error).message}` };
@@ -142,6 +148,7 @@
   }
 
   function resetToIdle() {
+    pendingGames = [];
     status = { kind: 'idle' };
   }
 </script>
