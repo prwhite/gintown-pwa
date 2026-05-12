@@ -45,15 +45,16 @@
     start();
   }}
 >
-  <label class="field">
-    <span class="label">Player 1</span>
-    <input type="text" bind:value={p1} autocomplete="off" autocapitalize="words" maxlength="20" placeholder="Name" />
-  </label>
-
-  <label class="field">
-    <span class="label">Player 2</span>
-    <input type="text" bind:value={p2} autocomplete="off" autocapitalize="words" maxlength="20" placeholder="Name" />
-  </label>
+  <div class="players-row">
+    <label class="field">
+      <span class="label">Player 1</span>
+      <input type="text" bind:value={p1} autocomplete="off" autocapitalize="words" maxlength="20" placeholder="Name" />
+    </label>
+    <label class="field">
+      <span class="label">Player 2</span>
+      <input type="text" bind:value={p2} autocomplete="off" autocapitalize="words" maxlength="20" placeholder="Name" />
+    </label>
+  </div>
 
   <div class="field">
     <Stepper
@@ -119,6 +120,18 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
+  }
+
+  .players-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .players-row input {
+    /* min-width: 0 lets the input shrink to its grid cell on narrow viewports */
+    min-width: 0;
+    width: 100%;
   }
 
   .label {
