@@ -7,7 +7,7 @@
   import { currentGame } from '$lib/stores/currentGame';
   import { deleteGame } from '$lib/db';
   import { history } from '$lib/stores/history';
-  import { DEFAULTS, RANGES, totalFor } from '$lib/scoring';
+  import { DEFAULTS, RANGES, dealerIndexFor, totalFor } from '$lib/scoring';
 
   let ginnerIndex = $state<0 | 1>(0);
   let ginnerTotal = $state<number>(DEFAULTS.ginnerTotal);
@@ -35,7 +35,11 @@
       : [0, 0]
   );
 
-  // Each player's score input is bound by index; ginner=that-player picks the range.
+  // Current hand's dealer (the hand being entered = handsLength + 1).
+  let currentDealerIndex = $derived<0 | 1>(
+    game ? dealerIndexFor(game.firstDealerIndex, game.hands.length + 1) : 0
+  );
+
   function isGinner(i: 0 | 1) {
     return i === ginnerIndex;
   }
@@ -57,12 +61,8 @@
   }
 
   function pickGinner(i: 0 | 1) {
-    // When the user changes ginner, the role flips. Preserve their entered values
-    // by swapping ginnerTotal ↔ defenderTotal so the displayed numbers stay put
-    // under each player's name.
     if (i === ginnerIndex) return;
     [ginnerTotal, defenderTotal] = [defenderTotal, ginnerTotal];
-    // Re-clamp into new ranges.
     ginnerTotal = Math.max(RANGES.ginnerTotal.min, Math.min(RANGES.ginnerTotal.max, ginnerTotal));
     defenderTotal = Math.max(RANGES.defenderTotal.min, Math.min(RANGES.defenderTotal.max, defenderTotal));
     ginnerIndex = i;
@@ -127,7 +127,7 @@
     <div class="target">to {game.targetScore}</div>
   </header>
 
-  <!-- Hand history (top), chronological. -->
+  <!-- Hand history (top), chronological. Dealer dot per hand. -->
   {#if game.hands.length > 0}
     <section class="hands">
       <h2>This game</h2>
@@ -139,6 +139,7 @@
               players={game.players}
               onDelete={() => deleteHand(hand.index)}
               showIndex={false}
+              dealerIndex={dealerIndexFor(game.firstDealerIndex, hand.index)}
             />
           </li>
         {/each}
@@ -146,12 +147,15 @@
     </section>
   {/if}
 
-  <!-- Running totals (centered numbers). Leader shown in green. -->
+  <!-- Running totals — dealer of the *current* hand gets the • prefix. -->
   <section class="totals">
     {#each [0, 1] as i (i)}
       {@const leading = totals[i] > totals[1 - i] && totals[i] !== totals[1 - i]}
+      {@const isDealer = currentDealerIndex === i}
       <div class="total">
-        <div class="name">{game.players[i]}</div>
+        <div class="name">
+          {#if isDealer}<span class="dealer-dot">•</span>{/if}{game.players[i]}
+        </div>
         <div
           class="score"
           class:score-tick={i === 0 ? tick0 : tick1}
@@ -166,22 +170,21 @@
 
   <!-- Editing frame -->
   <section class="editor">
-    <!-- Row 1: Who ginned? -->
     <div class="label">Who ginned?</div>
     <div class="grid-2">
       {#each [0, 1] as i (i)}
+        {@const isDealer = currentDealerIndex === i}
         <button
           type="button"
           class="winner-tile"
           class:active={ginnerIndex === i}
           onclick={() => pickGinner(i as 0 | 1)}
         >
-          {game.players[i] || `Player ${i + 1}`}
+          {#if isDealer}<span class="dealer-dot">•</span>{/if}{game.players[i] || `Player ${i + 1}`}
         </button>
       {/each}
     </div>
 
-    <!-- Row 2: Player score steppers, side by side. -->
     <div class="grid-2 row-spacing">
       {#each [0, 1] as i (i)}
         <Stepper
@@ -196,7 +199,6 @@
       {/each}
     </div>
 
-    <!-- Row 3: Deadwood, positioned in the defender's (loser's) column. -->
     <div class="grid-2 metadata-row">
       <div style="grid-column: {2 - ginnerIndex}">
         <Stepper
@@ -211,7 +213,6 @@
       </div>
     </div>
 
-    <!-- Row 4: Layoffs, also on the defender's side. -->
     <div class="grid-2">
       <div style="grid-column: {2 - ginnerIndex}">
         <Stepper
@@ -229,7 +230,6 @@
     <button type="button" class="btn-primary save" onclick={save}>Save hand</button>
   </section>
 
-  <!-- Match-level controls — small but clearly buttons. -->
   <section class="match-actions">
     <a class="btn-secondary back-btn" href="{base}/">Back</a>
     <button type="button" class="btn-secondary" onclick={() => (confirmingDelete = true)}>Delete</button>
@@ -326,6 +326,12 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 2px;
+  }
+
+  .dealer-dot {
+    color: var(--accent);
+    margin-right: 2px;
+    font-weight: 700;
   }
 
   .total .score {

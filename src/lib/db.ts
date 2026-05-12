@@ -8,8 +8,8 @@
  *
  * Schema versions:
  *  v1: initial (had ginnerMeldPoints / defenderMeldPoints fields)
- *  v2: rename fields to ginnerTotal / defenderTotal to match the simpler
- *      "players announce their total" input model. Migration preserves data.
+ *  v2: rename to ginnerTotal / defenderTotal for the announced-total input model
+ *  v3: add Game.firstDealerIndex; backfill 0 for older rows
  */
 
 import { openDB, type DBSchema, type IDBPDatabase } from 'idb';
@@ -17,11 +17,11 @@ import { openDB, type DBSchema, type IDBPDatabase } from 'idb';
 export interface Hand {
   index: number; // 1-based within a game
   ginnerIndex: 0 | 1;
-  ginnerTotal: number;       // announced score, replaces v1 ginnerMeldPoints
-  defenderTotal: number;     // announced score, replaces v1 defenderMeldPoints
-  defenderDeadwood: number;  // metadata only (not summed into score)
-  defenderLayoffs: number;   // metadata only (not summed into score)
-  scores: [number, number];  // delta per player (stored for fidelity)
+  ginnerTotal: number;
+  defenderTotal: number;
+  defenderDeadwood: number;
+  defenderLayoffs: number;
+  scores: [number, number];
   createdAt: number;
 }
 
@@ -33,11 +33,14 @@ export interface Game {
   targetScore: number;
   hands: Hand[];
   winner: 0 | 1 | null;
+  /** Who dealt hand #1. Per-hand dealer alternates from this. */
+  firstDealerIndex: 0 | 1;
 }
 
 export interface MetaRecord {
   lastNames?: [string, string];
   lastTargetScore?: number;
+  lastFirstDealerIndex?: 0 | 1;
   persistRequestedAt?: number;
 }
 
@@ -54,7 +57,7 @@ interface KrustyDB extends DBSchema {
 }
 
 const DB_NAME = 'gintown-pwa';
-const DB_VERSION = 2;
+const DB_VERSION = 3;
 
 let dbPromise: Promise<IDBPDatabase<KrustyDB>> | null = null;
 
@@ -68,9 +71,7 @@ function getDB(): Promise<IDBPDatabase<KrustyDB>> {
           db.createObjectStore('meta');
         }
         if (oldVersion < 2) {
-          // Migrate v1 → v2: rename ginnerMeldPoints/defenderMeldPoints to ginnerTotal/defenderTotal.
-          // Under v1 logic, ginnerMeldPoints WAS the ginner's score, so it maps 1:1.
-          // The defender's previous score is preserved via the existing `scores` array.
+          // v1 → v2: rename meld-point fields to "total" fields.
           const store = tx.objectStore('games');
           store.openCursor().then(async function step(cursor): Promise<void> {
             if (!cursor) return;
@@ -93,6 +94,19 @@ function getDB(): Promise<IDBPDatabase<KrustyDB>> {
               return next;
             });
             await cursor.update(game);
+            return step(await cursor.continue());
+          });
+        }
+        if (oldVersion < 3) {
+          // v2 → v3: backfill firstDealerIndex = 0 on existing games.
+          const store = tx.objectStore('games');
+          store.openCursor().then(async function step(cursor): Promise<void> {
+            if (!cursor) return;
+            const game = cursor.value as Game & { firstDealerIndex?: 0 | 1 };
+            if (game.firstDealerIndex === undefined) {
+              game.firstDealerIndex = 0;
+              await cursor.update(game);
+            }
             return step(await cursor.continue());
           });
         }

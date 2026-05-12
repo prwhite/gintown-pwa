@@ -8,9 +8,11 @@
     onDelete?: () => void;
     /** Show the leading "#N" hand index. Hidden on the live match view. */
     showIndex?: boolean;
+    /** If provided, show a "•" prefix on the player at this index — the dealer of this hand. */
+    dealerIndex?: 0 | 1;
   }
 
-  let { hand, players, onDelete, showIndex = true }: Props = $props();
+  let { hand, players, onDelete, showIndex = true, dealerIndex }: Props = $props();
 
   function fmt(n: number): string {
     return n > 0 ? `+${n}` : String(n);
@@ -26,8 +28,11 @@
     {#each [0, 1] as i (i)}
       {@const isGinner = hand.ginnerIndex === i}
       {@const isDefender = !isGinner}
+      {@const isDealer = dealerIndex === i}
       <div class="player">
-        <div class="name" class:winner={isGinner}>{players[i]}</div>
+        <div class="name" class:winner={isGinner}>
+          {#if isDealer}<span class="dealer-dot" aria-label="dealer">•</span>{/if}{players[i]}
+        </div>
         <div class="score-wrap">
           <span
             class="score"
@@ -91,8 +96,12 @@
     color: var(--warning);
   }
 
-  /* Score remains centered inside the player column; .meta is absolutely
-     positioned to the right and doesn't affect that centering. */
+  .dealer-dot {
+    color: var(--accent);
+    margin-right: 2px;
+    font-weight: 700;
+  }
+
   .score-wrap {
     position: relative;
     display: inline-flex;
@@ -139,11 +148,11 @@
   }
 
   .meta .dw {
-    color: #f59797; /* mid red */
+    color: #f59797;
   }
 
   .meta .lo {
-    color: #8fdba1; /* mid green */
+    color: #8fdba1;
   }
 
   .meta .zero {

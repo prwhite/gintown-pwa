@@ -1,10 +1,13 @@
 <script lang="ts">
   import { base } from '$app/paths';
+  import { goto } from '$app/navigation';
   import { onMount } from 'svelte';
   import { history } from '$lib/stores/history';
   import { deleteGame, type Game } from '$lib/db';
   import SwipeRow from '$lib/components/SwipeRow.svelte';
   import CardFan from '$lib/components/CardFan.svelte';
+  import StatsButton from '$lib/components/StatsButton.svelte';
+  import { canonicalizePair } from '$lib/stats';
 
   onMount(() => history.refresh());
 
@@ -35,16 +38,21 @@
     await history.refresh();
   }
 
-  // In-progress games resume in the editor; completed ones open the summary.
   function gameHref(g: Game): string {
     return g.winner === null ? `${base}/game` : `${base}/game/done?id=${g.id}`;
   }
 
   function onGameClick(g: Game) {
     if (g.winner === null) {
-      // Set this as the active game so /game's hydrate picks it up.
       localStorage.setItem('gintown-pwa.currentGameId', g.id);
     }
+  }
+
+  function openStats(e: MouseEvent, g: Game) {
+    e.preventDefault();
+    e.stopPropagation();
+    const [p1, p2] = canonicalizePair(g.players[0], g.players[1]);
+    goto(`${base}/stats?p1=${encodeURIComponent(p1)}&p2=${encodeURIComponent(p2)}`);
   }
 </script>
 
@@ -66,7 +74,7 @@
     <ul class="games">
       {#each $history as g (g.id)}
         {@const t = totals(g)}
-        <li>
+        <li class="game-slot">
           <SwipeRow onDelete={() => onDelete(g.id)}>
             <a
               class="game"
@@ -92,6 +100,9 @@
               </div>
               <div class="target">to {g.targetScore} · {g.hands.length} hand{g.hands.length === 1 ? '' : 's'}</div>
             </a>
+            <div class="stats-corner">
+              <StatsButton onclick={(e) => openStats(e, g)} label="View stats for {g.players[0]} vs {g.players[1]}" />
+            </div>
           </SwipeRow>
         </li>
       {/each}
@@ -160,14 +171,15 @@
     gap: 10px;
   }
 
+  .game-slot {
+    position: relative;
+  }
+
   .game {
     display: block;
     padding: 14px 16px;
     text-decoration: none;
     color: var(--text);
-    /* Suppress Safari's long-press link callout so swipe-to-delete wins the
-       gesture. Crucially we do NOT add user-select:none here — that breaks
-       iOS Safari's synthetic click on the anchor. */
     -webkit-touch-callout: none;
   }
 
@@ -221,5 +233,15 @@
     font-size: 11px;
     color: var(--text-muted);
     text-align: center;
+  }
+
+  /* Stats button is absolutely positioned over the card's bottom-right. It's
+     inside the swipe surface (so it moves during swipe-to-delete) but its
+     click stops propagation so the card's main navigation isn't triggered. */
+  .stats-corner {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    z-index: 2;
   }
 </style>

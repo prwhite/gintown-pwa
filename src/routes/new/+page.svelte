@@ -10,22 +10,25 @@
   let p1 = $state('');
   let p2 = $state('');
   let targetScore = $state<number>(DEFAULT_TARGET_SCORE);
+  let firstDealerIndex = $state<0 | 1>(0);
 
   onMount(async () => {
     const lastNames = await getMeta('lastNames');
     const lastTarget = await getMeta('lastTargetScore');
+    const lastDealer = await getMeta('lastFirstDealerIndex');
     if (lastNames) {
       p1 = lastNames[0] ?? '';
       p2 = lastNames[1] ?? '';
     }
     if (typeof lastTarget === 'number') targetScore = lastTarget;
+    if (lastDealer === 0 || lastDealer === 1) firstDealerIndex = lastDealer;
   });
 
   let canStart = $derived(p1.trim().length > 0 && p2.trim().length > 0);
 
   async function start() {
     if (!canStart) return;
-    await currentGame.start([p1.trim(), p2.trim()], targetScore);
+    await currentGame.start([p1.trim(), p2.trim()], targetScore, firstDealerIndex);
     goto(`${base}/game`);
   }
 </script>
@@ -62,6 +65,22 @@
       step={5}
       resetTo={DEFAULT_TARGET_SCORE}
     />
+  </div>
+
+  <div class="field">
+    <span class="label">Who deals first?</span>
+    <div class="dealer-grid">
+      {#each [0, 1] as i (i)}
+        <button
+          type="button"
+          class="dealer-tile"
+          class:active={firstDealerIndex === i}
+          onclick={() => (firstDealerIndex = i as 0 | 1)}
+        >
+          {(i === 0 ? p1 : p2).trim() || `Player ${i + 1}`}
+        </button>
+      {/each}
+    </div>
   </div>
 
   <button type="submit" class="btn-primary start" disabled={!canStart}>Start</button>
@@ -107,6 +126,36 @@
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+  }
+
+  .dealer-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .dealer-tile {
+    height: 44px;
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.04);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.15s;
+    touch-action: manipulation;
+    padding: 0;
+  }
+
+  .dealer-tile:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .dealer-tile.active {
+    background: rgba(251, 191, 36, 0.16);
+    border-color: var(--warning);
+    color: var(--text);
+    box-shadow: 0 0 16px rgba(251, 191, 36, 0.32);
   }
 
   .start {

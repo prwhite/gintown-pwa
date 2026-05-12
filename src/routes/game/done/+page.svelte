@@ -7,13 +7,12 @@
   import { currentGame } from '$lib/stores/currentGame';
   import { deleteGame, getGame, type Game } from '$lib/db';
   import { history } from '$lib/stores/history';
-  import { totalFor } from '$lib/scoring';
+  import { dealerIndexFor, totalFor } from '$lib/scoring';
 
   let id = $derived($page.url.searchParams.get('id'));
   let game = $state<Game | null>(null);
   let loading = $state(true);
 
-  // True when this page is showing the just-finished current game, not a past one.
   let isCurrent = $derived(!id);
 
   onMount(async () => {
@@ -38,13 +37,12 @@
 
   async function rematch() {
     if (!game) return;
-    // `game` is held in $state, so its nested fields come back as Proxies.
-    // IndexedDB can't structured-clone a Proxy, so unwrap to plain values
-    // before handing off to currentGame.start().
     const players: [string, string] = [game.players[0], game.players[1]];
     const targetScore = game.targetScore;
+    // Alternate first-dealer between games — standard gin convention.
+    const nextFirstDealer: 0 | 1 = (1 - game.firstDealerIndex) as 0 | 1;
     await currentGame.clear();
-    await currentGame.start(players, targetScore);
+    await currentGame.start(players, targetScore, nextFirstDealer);
     goto(`${base}/game`);
   }
 
@@ -73,19 +71,23 @@
     {/if}
   </header>
 
-  <!-- Hand history (top) — read-only on this view. -->
   {#if game.hands.length > 0}
     <section class="hands">
       <h2>Hand history</h2>
       <ul>
         {#each game.hands as hand (hand.index)}
-          <li><HandRow {hand} players={game.players} /></li>
+          <li>
+            <HandRow
+              {hand}
+              players={game.players}
+              dealerIndex={dealerIndexFor(game.firstDealerIndex, hand.index)}
+            />
+          </li>
         {/each}
       </ul>
     </section>
   {/if}
 
-  <!-- Match totals (middle, the headline). -->
   <section class="totals">
     {#each [0, 1] as i (i)}
       <div class="total" class:winner={game.winner === i}>
@@ -95,8 +97,6 @@
     {/each}
   </section>
 
-  <!-- Actions (bottom): Back, Rematch (if applicable), Delete — small but
-       clearly buttons; all btn-secondary so they're subordinate to the totals. -->
   <section class="actions">
     <button type="button" class="btn-secondary" onclick={backToMain}>Back</button>
     {#if game.winner !== null}
@@ -241,7 +241,6 @@
     color: var(--warning);
   }
 
-  /* Buttons subordinate to the totals — small but clearly buttons. */
   .actions {
     display: flex;
     flex-wrap: wrap;

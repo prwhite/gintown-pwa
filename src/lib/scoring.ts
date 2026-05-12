@@ -1,15 +1,8 @@
 /**
  * Krusty Gin scoring inputs for in-person play.
  *
- * Model (per user, after first iteration): players announce their *total* hand
- * score at the table. The PWA records those totals directly — no melds/deadwood
- * arithmetic. Deadwood and layoffs are tracked as metadata for posterity but
- * are NOT summed into the score.
- *
- *   ginnerTotal       — the ginner's announced hand score
- *   defenderTotal     — the defender's announced hand score (can be negative)
- *   defenderDeadwood  — metadata only
- *   defenderLayoffs   — metadata only
+ * Players announce their *total* hand score; the PWA records those totals
+ * directly. Deadwood/layoffs are metadata for posterity (not summed).
  */
 
 export const STEP = 5;
@@ -23,7 +16,6 @@ export const DEFAULTS = {
 
 export const RANGES = {
   ginnerTotal: { min: 50, max: 120 },
-  // Defender can go net-negative (high deadwood, no melds), so allow downward range.
   defenderTotal: { min: -120, max: 120 },
   defenderDeadwood: { min: 0, max: 120 },
   defenderLayoffs: { min: 0, max: 50 },
@@ -40,10 +32,6 @@ export interface HandInput {
   defenderLayoffs: number;
 }
 
-/**
- * Per-player hand deltas — now a direct copy of the entered totals into the
- * right slots; no math.
- */
 export function scoreHand(h: HandInput): [number, number] {
   return h.ginnerIndex === 0 ? [h.ginnerTotal, h.defenderTotal] : [h.defenderTotal, h.ginnerTotal];
 }
@@ -56,9 +44,6 @@ export function totalFor(hands: { scores: [number, number] }[], playerIndex: 0 |
   return hands.reduce((sum, h) => sum + h.scores[playerIndex], 0);
 }
 
-/**
- * Winner once any player reaches target. Highest score wins (matches gintown).
- */
 export function winnerIfAny(
   totals: [number, number],
   targetScore: number
@@ -66,4 +51,12 @@ export function winnerIfAny(
   const reached = totals.some((t) => t >= targetScore);
   if (!reached) return null;
   return totals[0] >= totals[1] ? 0 : 1;
+}
+
+/**
+ * Dealer alternates strictly each hand starting from the firstDealerIndex.
+ * `handIndex` is 1-based (matches Hand.index).
+ */
+export function dealerIndexFor(firstDealerIndex: 0 | 1, handIndex: number): 0 | 1 {
+  return ((firstDealerIndex + handIndex - 1) % 2) as 0 | 1;
 }

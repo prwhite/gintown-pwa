@@ -33,7 +33,11 @@ function createStore() {
     set({ game: game ?? null, loading: false });
   }
 
-  async function start(players: [string, string], targetScore: number = DEFAULT_TARGET_SCORE) {
+  async function start(
+    players: [string, string],
+    targetScore: number = DEFAULT_TARGET_SCORE,
+    firstDealerIndex: 0 | 1 = 0
+  ) {
     const game: Game = {
       id: newGameId(),
       createdAt: Date.now(),
@@ -41,11 +45,13 @@ function createStore() {
       players,
       targetScore,
       hands: [],
-      winner: null
+      winner: null,
+      firstDealerIndex
     };
     await putGame(game);
     await setMeta('lastNames', players);
     await setMeta('lastTargetScore', targetScore);
+    await setMeta('lastFirstDealerIndex', firstDealerIndex);
     if (typeof localStorage !== 'undefined') localStorage.setItem(KEY, game.id);
     set({ game, loading: false });
     return game;
