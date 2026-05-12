@@ -1,14 +1,25 @@
 <script lang="ts">
   /**
-   * Load / save modal triggered from the main-page HistoryButton.
+   * Load / save / clear modal triggered from the main-page HistoryButton.
    *
    *   Save backup    → builds a JSON bundle from current IDB, downloads it
    *                    as gintown-YYYYMMDD-HHMM.json. On iOS the OS Save sheet
    *                    appears, user picks iCloud Drive.
    *   Import history → file picker, parses one JSON bundle, bulk-inserts
-   *                    games into IDB additively (no replacement, no dedup).
+   *                    games into IDB. Skips games whose `id` already exists
+   *                    (the converter and crypto.randomUUID produce stable
+   *                    ids, so re-importing the same bundle dedups cleanly).
+   *   Clear history  → wipes every game from IDB after a confirmation prompt.
+   *                    Also clears the currentGame localStorage pointer.
    */
-  import { listGames, bulkPutGames, type Game } from '$lib/db';
+  import {
+    bulkPutGames,
+    clearAllGames,
+    getAllGameIds,
+    listGames,
+    type Game
+  } from '$lib/db';
+  import { currentGame } from '$lib/stores/currentGame';
   import { history } from '$lib/stores/history';
   import {
     buildExportBundle,
@@ -26,7 +37,10 @@
     | { kind: 'idle' }
     | { kind: 'previewing'; gameCount: number; handCount: number; games: Game[] }
     | { kind: 'importing' }
-    | { kind: 'imported'; gameCount: number; handCount: number }
+    | { kind: 'imported'; gameCount: number; handCount: number; skipped: number }
+    | { kind: 'confirmingClear'; count: number }
+    | { kind: 'clearing' }
+    | { kind: 'cleared'; count: number }
     | { kind: 'error'; message: string };
 
   let status = $state<Status>({ kind: 'idle' });
@@ -81,21 +95,49 @@
     } catch (err) {
       status = { kind: 'error', message: `Could not read file: ${(err as Error).message}` };
     } finally {
-      // Reset the input so picking the same file again still fires `change`.
+      // Reset so picking the same file again still fires `change`.
       input.value = '';
     }
   }
 
   async function doImport() {
     if (status.kind !== 'previewing') return;
-    const { games, gameCount, handCount } = status;
+    const { games } = status;
     status = { kind: 'importing' };
     try {
-      await bulkPutGames(games);
+      // Skip games whose id already lives in IDB.
+      const existing = await getAllGameIds();
+      const fresh = games.filter((g) => !existing.has(g.id));
+      const skipped = games.length - fresh.length;
+      const handCount = countHands(fresh);
+      await bulkPutGames(fresh);
       await history.refresh();
-      status = { kind: 'imported', gameCount, handCount };
+      status = { kind: 'imported', gameCount: fresh.length, handCount, skipped };
     } catch (e) {
       status = { kind: 'error', message: `Import failed: ${(e as Error).message}` };
+    }
+  }
+
+  async function askClear() {
+    try {
+      const games = await listGames();
+      status = { kind: 'confirmingClear', count: games.length };
+    } catch (e) {
+      status = { kind: 'error', message: `Couldn't count games: ${(e as Error).message}` };
+    }
+  }
+
+  async function doClear() {
+    if (status.kind !== 'confirmingClear') return;
+    const count = status.count;
+    status = { kind: 'clearing' };
+    try {
+      await clearAllGames();
+      await currentGame.clear();
+      await history.refresh();
+      status = { kind: 'cleared', count };
+    } catch (e) {
+      status = { kind: 'error', message: `Clear failed: ${(e as Error).message}` };
     }
   }
 
@@ -123,7 +165,6 @@
         disabled={saving}
       >
         <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon">
-          <!-- square.and.arrow.up — open tray + arrow rising out the top -->
           <path
             d="M 12 4 L 12 15 M 8 8 L 12 4 L 16 8 M 6 13 L 6 19 Q 6 20 7 20 L 17 20 Q 18 20 18 19 L 18 13"
             stroke="currentColor"
@@ -138,7 +179,6 @@
 
       <button type="button" class="btn-secondary action" onclick={pickFile}>
         <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon">
-          <!-- square.and.arrow.down — open tray + arrow falling into the top -->
           <path
             d="M 12 4 L 12 15 M 8 11 L 12 15 L 16 11 M 6 13 L 6 19 Q 6 20 7 20 L 17 20 Q 18 20 18 19 L 18 13"
             stroke="currentColor"
@@ -157,13 +197,28 @@
         onchange={onFileChange}
         hidden
       />
+
+      <button type="button" class="action clear-btn" onclick={askClear}>
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="action-icon">
+          <!-- trash icon -->
+          <path
+            d="M 6 8 L 18 8 M 9 8 L 9 5 Q 9 4 10 4 L 14 4 Q 15 4 15 5 L 15 8 M 7 8 L 8 20 Q 8 21 9 21 L 15 21 Q 16 21 16 20 L 17 8 M 10 11 L 10 18 M 14 11 L 14 18"
+            stroke="currentColor"
+            stroke-width="1.6"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span>Clear history…</span>
+      </button>
     </div>
 
     <!-- status area -->
     {#if status.kind === 'previewing'}
       <div class="status preview">
         <p>Found <strong>{status.gameCount}</strong> games ({status.handCount} hands).</p>
-        <p class="dim">This will <strong>add to</strong> your existing history.</p>
+        <p class="dim">Games whose id already exists will be skipped.</p>
         <div class="status-actions">
           <button type="button" class="btn-secondary" onclick={resetToIdle}>Cancel</button>
           <button type="button" class="btn-primary" onclick={doImport}>Import</button>
@@ -173,12 +228,33 @@
       <p class="status dim">Importing…</p>
     {:else if status.kind === 'imported'}
       <div class="status ok">
-        <p>Imported <strong>{status.gameCount}</strong> games ({status.handCount} hands).</p>
+        <p>
+          Imported <strong>{status.gameCount}</strong> games ({status.handCount} hands).
+        </p>
+        {#if status.skipped > 0}
+          <p class="dim">Skipped {status.skipped} duplicate{status.skipped === 1 ? '' : 's'} already in history.</p>
+        {/if}
+      </div>
+    {:else if status.kind === 'confirmingClear'}
+      <div class="status warn">
+        <p>
+          Delete <strong>all {status.count}</strong> games? This can't be undone.
+        </p>
+        <div class="status-actions">
+          <button type="button" class="btn-secondary" onclick={resetToIdle}>Cancel</button>
+          <button type="button" class="btn-danger" onclick={doClear}>Yes, clear everything</button>
+        </div>
+      </div>
+    {:else if status.kind === 'clearing'}
+      <p class="status dim">Clearing…</p>
+    {:else if status.kind === 'cleared'}
+      <div class="status ok">
+        <p>Cleared <strong>{status.count}</strong> game{status.count === 1 ? '' : 's'}.</p>
       </div>
     {:else if status.kind === 'error'}
       <div class="status err">
         <p>{status.message}</p>
-        <button type="button" class="btn-secondary" onclick={resetToIdle}>Try again</button>
+        <button type="button" class="btn-secondary" onclick={resetToIdle}>Dismiss</button>
       </div>
     {/if}
 
@@ -218,6 +294,19 @@
     flex-shrink: 0;
   }
 
+  /* Clear button styled as a subtle danger affordance — readable as
+     destructive without screaming for attention. */
+  .clear-btn {
+    background: rgba(239, 68, 68, 0.08);
+    color: #f59797;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .clear-btn:hover {
+    background: rgba(239, 68, 68, 0.16);
+  }
+
   .status {
     margin-top: 8px;
     padding: 12px;
@@ -240,6 +329,11 @@
     color: #f59797;
   }
 
+  .status.warn {
+    border-color: rgba(239, 68, 68, 0.4);
+    background: rgba(239, 68, 68, 0.08);
+  }
+
   .status.ok strong {
     color: var(--success);
   }
@@ -254,6 +348,16 @@
     padding: 8px 14px;
     font-size: 13px;
     font-weight: 600;
+  }
+
+  .btn-danger {
+    background: rgba(239, 68, 68, 0.18);
+    color: var(--danger);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    border-radius: var(--radius-sm);
+  }
+  .btn-danger:hover {
+    background: rgba(239, 68, 68, 0.28);
   }
 
   .dim {

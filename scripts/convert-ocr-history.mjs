@@ -16,6 +16,7 @@
  * everything clearly in the past.
  */
 
+import { createHash } from 'node:crypto';
 import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -30,10 +31,37 @@ const TARGET_SCORE = 300;
 const HOUR = 60 * 60 * 1000;
 const DAY = 24 * HOUR;
 
-function newGameId() {
-  const t = Date.now().toString(36);
-  const r = Math.random().toString(36).slice(2, 8);
-  return `seed-${t}-${r}`;
+/**
+ * Stable UUID derived from a string via SHA-256, formatted as 8-4-4-4-12.
+ * Same input → same UUID across runs, so re-running this converter produces
+ * the same `id` for the same game — which is what the PWA's import-time
+ * dedup relies on.
+ */
+function stableUuid(input) {
+  const hex = createHash('sha256').update(input).digest('hex');
+  return [
+    hex.slice(0, 8),
+    hex.slice(8, 12),
+    hex.slice(12, 16),
+    hex.slice(16, 20),
+    hex.slice(20, 32)
+  ].join('-');
+}
+
+function gameIdFor(src) {
+  // Fingerprint = the things that uniquely identify a recorded game:
+  // its OCR `game_id` plus the per-hand scoring outcomes.
+  const fingerprint = JSON.stringify({
+    game_id: src.game_id ?? null,
+    hands: (src.hands || []).map((h) => [
+      h.hand_number,
+      h.k_score,
+      h.r_score,
+      h.hand_winner,
+      h.dealer ?? null
+    ])
+  });
+  return stableUuid(`gintown-ocr|${fingerprint}`);
 }
 
 function inferFirstDealer(hands) {
@@ -94,7 +122,7 @@ function convert(src, fileLabel, gameCreatedAt, warnings) {
   else if (src.winner === 'R') winner = 1;
 
   return {
-    id: newGameId(),
+    id: gameIdFor(src),
     createdAt: gameCreatedAt,
     endedAt: winner !== null ? gameCreatedAt + hands.length * 60_000 : null,
     players: [...PLAYERS],

@@ -141,6 +141,21 @@ export async function bulkPutGames(games: Game[]): Promise<void> {
   await tx.done;
 }
 
+/** All game ids currently in IDB — used by the import path to dedup by `id`. */
+export async function getAllGameIds(): Promise<Set<string>> {
+  const db = await getDB();
+  const keys = await db.getAllKeys('games');
+  return new Set(keys);
+}
+
+/** Wipe every game from IDB. Used by the History modal's Clear action. */
+export async function clearAllGames(): Promise<void> {
+  const db = await getDB();
+  const tx = db.transaction('games', 'readwrite');
+  await tx.store.clear();
+  await tx.done;
+}
+
 export async function deleteGame(id: string): Promise<void> {
   const db = await getDB();
   await db.delete('games', id);
@@ -162,6 +177,12 @@ export async function setMeta<K extends keyof MetaRecord>(
 }
 
 export function newGameId(): string {
+  // Standard UUID v4. Stable storage key + matches the format the offline
+  // OCR-conversion script emits (where ids are hash-derived, deterministic).
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  // Fallback for environments without crypto.randomUUID (very old browsers).
   const rnd = Math.random().toString(36).slice(2, 10);
   return `${Date.now().toString(36)}-${rnd}`;
 }
