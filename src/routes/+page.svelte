@@ -11,6 +11,31 @@
 
   onMount(() => history.refresh());
 
+  const MAX_GAMES = 100;
+
+  function monthLabel(ms: number): string {
+    return new Date(ms).toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+  }
+
+  /** Group an already-sorted (newest-first) games list by calendar month. */
+  function groupByMonth(games: Game[]): Array<{ label: string; games: Game[] }> {
+    const groups: Array<{ label: string; games: Game[] }> = [];
+    let current: string | null = null;
+    for (const g of games) {
+      const label = monthLabel(g.createdAt);
+      if (label !== current) {
+        current = label;
+        groups.push({ label, games: [] });
+      }
+      groups[groups.length - 1].games.push(g);
+    }
+    return groups;
+  }
+
+  let displayedGames = $derived($history.slice(0, MAX_GAMES));
+  let groupedGames = $derived(groupByMonth(displayedGames));
+  let isTruncated = $derived($history.length > MAX_GAMES);
+
   function formatDate(ms: number): string {
     const d = new Date(ms);
     const today = new Date();
@@ -71,42 +96,50 @@
   {#if $history.length === 0}
     <p class="empty">No games yet — start one.</p>
   {:else}
-    <ul class="games">
-      {#each $history as g (g.id)}
-        {@const t = totals(g)}
-        <li class="game-slot">
-          <SwipeRow onDelete={() => onDelete(g.id)}>
-            <a
-              class="game"
-              href={gameHref(g)}
-              onclick={() => onGameClick(g)}
-              data-sveltekit-preload-data="off"
-              draggable="false"
-              ondragstart={(e) => e.preventDefault()}
-            >
-              <div class="meta">
-                <span class="date">{formatDate(g.createdAt)}</span>
-                <span class="status" class:done={g.winner !== null}>{winnerLabel(g)}</span>
-              </div>
-              <div class="players">
-                <div class="player" class:winner={g.winner === 0}>
-                  <span class="name">{g.players[0] || 'P1'}</span>
-                  <span class="score">{t[0]}</span>
+    {#each groupedGames as group (group.label)}
+      <div class="month-group">
+        <h3 class="month-header">{group.label}</h3>
+        <ul class="games">
+          {#each group.games as g (g.id)}
+            {@const t = totals(g)}
+            <li class="game-slot">
+              <SwipeRow onDelete={() => onDelete(g.id)}>
+                <a
+                  class="game"
+                  href={gameHref(g)}
+                  onclick={() => onGameClick(g)}
+                  data-sveltekit-preload-data="off"
+                  draggable="false"
+                  ondragstart={(e) => e.preventDefault()}
+                >
+                  <div class="meta">
+                    <span class="date">{formatDate(g.createdAt)}</span>
+                    <span class="status" class:done={g.winner !== null}>{winnerLabel(g)}</span>
+                  </div>
+                  <div class="players">
+                    <div class="player" class:winner={g.winner === 0}>
+                      <span class="name">{g.players[0] || 'P1'}</span>
+                      <span class="score">{t[0]}</span>
+                    </div>
+                    <div class="player" class:winner={g.winner === 1}>
+                      <span class="name">{g.players[1] || 'P2'}</span>
+                      <span class="score">{t[1]}</span>
+                    </div>
+                  </div>
+                  <div class="target">to {g.targetScore} · {g.hands.length} hand{g.hands.length === 1 ? '' : 's'}</div>
+                </a>
+                <div class="stats-corner">
+                  <StatsButton onclick={(e) => openStats(e, g)} label="View stats for {g.players[0]} vs {g.players[1]}" />
                 </div>
-                <div class="player" class:winner={g.winner === 1}>
-                  <span class="name">{g.players[1] || 'P2'}</span>
-                  <span class="score">{t[1]}</span>
-                </div>
-              </div>
-              <div class="target">to {g.targetScore} · {g.hands.length} hand{g.hands.length === 1 ? '' : 's'}</div>
-            </a>
-            <div class="stats-corner">
-              <StatsButton onclick={(e) => openStats(e, g)} label="View stats for {g.players[0]} vs {g.players[1]}" />
-            </div>
-          </SwipeRow>
-        </li>
-      {/each}
-    </ul>
+              </SwipeRow>
+            </li>
+          {/each}
+        </ul>
+      </div>
+    {/each}
+    {#if isTruncated}
+      <p class="truncated">Showing {MAX_GAMES} most-recent · {$history.length - MAX_GAMES} older game{$history.length - MAX_GAMES === 1 ? '' : 's'} hidden</p>
+    {/if}
   {/if}
 </section>
 
@@ -164,11 +197,32 @@
     padding: 32px 0;
   }
 
+  .month-group {
+    margin-bottom: 20px;
+  }
+
+  .month-header {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin: 4px 4px 8px;
+    font-weight: 600;
+  }
+
   .games {
     list-style: none;
     display: flex;
     flex-direction: column;
     gap: 10px;
+  }
+
+  .truncated {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 11px;
+    font-style: italic;
+    margin-top: 16px;
   }
 
   .game-slot {

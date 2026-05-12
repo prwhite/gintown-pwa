@@ -66,15 +66,32 @@
     return { min, max };
   });
 
+  // True when every value across all datasets is an integer — used to force
+  // integer-spaced ticks (no 0.2/0.4/0.6 nonsense for count data).
+  let allIntegers = $derived(
+    datasets.every((d) => d.data.every((v) => Number.isInteger(v)))
+  );
+
   // Numeric axis ticks (~4 evenly-spaced rounded values across the domain).
   let ticks = $derived(() => {
     const { min, max } = domain();
     const span = max - min;
-    const step = niceStep(span / 4);
+    let step = niceStep(span / 4);
+    if (allIntegers && step < 1) step = 1;
     const start = Math.ceil(min / step) * step;
+    const seen = new Set<number>();
     const out: number[] = [];
-    for (let v = start; v <= max + 0.0001; v += step) out.push(Number(v.toFixed(2)));
-    if (min < 0 && !out.includes(0)) out.push(0);
+    for (let v = start; v <= max + 0.0001; v += step) {
+      const t = allIntegers ? Math.round(v) : Number(v.toFixed(2));
+      if (!seen.has(t)) {
+        seen.add(t);
+        out.push(t);
+      }
+    }
+    if (min < 0 && !seen.has(0)) {
+      seen.add(0);
+      out.push(0);
+    }
     return out.sort((a, b) => a - b);
   });
 

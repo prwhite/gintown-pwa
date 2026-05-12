@@ -375,8 +375,18 @@
 {/if}
 
 <style>
+  /* Sticks to the top of the viewport while the long stats page scrolls. */
   .top-bar {
+    position: sticky;
+    top: 8px;
+    z-index: 100;
     padding-top: 8px;
+    /* Don't intercept clicks on the surrounding strip — only the button itself. */
+    pointer-events: none;
+    width: max-content;
+  }
+  .top-bar :global(a) {
+    pointer-events: auto;
   }
 
   .header {
