@@ -85,7 +85,11 @@
 </script>
 
 <div class="wrap" class:removing>
-  {#if onDelete}
+  {#if onDelete && (dragging || dragX !== 0)}
+    <!-- Tray only mounts while the row is actually being dragged (or
+         mid-snap-back). Keeping it permanently in the DOM was leaking a
+         half-pixel of red through the rounded-corner anti-aliasing on
+         low-DPI displays. -->
     <div class="tray" aria-hidden="true"></div>
   {/if}
   <!-- svelte-ignore a11y_no_static_element_interactions -->
