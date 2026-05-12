@@ -111,6 +111,10 @@
   function maxSwing(s: Stats): number {
     return Math.max(1, ...s.comebacks.map((c) => c.swing));
   }
+
+  function dealerWinPct(won: number, total: number): number {
+    return total > 0 ? Math.round((100 * won) / total) : 0;
+  }
 </script>
 
 <div class="top-bar">
@@ -303,12 +307,10 @@
       </div>
       <div class="card">
         <h3>Win rate when dealing</h3>
-        {@const p1Pct = stats.p1DealtCount > 0 ? Math.round((100 * stats.p1DealtWon) / stats.p1DealtCount) : 0}
-        {@const p2Pct = stats.p2DealtCount > 0 ? Math.round((100 * stats.p2DealtWon) / stats.p2DealtCount) : 0}
         <BarChart
           labels={[
-            `${stats.pair[0]} ${p1Pct}%`,
-            `${stats.pair[1]} ${p2Pct}%`
+            `${stats.pair[0]} ${dealerWinPct(stats.p1DealtWon, stats.p1DealtCount)}%`,
+            `${stats.pair[1]} ${dealerWinPct(stats.p2DealtWon, stats.p2DealtCount)}%`
           ]}
           datasets={[
             { label: 'Dealt → won', color: C_GOLD, data: [stats.p1DealtWon, stats.p2DealtWon] },
