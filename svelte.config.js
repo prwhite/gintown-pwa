@@ -15,6 +15,12 @@ export default {
     }),
     paths: {
       base
+    },
+    // /stats isn't linked via a static <a href>, so the prerender crawler
+    // doesn't reach it from /. List it explicitly so it gets a 200 instead
+    // of relying on the 404.html SPA fallback.
+    prerender: {
+      entries: ['*', '/stats']
     }
   }
 };
