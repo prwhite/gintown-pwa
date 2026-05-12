@@ -132,6 +132,15 @@ export async function putGame(g: Game): Promise<void> {
   await db.put('games', g);
 }
 
+/** Insert many games in a single transaction — faster than N separate puts. */
+export async function bulkPutGames(games: Game[]): Promise<void> {
+  if (games.length === 0) return;
+  const db = await getDB();
+  const tx = db.transaction('games', 'readwrite');
+  for (const g of games) tx.store.put(g);
+  await tx.done;
+}
+
 export async function deleteGame(id: string): Promise<void> {
   const db = await getDB();
   await db.delete('games', id);

@@ -13,3 +13,7 @@ dev-dist/
 # icon files case-insensitively. Re-include them.
 !static/icons/
 !static/icons/*.png
+
+# Personal historical-game OCR data + the derived seed bundle. Lives on the
+# user's machine only; never committed to the repo.
+history.nogit/

@@ -7,7 +7,11 @@
   import SwipeRow from '$lib/components/SwipeRow.svelte';
   import CardFan from '$lib/components/CardFan.svelte';
   import StatsButton from '$lib/components/StatsButton.svelte';
+  import HistoryButton from '$lib/components/HistoryButton.svelte';
+  import HistoryModal from '$lib/components/HistoryModal.svelte';
   import { canonicalizePair } from '$lib/stats';
+
+  let showHistoryModal = $state(false);
 
   onMount(() => history.refresh());
 
@@ -81,11 +85,19 @@
   }
 </script>
 
+<div class="top-bar">
+  <HistoryButton onclick={() => (showHistoryModal = true)} />
+</div>
+
 <header class="hero">
   <CardFan />
   <h1>Krusty Score</h1>
   <p class="subtitle">Offline scoring for in-person Krusty Gin.</p>
 </header>
+
+{#if showHistoryModal}
+  <HistoryModal onClose={() => (showHistoryModal = false)} />
+{/if}
 
 <section class="cta">
   <a class="btn-primary big" href="{base}/new">New game</a>
@@ -144,9 +156,17 @@
 </section>
 
 <style>
+  /* Top-bar holds the right-aligned HistoryButton above the hero. Normal
+     flow (not floating); the button itself is small. */
+  .top-bar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: -4px;
+  }
+
   .hero {
     text-align: center;
-    padding: 16px 0 8px;
+    padding: 8px 0 8px;
   }
 
   h1 {
