@@ -1,8 +1,9 @@
 <script lang="ts">
   /**
-   * Consistent "back" affordance used in the top-left of all sub-pages.
-   * Approximates SF Symbol `chevron.backward.circle.fill` — a 50% alpha
-   * white circle with a dark chevron cut through it.
+   * Consistent "home" affordance used in the top-left of all sub-pages.
+   * Approximates SF Symbol `house.circle.fill` — a 50% alpha white circle
+   * with a dark house glyph cut through it. Visually distinct from the
+   * prev/next chevron buttons used for match-history navigation.
    */
   interface Props {
     href: string;
@@ -16,10 +17,11 @@
 <a {href} aria-label={label} class="back-btn" style="--size: {size}px;" data-sveltekit-preload-data="off" {onclick}>
   <svg viewBox="0 0 24 24" aria-hidden="true">
     <circle cx="12" cy="12" r="11" fill="rgba(255, 255, 255, 0.5)" />
+    <!-- Simple house: pitched roof + rectangular body. -->
     <path
-      d="M 13.6 7 L 8.6 12 L 13.6 17"
+      d="M 6.5 11.5 L 12 7 L 17.5 11.5 L 17.5 17 L 6.5 17 Z"
       stroke="var(--bg-dark)"
-      stroke-width="2.4"
+      stroke-width="1.8"
       fill="none"
       stroke-linecap="round"
       stroke-linejoin="round"
