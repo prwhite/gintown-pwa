@@ -175,7 +175,22 @@ A tiny ad-hoc test bundle the user uses during local dev. Lives in
 `static/` so the dev server serves it, but is gitignored implicitly by
 the leading underscore convention + not being staged. Don't commit it.
 
-## 16. Visible version: tag only
+## 16. Intentionally out of scope
+
+Things to **not reopen** without a specific reason:
+
+- Multi-user / multi-device sync. Use the gintown repo.
+- A real backend. Persistence is IDB + user-driven JSON backups.
+- Dedup-on-import beyond "same UUID = skip" — fingerprinting beyond
+  the OCR-stable-UUID scheme.
+- Automatic periodic backup.
+- Per-hand dealer override (we infer strictly alternating from
+  `firstDealerIndex`).
+- Multi-file picker for import. Single bundle is enough.
+- Test suite (see #9).
+- File System Access API path (see #13).
+
+## 17. Visible version: tag only
 
 No `version` field is exposed in the UI. The deployed bundle is
 identified by the GitHub Actions run + the latest commit on `main`.

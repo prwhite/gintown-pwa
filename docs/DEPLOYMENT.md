@@ -150,6 +150,22 @@ npx serve build -p 4173
 - Find your machine's LAN IP: `ipconfig getifaddr en0`. Phone visits
   `http://<that-ip>:5173/`.
 
+## Testing approach
+
+There is no test suite. Verification is:
+
+1. `make check` — `svelte-check` for types and a11y warnings.
+2. Manual smoke in Chrome on `localhost:5173`.
+3. Chrome DevTools MCP to drive flows when useful — it can `click`,
+   `evaluate_script`, `navigate_page`, etc. Caveat: **synthetic
+   `PointerEvent`s do not route to Svelte 5's delegated handlers**, so
+   gesture flows (swipe-to-delete, the `/game/done` carousel) cannot
+   be exercised this way. Use button-driven equivalents to test the
+   underlying data flow; test the actual gesture by visiting on a
+   phone.
+4. Iterate on the user's iPhone for any iOS-specific UI work
+   (safe-area, A2HS, standalone-mode behaviour).
+
 ## Releasing
 
 - Tag when shipping notable user-facing changes:
