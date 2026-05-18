@@ -6,7 +6,7 @@
    */
   import { base } from '$app/paths';
   import HandRow from './HandRow.svelte';
-  import { dealerIndexFor, totalFor } from '$lib/scoring';
+  import { currentHandStreak, dealerIndexFor, totalFor } from '$lib/scoring';
   import type { Game } from '$lib/db';
 
   interface Props {
@@ -24,19 +24,8 @@
     totalFor(game.hands, 1)
   ]);
 
-  // Trailing hand streak *within this match*: consecutive most-recent hands
-  // ginned by the same player. Shown below the last hand. Null unless ≥2.
-  let handStreak = $derived.by(() => {
-    const hs = game.hands;
-    if (hs.length === 0) return null;
-    const ginner = hs[hs.length - 1].ginnerIndex;
-    let count = 0;
-    for (let i = hs.length - 1; i >= 0; i--) {
-      if (hs[i].ginnerIndex === ginner) count++;
-      else break;
-    }
-    return count >= 2 ? { name: game.players[ginner], count } : null;
-  });
+  // Trailing hand streak *within this match* (≥2), shown below the last hand.
+  let handStreak = $derived(currentHandStreak(game.hands, game.players));
 </script>
 
 <header class="hero" class:in-progress={game.winner === null}>

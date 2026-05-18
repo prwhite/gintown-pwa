@@ -8,7 +8,7 @@
   import { currentGame } from '$lib/stores/currentGame';
   import { deleteGame } from '$lib/db';
   import { history } from '$lib/stores/history';
-  import { DEFAULTS, RANGES, dealerIndexFor, totalFor } from '$lib/scoring';
+  import { DEFAULTS, RANGES, currentHandStreak, dealerIndexFor, totalFor } from '$lib/scoring';
 
   let ginnerIndex = $state<0 | 1>(0);
   let ginnerTotal = $state<number>(DEFAULTS.ginnerTotal);
@@ -40,6 +40,9 @@
   let currentDealerIndex = $derived<0 | 1>(
     game ? dealerIndexFor(game.firstDealerIndex, game.hands.length + 1) : 0
   );
+
+  // Trailing hand streak so far this match (≥2), updates as hands are saved.
+  let handStreak = $derived(game ? currentHandStreak(game.hands, game.players) : null);
 
   function isGinner(i: 0 | 1) {
     return i === ginnerIndex;
@@ -146,6 +149,10 @@
         {/each}
       </ul>
     </section>
+  {/if}
+
+  {#if handStreak}
+    <p class="streak"><em>{handStreak.name} won the last {handStreak.count} hands</em></p>
   {/if}
 
   <!-- Whose deal the next (currently-entered) hand is. -->
@@ -314,6 +321,14 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 2px;
+  }
+
+  .streak {
+    text-align: center;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-muted);
+    margin: 0 0 8px;
   }
 
   .next-deal {

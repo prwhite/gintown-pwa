@@ -54,6 +54,25 @@ export function winnerIfAny(
 }
 
 /**
+ * Trailing run of consecutive most-recent hands ginned by the same player.
+ * Returns that player's name + the run length, or null unless it's ≥ 2.
+ * Structural args so it works for live and finished games alike.
+ */
+export function currentHandStreak(
+  hands: readonly { ginnerIndex: 0 | 1 }[],
+  players: readonly [string, string]
+): { name: string; count: number } | null {
+  if (hands.length === 0) return null;
+  const ginner = hands[hands.length - 1].ginnerIndex;
+  let count = 0;
+  for (let i = hands.length - 1; i >= 0; i--) {
+    if (hands[i].ginnerIndex === ginner) count++;
+    else break;
+  }
+  return count >= 2 ? { name: players[ginner], count } : null;
+}
+
+/**
  * Dealer alternates strictly each hand starting from the firstDealerIndex.
  * `handIndex` is 1-based (matches Hand.index).
  */

@@ -127,6 +127,21 @@
     return { labels: bins.map((b) => b.label), counts: bins.map((b) => b.count) };
   }
 
+  function handStreakBins(s: Stats) {
+    const all = [...s.p1HandStreaks, ...s.p2HandStreaks];
+    if (all.length === 0) return { labels: [], p1: [], p2: [] };
+    const max = Math.max(...all);
+    const labels: string[] = [];
+    const p1: number[] = [];
+    const p2: number[] = [];
+    for (let len = 2; len <= max; len++) {
+      labels.push(String(len));
+      p1.push(s.p1HandStreaks.filter((v) => v === len).length);
+      p2.push(s.p2HandStreaks.filter((v) => v === len).length);
+    }
+    return { labels, p1, p2 };
+  }
+
   function dwBins(p1: number[], p2: number[], step: number) {
     const all = [...p1, ...p2];
     if (all.length === 0) return { labels: [], p1: [], p2: [] };
@@ -294,6 +309,24 @@
       </table>
     </div>
   </section>
+
+  <!-- ============= Hand streaks ============= -->
+  {@const hsk = handStreakBins(stats)}
+  {#if hsk.labels.length > 0}
+    <section class="section">
+      <h2>Hand streaks</h2>
+      <p class="note">Run lengths of consecutive hands ginned by the same player within a match (streaks of 1 ignored).</p>
+      <div class="card">
+        <BarChart
+          labels={hsk.labels}
+          datasets={[
+            { label: stats.pair[0], color: C_P1, data: hsk.p1 },
+            { label: stats.pair[1], color: C_P2, data: hsk.p2 }
+          ]}
+        />
+      </div>
+    </section>
+  {/if}
 
   <!-- ============= Game length ============= -->
   {@const glb = gameLengthBins(stats)}

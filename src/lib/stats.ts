@@ -85,6 +85,11 @@ export interface Stats {
 
   finalHandSizes: number[]; // winning final hand value for each finished game
 
+  // Hand-streak run lengths within matches (runs of ≥2 consecutive hands
+  // ginned by the same player). One entry per run, per player.
+  p1HandStreaks: number[];
+  p2HandStreaks: number[];
+
   // Deadwood / layoffs — defender-side metadata. Computed ONLY over games
   // that have at least one non-zero deadwood or layoff value, so OCR-seeded
   // history (which forces these to 0) doesn't dilute the picture.
@@ -279,6 +284,31 @@ export function analyzeGames(games: Game[], pair: [string, string]): Stats {
     return r.winner_index === 0 ? last.p1_score : last.p2_score;
   });
 
+  // Hand-streak run lengths within each match. Walk each game's hands in
+  // order; a maximal run of the same ginner with length ≥ 2 is recorded
+  // against that player. Runs never cross game boundaries.
+  const p1HandStreaks: number[] = [];
+  const p2HandStreaks: number[] = [];
+  for (const r of rows) {
+    let runGinner: 0 | 1 | null = null;
+    let runLen = 0;
+    const flush = () => {
+      if (runGinner !== null && runLen >= 2) {
+        (runGinner === 0 ? p1HandStreaks : p2HandStreaks).push(runLen);
+      }
+    };
+    for (const h of r.hands) {
+      if (h.ginner_index === runGinner) {
+        runLen++;
+      } else {
+        flush();
+        runGinner = h.ginner_index;
+        runLen = 1;
+      }
+    }
+    flush();
+  }
+
   // Deadwood / layoffs. The defender is the non-ginner; p1 defended when
   // p2 ginned (ginner_index === 1) and vice versa. Skip games that carry no
   // deadwood/layoff data at all (every hand 0/0 — e.g. OCR-seeded games).
@@ -359,6 +389,8 @@ export function analyzeGames(games: Game[], pair: [string, string]): Stats {
     p2DealtCount,
     p2DealtWon,
     finalHandSizes,
+    p1HandStreaks,
+    p2HandStreaks,
     deadwoodGameCount: dwGames.length,
     defendedHands: dwHands.length,
     handsWithLayoff,
