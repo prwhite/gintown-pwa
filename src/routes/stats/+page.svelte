@@ -2,7 +2,7 @@
   import { base } from '$app/paths';
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
-  import { listGames } from '$lib/db';
+  import { listGames, type Game } from '$lib/db';
   import {
     analyzeGames,
     canonicalizePair,
@@ -23,18 +23,37 @@
   const C_NEUTRAL = '#8e8e93';        // for ties / non-dealer
   const C_GOLD = 'var(--warning)';    // gold accent
 
-  let stats = $state<Stats | null>(null);
+  type Range = 'all' | '30d' | '7d';
+
+  let pairGames = $state<Game[]>([]);
+  let canonical = $state<[string, string]>(['', '']);
   let loading = $state(true);
+  let range = $state<Range>('all');
 
   onMount(async () => {
     const p1Raw = $page.url.searchParams.get('p1') ?? '';
     const p2Raw = $page.url.searchParams.get('p2') ?? '';
     const all = await listGames();
-    const games = filterGamesByPair(all, [p1Raw, p2Raw]);
-    const canonical = canonicalizePair(p1Raw, p2Raw);
-    stats = analyzeGames(games, canonical);
+    pairGames = filterGamesByPair(all, [p1Raw, p2Raw]);
+    canonical = canonicalizePair(p1Raw, p2Raw);
     loading = false;
   });
+
+  function applyRange(games: Game[], r: Range): Game[] {
+    if (r === 'all') return games;
+    const cutoff = Date.now() - (r === '7d' ? 7 : 30) * 86_400_000;
+    return games.filter((g) => g.createdAt >= cutoff);
+  }
+
+  // Reactive: changing `range` recomputes the whole Stats blob, so every
+  // chart/KPI below (all derived from it) updates automatically.
+  let stats = $derived<Stats>(analyzeGames(applyRange(pairGames, range), canonical));
+
+  const RANGES: Array<{ key: Range; label: string }> = [
+    { key: 'all', label: 'All' },
+    { key: '30d', label: '30 days' },
+    { key: '7d', label: '7 days' }
+  ];
 
   function pct(n: number, t: number): string {
     return t ? `${Math.round((100 * n) / t)}%` : '0%';
@@ -108,6 +127,19 @@
     return { labels: bins.map((b) => b.label), counts: bins.map((b) => b.count) };
   }
 
+  function dwBins(p1: number[], p2: number[], step: number) {
+    const all = [...p1, ...p2];
+    if (all.length === 0) return { labels: [], p1: [], p2: [] };
+    const hi = Math.floor(Math.max(...all) / step) * step + step;
+    const b1 = histogram(p1, 0, hi, step);
+    const b2 = histogram(p2, 0, hi, step);
+    return {
+      labels: b1.map((b) => b.label),
+      p1: b1.map((b) => b.count),
+      p2: b2.map((b) => b.count)
+    };
+  }
+
   function maxSwing(s: Stats): number {
     return Math.max(1, ...s.comebacks.map((c) => c.swing));
   }
@@ -122,7 +154,7 @@
 </div>
 
 <header class="header">
-  {#if stats}
+  {#if !loading}
     <h1>{stats.pair[0]} <span class="vs">vs</span> {stats.pair[1]}</h1>
     {#if stats.firstGameAt !== null}
       <p class="range">{dateRangeLabel(stats)} · {stats.totalGames} game{stats.totalGames === 1 ? '' : 's'}</p>
@@ -134,9 +166,23 @@
 
 {#if loading}
   <p class="empty">Loading…</p>
-{:else if !stats || stats.totalGames === 0}
-  <p class="empty">No games played between these two yet.</p>
 {:else}
+  <div class="range-toggle" role="group" aria-label="Time range">
+    {#each RANGES as r (r.key)}
+      <button
+        type="button"
+        class="range-tile"
+        class:active={range === r.key}
+        onclick={() => (range = r.key)}
+      >
+        {r.label}
+      </button>
+    {/each}
+  </div>
+
+  {#if stats.totalGames === 0}
+    <p class="empty">No games in this range.</p>
+  {:else}
   <!-- ============= KPI strip ============= -->
   <section class="kpis">
     <div class="kpi"><div class="kl">Games</div><div class="kv">{stats.totalGames}</div></div>
@@ -337,6 +383,84 @@
     </div>
   </section>
 
+  <!-- ============= Deadwood & layoffs ============= -->
+  {#if stats.deadwoodGameCount > 0}
+    {@const dwd = dwBins(stats.p1Deadwood, stats.p2Deadwood, 5)}
+    {@const lof = dwBins(stats.p1Layoffs, stats.p2Layoffs, 5)}
+    <section class="section">
+      <h2>Deadwood &amp; layoffs</h2>
+      <p class="note">
+        Defender-side only. Games with no recorded deadwood/layoff data (e.g.
+        pre-app history) are excluded — {stats.deadwoodGameCount} game{stats.deadwoodGameCount === 1 ? '' : 's'},
+        {stats.defendedHands} defended hand{stats.defendedHands === 1 ? '' : 's'}.
+      </p>
+      <div class="card">
+        <h3>Deadwood distribution</h3>
+        <BarChart
+          labels={dwd.labels}
+          datasets={[
+            { label: stats.pair[0], color: C_P1, data: dwd.p1 },
+            { label: stats.pair[1], color: C_P2, data: dwd.p2 }
+          ]}
+          height={240}
+          labelEvery={2}
+        />
+      </div>
+      <div class="card">
+        <h3>Layoffs distribution</h3>
+        <BarChart
+          labels={lof.labels}
+          datasets={[
+            { label: stats.pair[0], color: C_P1, data: lof.p1 },
+            { label: stats.pair[1], color: C_P2, data: lof.p2 }
+          ]}
+          height={240}
+          labelEvery={2}
+        />
+      </div>
+      <div class="card">
+        <h3>Per-player summary (when defending)</h3>
+        <table class="stats-table">
+          <thead><tr><th>Player</th><th>Metric</th><th>n</th><th>Mean</th><th>Median</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="player-cell" style="color: var(--success);">{stats.pair[0]}</td>
+              <td>Deadwood</td>
+              <td>{stats.p1Deadwood.length}</td>
+              <td>{mean(stats.p1Deadwood).toFixed(1)}</td>
+              <td>{median(stats.p1Deadwood)}</td>
+            </tr>
+            <tr>
+              <td class="player-cell" style="color: var(--success);">{stats.pair[0]}</td>
+              <td>Layoffs</td>
+              <td>{stats.p1Layoffs.length}</td>
+              <td>{mean(stats.p1Layoffs).toFixed(1)}</td>
+              <td>{median(stats.p1Layoffs)}</td>
+            </tr>
+            <tr>
+              <td class="player-cell" style="color: var(--accent);">{stats.pair[1]}</td>
+              <td>Deadwood</td>
+              <td>{stats.p2Deadwood.length}</td>
+              <td>{mean(stats.p2Deadwood).toFixed(1)}</td>
+              <td>{median(stats.p2Deadwood)}</td>
+            </tr>
+            <tr>
+              <td class="player-cell" style="color: var(--accent);">{stats.pair[1]}</td>
+              <td>Layoffs</td>
+              <td>{stats.p2Layoffs.length}</td>
+              <td>{mean(stats.p2Layoffs).toFixed(1)}</td>
+              <td>{median(stats.p2Layoffs)}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note" style="margin-top: 10px; margin-bottom: 0;">
+          Layoffs used in {stats.handsWithLayoff} of {stats.defendedHands} defended
+          hand{stats.defendedHands === 1 ? '' : 's'} ({pct(stats.handsWithLayoff, stats.defendedHands)}).
+        </p>
+      </div>
+    </section>
+  {/if}
+
   <!-- ============= Comebacks ============= -->
   <section class="section">
     <h2>Comebacks</h2>
@@ -373,6 +497,7 @@
       {/if}
     </div>
   </section>
+  {/if}
 {/if}
 
 <style>
@@ -419,6 +544,36 @@
     text-align: center;
     color: var(--text-muted);
     margin-top: 48px;
+  }
+
+  /* ---- Time-range segmented control (same idiom as the new-game
+     dealer/winner tiles: gold active state). ---- */
+  .range-toggle {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .range-tile {
+    height: 40px;
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.04);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.15s;
+    touch-action: manipulation;
+    padding: 0;
+  }
+  .range-tile:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .range-tile.active {
+    background: rgba(251, 191, 36, 0.16);
+    border-color: var(--warning);
+    color: var(--text);
+    box-shadow: 0 0 16px rgba(251, 191, 36, 0.32);
   }
 
   /* ---- KPI strip ---- */

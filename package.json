@@ -1,6 +1,6 @@
 {
   "name": "gintown-pwa",
-  "version": "0.1.0",
+  "version": "1.2.1",
   "description": "Offline-first in-person scoring PWA for Krusty Gin.",
   "type": "module",
   "private": true,

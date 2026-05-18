@@ -9,7 +9,7 @@
   import StatsButton from '$lib/components/StatsButton.svelte';
   import HistoryButton from '$lib/components/HistoryButton.svelte';
   import HistoryModal from '$lib/components/HistoryModal.svelte';
-  import { canonicalizePair } from '$lib/stats';
+  import { canonicalizePair, currentWinStreak } from '$lib/stats';
 
   let showHistoryModal = $state(false);
 
@@ -36,6 +36,7 @@
     return groups;
   }
 
+  let streak = $derived(currentWinStreak($history));
   let displayedGames = $derived($history.slice(0, MAX_GAMES));
   let groupedGames = $derived(groupByMonth(displayedGames));
   let isTruncated = $derived($history.length > MAX_GAMES);
@@ -86,6 +87,7 @@
 </script>
 
 <div class="top-bar">
+  <span class="version">v{__APP_VERSION__}</span>
   <HistoryButton onclick={() => (showHistoryModal = true)} />
 </div>
 
@@ -108,6 +110,9 @@
   {#if $history.length === 0}
     <p class="empty">No games yet — start one.</p>
   {:else}
+    {#if streak}
+      <p class="streak"><em>{streak.name} has won {streak.count} in a row</em></p>
+    {/if}
     {#each groupedGames as group (group.label)}
       <div class="month-group">
         <h3 class="month-header">{group.label}</h3>
@@ -160,8 +165,15 @@
      flow (not floating); the button itself is small. */
   .top-bar {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: -4px;
+  }
+
+  .version {
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
   }
 
   .hero {
@@ -215,6 +227,14 @@
     font-size: 14px;
     text-align: center;
     padding: 32px 0;
+  }
+
+  .streak {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 14px;
   }
 
   .month-group {

@@ -23,6 +23,20 @@
     totalFor(game.hands, 0),
     totalFor(game.hands, 1)
   ]);
+
+  // Trailing hand streak *within this match*: consecutive most-recent hands
+  // ginned by the same player. Shown below the last hand. Null unless ≥2.
+  let handStreak = $derived.by(() => {
+    const hs = game.hands;
+    if (hs.length === 0) return null;
+    const ginner = hs[hs.length - 1].ginnerIndex;
+    let count = 0;
+    for (let i = hs.length - 1; i >= 0; i--) {
+      if (hs[i].ginnerIndex === ginner) count++;
+      else break;
+    }
+    return count >= 2 ? { name: game.players[ginner], count } : null;
+  });
 </script>
 
 <header class="hero" class:in-progress={game.winner === null}>
@@ -53,6 +67,10 @@
       {/each}
     </ul>
   </section>
+{/if}
+
+{#if handStreak}
+  <p class="streak"><em>{handStreak.name} won the last {handStreak.count} hands</em></p>
 {/if}
 
 <section class="totals">
@@ -127,6 +145,14 @@
     gap: 4px;
   }
 
+  .streak {
+    text-align: center;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-muted);
+    margin: 0 0 10px;
+  }
+
   .totals {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -161,7 +187,7 @@
 
   .total .score {
     font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-    font-size: 36px;
+    font-size: 54px;
     font-weight: 700;
     line-height: 1;
   }

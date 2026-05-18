@@ -9,6 +9,7 @@ Offline-first PWA for in-person Krusty Gin scoring. Single user, single device. 
 - `make check` — svelte-check. Run before every commit.
 - `make icons` / `make seed-history` — regenerate icons / OCR seed bundle.
 - Push to `main` auto-deploys. Tag `vX.Y.Z` for milestones; `git push --tags`.
+- **Bump `package.json` `version` on every committed change** — at least the maintenance (patch) number, always (it shows in the home-page top-left so you can tell if the PWA reloaded). Minor for small additive features, major for big changes.
 
 ## Footguns (memorize)
 

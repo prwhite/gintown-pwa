@@ -85,6 +85,17 @@ export interface Stats {
 
   finalHandSizes: number[]; // winning final hand value for each finished game
 
+  // Deadwood / layoffs — defender-side metadata. Computed ONLY over games
+  // that have at least one non-zero deadwood or layoff value, so OCR-seeded
+  // history (which forces these to 0) doesn't dilute the picture.
+  deadwoodGameCount: number;
+  defendedHands: number; // hands counted in the deadwood/layoff stats
+  handsWithLayoff: number;
+  p1Deadwood: number[]; // p1's deadwood on hands p1 defended
+  p2Deadwood: number[];
+  p1Layoffs: number[];
+  p2Layoffs: number[];
+
   comebacks: Comeback[];
 
   firstGameAt: number | null;
@@ -144,6 +155,31 @@ export function histogram(values: readonly number[], lo: number, hi: number, ste
     });
   }
   return bins;
+}
+
+/**
+ * The current win streak as of the most recent finished game in `games`.
+ * In-progress games are ignored (they neither extend nor break a streak).
+ * Returns null unless the streak is ≥ 2 (a single win is not a streak).
+ */
+export function currentWinStreak(games: Game[]): { name: string; count: number } | null {
+  const finished = games
+    .filter((g) => g.winner !== null)
+    .sort((a, b) => a.createdAt - b.createdAt);
+  if (finished.length === 0) return null;
+
+  const norm = (s: string) => s.trim().toLowerCase();
+  const last = finished[finished.length - 1];
+  const winnerName = last.players[last.winner as 0 | 1];
+  const target = norm(winnerName);
+
+  let count = 0;
+  for (let i = finished.length - 1; i >= 0; i--) {
+    const g = finished[i];
+    if (norm(g.players[g.winner as 0 | 1]) === target) count++;
+    else break;
+  }
+  return count >= 2 ? { name: winnerName, count } : null;
 }
 
 export function analyzeGames(games: Game[], pair: [string, string]): Stats {
@@ -243,6 +279,30 @@ export function analyzeGames(games: Game[], pair: [string, string]): Stats {
     return r.winner_index === 0 ? last.p1_score : last.p2_score;
   });
 
+  // Deadwood / layoffs. The defender is the non-ginner; p1 defended when
+  // p2 ginned (ginner_index === 1) and vice versa. Skip games that carry no
+  // deadwood/layoff data at all (every hand 0/0 — e.g. OCR-seeded games).
+  const dwGames = rows.filter((r) =>
+    r.hands.some((h) => h.defender_deadwood !== 0 || h.defender_layoffs !== 0)
+  );
+  const dwHands = dwGames.flatMap((r) => r.hands);
+  const p1Deadwood: number[] = [];
+  const p2Deadwood: number[] = [];
+  const p1Layoffs: number[] = [];
+  const p2Layoffs: number[] = [];
+  let handsWithLayoff = 0;
+  for (const h of dwHands) {
+    if (h.defender_layoffs > 0) handsWithLayoff++;
+    if (h.ginner_index === 1) {
+      // p1 defended
+      p1Deadwood.push(h.defender_deadwood);
+      p1Layoffs.push(h.defender_layoffs);
+    } else {
+      p2Deadwood.push(h.defender_deadwood);
+      p2Layoffs.push(h.defender_layoffs);
+    }
+  }
+
   // Comebacks: eventual winner was behind at or past the halfway hand.
   const comebacks: Comeback[] = [];
   for (const r of finished) {
@@ -299,6 +359,13 @@ export function analyzeGames(games: Game[], pair: [string, string]): Stats {
     p2DealtCount,
     p2DealtWon,
     finalHandSizes,
+    deadwoodGameCount: dwGames.length,
+    defendedHands: dwHands.length,
+    handsWithLayoff,
+    p1Deadwood,
+    p2Deadwood,
+    p1Layoffs,
+    p2Layoffs,
     comebacks,
     firstGameAt: rows.length ? rows[0].created_at : null,
     lastGameAt: rows.length ? rows[rows.length - 1].created_at : null

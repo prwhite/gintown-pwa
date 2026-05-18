@@ -148,15 +148,15 @@
     </section>
   {/if}
 
-  <!-- Running totals — dealer of the *current* hand gets the • prefix. -->
+  <!-- Whose deal the next (currently-entered) hand is. -->
+  <div class="next-deal">{game.players[currentDealerIndex]}'s deal</div>
+
+  <!-- Running totals. -->
   <section class="totals">
     {#each [0, 1] as i (i)}
       {@const leading = totals[i] > totals[1 - i] && totals[i] !== totals[1 - i]}
-      {@const isDealer = currentDealerIndex === i}
       <div class="total">
-        <div class="name">
-          {#if isDealer}<span class="dealer-dot">•</span>{/if}{game.players[i]}
-        </div>
+        <div class="name">{game.players[i]}</div>
         <div
           class="score"
           class:score-tick={i === 0 ? tick0 : tick1}
@@ -174,14 +174,13 @@
     <div class="label">Who ginned?</div>
     <div class="grid-2">
       {#each [0, 1] as i (i)}
-        {@const isDealer = currentDealerIndex === i}
         <button
           type="button"
           class="winner-tile"
           class:active={ginnerIndex === i}
           onclick={() => pickGinner(i as 0 | 1)}
         >
-          {#if isDealer}<span class="dealer-dot">•</span>{/if}{game.players[i] || `Player ${i + 1}`}
+          {game.players[i] || `Player ${i + 1}`}
         </button>
       {/each}
     </div>
@@ -317,15 +316,18 @@
     margin-bottom: 2px;
   }
 
-  .dealer-dot {
-    color: var(--accent);
-    margin-right: 2px;
-    font-weight: 700;
+  .next-deal {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
   }
 
   .total .score {
     font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-    font-size: 28px;
+    font-size: 42px;
     font-weight: 700;
     line-height: 1;
   }

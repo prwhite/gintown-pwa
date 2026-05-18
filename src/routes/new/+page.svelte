@@ -11,25 +11,27 @@
   let p1 = $state('');
   let p2 = $state('');
   let targetScore = $state<number>(DEFAULT_TARGET_SCORE);
-  let firstDealerIndex = $state<0 | 1>(0);
+  // No default — the user must explicitly pick a first dealer each game
+  // (an accidental wrong default skews the whole dealer-alternation chain).
+  let firstDealerIndex = $state<0 | 1 | null>(null);
 
   onMount(async () => {
     const lastNames = await getMeta('lastNames');
     const lastTarget = await getMeta('lastTargetScore');
-    const lastDealer = await getMeta('lastFirstDealerIndex');
     if (lastNames) {
       p1 = lastNames[0] ?? '';
       p2 = lastNames[1] ?? '';
     }
     if (typeof lastTarget === 'number') targetScore = lastTarget;
-    if (lastDealer === 0 || lastDealer === 1) firstDealerIndex = lastDealer;
   });
 
-  let canStart = $derived(p1.trim().length > 0 && p2.trim().length > 0);
+  let canStart = $derived(
+    p1.trim().length > 0 && p2.trim().length > 0 && firstDealerIndex !== null
+  );
 
   async function start() {
     if (!canStart) return;
-    await currentGame.start([p1.trim(), p2.trim()], targetScore, firstDealerIndex);
+    await currentGame.start([p1.trim(), p2.trim()], targetScore, firstDealerIndex as 0 | 1);
     goto(`${base}/game`);
   }
 </script>
