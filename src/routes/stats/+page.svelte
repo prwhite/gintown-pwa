@@ -169,6 +169,20 @@
 
 <div class="top-bar">
   <BackButton href="{base}/" />
+  {#if !loading}
+    <div class="range-toggle" role="group" aria-label="Time range">
+      {#each RANGES as r (r.key)}
+        <button
+          type="button"
+          class="range-tile"
+          class:active={range === r.key}
+          onclick={() => (range = r.key)}
+        >
+          {r.label}
+        </button>
+      {/each}
+    </div>
+  {/if}
 </div>
 
 <header class="header">
@@ -185,19 +199,6 @@
 {#if loading}
   <p class="empty">Loading…</p>
 {:else}
-  <div class="range-toggle" role="group" aria-label="Time range">
-    {#each RANGES as r (r.key)}
-      <button
-        type="button"
-        class="range-tile"
-        class:active={range === r.key}
-        onclick={() => (range = r.key)}
-      >
-        {r.label}
-      </button>
-    {/each}
-  </div>
-
   {#if stats.totalGames === 0}
     <p class="empty">No games in this range.</p>
   {:else}
@@ -536,16 +537,24 @@
   /* Sticks to the top of the viewport while the long stats page scrolls.
      Top offset includes the iOS status-bar safe-area so it doesn't slip
      behind the notch on PWA installs. */
+  /* Floats while the long stats page scrolls so the time-range toggle is
+     always reachable for period-to-period comparison. Back/home button on
+     the left, range toggle on the right. Translucent blurred backdrop so
+     charts scrolling underneath stay readable. */
   .top-bar {
     position: sticky;
     top: calc(env(safe-area-inset-top) + 8px);
     z-index: 100;
-    padding-top: 8px;
-    pointer-events: none;
-    width: max-content;
-  }
-  .top-bar :global(a) {
-    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: var(--radius-md);
+    background: rgba(22, 33, 62, 0.82);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 
   .header {
@@ -581,22 +590,20 @@
   /* ---- Time-range segmented control (same idiom as the new-game
      dealer/winner tiles: gold active state). ---- */
   .range-toggle {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-bottom: 20px;
+    display: flex;
+    gap: 6px;
   }
   .range-tile {
-    height: 40px;
-    border-radius: var(--radius-md);
-    background: rgba(255, 255, 255, 0.04);
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    height: 30px;
+    padding: 0 12px;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1.5px solid rgba(255, 255, 255, 0.12);
     color: var(--text);
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     transition: all 0.15s;
     touch-action: manipulation;
-    padding: 0;
   }
   .range-tile:hover:not(.active) {
     background: rgba(255, 255, 255, 0.08);
