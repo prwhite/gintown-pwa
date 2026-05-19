@@ -10,6 +10,9 @@
   import HistoryButton from '$lib/components/HistoryButton.svelte';
   import HistoryModal from '$lib/components/HistoryModal.svelte';
   import { canonicalizePair, currentWinStreak } from '$lib/stats';
+  // Imported (not a Vite define) so HMR updates the badge the instant
+  // package.json changes — no dev-server restart needed. Baked in at build.
+  import { version as appVersion } from '../../package.json';
 
   let showHistoryModal = $state(false);
 
@@ -87,7 +90,7 @@
 </script>
 
 <div class="top-bar">
-  <span class="version">v{__APP_VERSION__}</span>
+  <span class="version">v{appVersion}</span>
   <HistoryButton onclick={() => (showHistoryModal = true)} />
 </div>
 
