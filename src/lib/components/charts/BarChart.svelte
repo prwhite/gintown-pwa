@@ -108,8 +108,11 @@
   }
 
   // ---- Vertical layout ----
+  // viewBox width is CONSTANT (not a function of bar count) so every vertical
+  // chart keeps the same aspect ratio and therefore renders at the same
+  // on-page height — dense charts get thinner bars, not a shorter chart.
   const padding = { top: 8, right: 12, bottom: 28, left: 36 };
-  let vWidth = $derived(Math.max(240, labels.length * 38 + padding.left + padding.right));
+  const vWidth = 360;
   let chartH = $derived(height - padding.top - padding.bottom);
   let chartW = $derived(vWidth - padding.left - padding.right);
 

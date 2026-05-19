@@ -266,6 +266,7 @@
           { label: 'Margin', color: (v) => (v >= 0 ? C_P1 : C_P2), data: mLine.data }
         ]}
         showLegend={false}
+        labelEvery={Math.max(1, Math.ceil(mLine.labels.length / 8))}
       />
     </div>
   </section>
@@ -281,7 +282,6 @@
           { label: stats.pair[0], color: C_P1, data: hsbins.p1 },
           { label: stats.pair[1], color: C_P2, data: hsbins.p2 }
         ]}
-        height={240}
         labelEvery={2}
       />
     </div>
@@ -438,7 +438,6 @@
             { label: stats.pair[0], color: C_P1, data: dwd.p1 },
             { label: stats.pair[1], color: C_P2, data: dwd.p2 }
           ]}
-          height={240}
           labelEvery={2}
         />
       </div>
@@ -452,7 +451,6 @@
               { label: stats.pair[0], color: C_P1, data: lof.p1 },
               { label: stats.pair[1], color: C_P2, data: lof.p2 }
             ]}
-            height={240}
             labelEvery={2}
           />
         </div>
