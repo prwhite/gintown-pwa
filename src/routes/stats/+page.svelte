@@ -165,6 +165,14 @@
   function dealerWinPct(won: number, total: number): number {
     return total > 0 ? Math.round((100 * won) / total) : 0;
   }
+
+  // Mean of `arr` plus its width (% of the larger of the two players' means
+  // for the same metric) for the comeback-style comparison bar.
+  function avgBar(arr: number[], both: [number[], number[]]): { val: number; pct: number } {
+    const v = mean(arr);
+    const max = Math.max(1, mean(both[0]), mean(both[1]));
+    return { val: v, pct: (v / max) * 100 };
+  }
 </script>
 
 <div class="top-bar">
@@ -466,45 +474,56 @@
     </div>
     <div class="card">
       <h3>Per-player summary (when defending)</h3>
-        <table class="stats-table">
-          <thead><tr><th>Player</th><th>Metric</th><th>n</th><th>Mean</th><th>Median</th></tr></thead>
-          <tbody>
+
+      <h4 class="sub">Deadwood</h4>
+      <table class="stats-table">
+        <thead><tr><th>Player</th><th>n</th><th>Mean</th><th>Median</th><th class="avg-h">Avg</th></tr></thead>
+        <tbody>
+          {#each [0, 1] as i (i)}
+            {@const arr = i === 0 ? stats.p1Deadwood : stats.p2Deadwood}
+            {@const b = avgBar(arr, [stats.p1Deadwood, stats.p2Deadwood])}
             <tr>
-              <td class="player-cell" style="color: var(--success);">{stats.pair[0]}</td>
-              <td>Deadwood</td>
-              <td>{stats.p1Deadwood.length}</td>
-              <td>{mean(stats.p1Deadwood).toFixed(1)}</td>
-              <td>{median(stats.p1Deadwood)}</td>
+              <td class="player-cell" style="color: {i === 0 ? 'var(--success)' : 'var(--accent)'};">{i === 0 ? stats.pair[0] : stats.pair[1]}</td>
+              <td>{arr.length}</td>
+              <td>{b.val.toFixed(1)}</td>
+              <td>{median(arr)}</td>
+              <td>
+                <div class="avg-bar-wrap">
+                  <div class="avg-bar" style="width: {b.pct}%; background: {i === 0 ? C_P1 : C_P2};"></div>
+                </div>
+              </td>
             </tr>
+          {/each}
+        </tbody>
+      </table>
+
+      <h4 class="sub">Layoffs</h4>
+      <table class="stats-table">
+        <thead><tr><th>Player</th><th>n</th><th>Mean</th><th>Median</th><th class="avg-h">Avg</th></tr></thead>
+        <tbody>
+          {#each [0, 1] as i (i)}
+            {@const arr = i === 0 ? stats.p1Layoffs : stats.p2Layoffs}
+            {@const b = avgBar(arr, [stats.p1Layoffs, stats.p2Layoffs])}
             <tr>
-              <td class="player-cell" style="color: var(--success);">{stats.pair[0]}</td>
-              <td>Layoffs</td>
-              <td>{stats.p1Layoffs.length}</td>
-              <td>{mean(stats.p1Layoffs).toFixed(1)}</td>
-              <td>{median(stats.p1Layoffs)}</td>
+              <td class="player-cell" style="color: {i === 0 ? 'var(--success)' : 'var(--accent)'};">{i === 0 ? stats.pair[0] : stats.pair[1]}</td>
+              <td>{arr.length}</td>
+              <td>{b.val.toFixed(1)}</td>
+              <td>{median(arr)}</td>
+              <td>
+                <div class="avg-bar-wrap">
+                  <div class="avg-bar" style="width: {b.pct}%; background: {i === 0 ? C_P1 : C_P2};"></div>
+                </div>
+              </td>
             </tr>
-            <tr>
-              <td class="player-cell" style="color: var(--accent);">{stats.pair[1]}</td>
-              <td>Deadwood</td>
-              <td>{stats.p2Deadwood.length}</td>
-              <td>{mean(stats.p2Deadwood).toFixed(1)}</td>
-              <td>{median(stats.p2Deadwood)}</td>
-            </tr>
-            <tr>
-              <td class="player-cell" style="color: var(--accent);">{stats.pair[1]}</td>
-              <td>Layoffs</td>
-              <td>{stats.p2Layoffs.length}</td>
-              <td>{mean(stats.p2Layoffs).toFixed(1)}</td>
-              <td>{median(stats.p2Layoffs)}</td>
-            </tr>
-          </tbody>
-        </table>
-        <p class="note" style="margin-top: 10px; margin-bottom: 0;">
-          Layoffs used in {stats.handsWithLayoff} of {stats.defendedHands} defended
-          hand{stats.defendedHands === 1 ? '' : 's'} ({pct(stats.handsWithLayoff, stats.defendedHands)}).
-        </p>
-      </div>
-    </section>
+          {/each}
+        </tbody>
+      </table>
+      <p class="note" style="margin-top: 10px; margin-bottom: 0;">
+        Layoffs used in {stats.handsWithLayoff} of {stats.defendedHands} defended
+        hand{stats.defendedHands === 1 ? '' : 's'} ({pct(stats.handsWithLayoff, stats.defendedHands)}).
+      </p>
+    </div>
+  </section>
 
   <!-- ============= Comebacks ============= -->
   <section class="section">
@@ -757,6 +776,35 @@
   }
   .player-cell {
     font-weight: 600;
+  }
+  /* Sub-heading separating the Deadwood and Layoffs tables. */
+  h4.sub {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 14px 0 4px;
+  }
+  h4.sub:first-of-type {
+    margin-top: 8px;
+  }
+  /* Comeback-style comparison bar for the per-player averages. The Avg
+     column flexes; the bar fills it so the two players compare visually. */
+  .stats-table th.avg-h {
+    width: 45%;
+  }
+  .avg-bar-wrap {
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 4px;
+    height: 14px;
+    min-width: 60px;
+    overflow: hidden;
+  }
+  .avg-bar {
+    height: 100%;
+    border-radius: 4px;
+    min-width: 2px;
   }
 
   /* ---- Comebacks ---- */
