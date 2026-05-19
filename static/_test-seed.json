@@ -1,0 +1,4957 @@
+{
+  "format": "gintown-history",
+  "version": 1,
+  "exportedAt": "2026-05-19T00:31:18.295Z",
+  "games": [
+    {
+      "id": "b8fbb01e-ddcd-47c5-9a29-490635dca858",
+      "createdAt": 1779075707065,
+      "endedAt": null,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 75,
+          "defenderTotal": 45,
+          "defenderDeadwood": 5,
+          "defenderLayoffs": 0,
+          "scores": [
+            45,
+            75
+          ],
+          "createdAt": 1779075976014
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 70,
+          "defenderTotal": 20,
+          "defenderDeadwood": 40,
+          "defenderLayoffs": 0,
+          "scores": [
+            70,
+            20
+          ],
+          "createdAt": 1779076319380
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 90,
+          "defenderTotal": 40,
+          "defenderDeadwood": 10,
+          "defenderLayoffs": 20,
+          "scores": [
+            40,
+            90
+          ],
+          "createdAt": 1779076648340
+        }
+      ],
+      "winner": null,
+      "firstDealerIndex": 1
+    },
+    {
+      "id": "763913bf-e560-4d9b-887b-b289b9ef2d9c",
+      "createdAt": 1779061407587,
+      "endedAt": 1779062698599,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 85,
+          "defenderTotal": 20,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 30,
+          "scores": [
+            85,
+            20
+          ],
+          "createdAt": 1779061579592
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 70,
+          "defenderTotal": 110,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 5,
+          "scores": [
+            110,
+            70
+          ],
+          "createdAt": 1779061882054
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 75,
+          "defenderTotal": -25,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 10,
+          "scores": [
+            -25,
+            75
+          ],
+          "createdAt": 1779062122844
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 75,
+          "defenderTotal": 35,
+          "defenderDeadwood": 20,
+          "defenderLayoffs": 15,
+          "scores": [
+            35,
+            75
+          ],
+          "createdAt": 1779062347237
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 85,
+          "defenderTotal": 80,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 10,
+          "scores": [
+            85,
+            80
+          ],
+          "createdAt": 1779062698599
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "d8341e1a-42c3-4c28-817b-57bd425f4bc3",
+      "createdAt": 1778995835823,
+      "endedAt": 1778997212081,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 65,
+          "defenderTotal": 50,
+          "defenderDeadwood": 10,
+          "defenderLayoffs": 5,
+          "scores": [
+            65,
+            50
+          ],
+          "createdAt": 1778996113983
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 90,
+          "defenderTotal": 60,
+          "defenderDeadwood": 5,
+          "defenderLayoffs": 0,
+          "scores": [
+            60,
+            90
+          ],
+          "createdAt": 1778996474384
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 75,
+          "defenderTotal": 20,
+          "defenderDeadwood": 30,
+          "defenderLayoffs": 10,
+          "scores": [
+            20,
+            75
+          ],
+          "createdAt": 1778996832178
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 85,
+          "defenderTotal": 45,
+          "defenderDeadwood": 20,
+          "defenderLayoffs": 0,
+          "scores": [
+            45,
+            85
+          ],
+          "createdAt": 1778997212080
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 1
+    },
+    {
+      "id": "e099fcd5-7b70-4fd2-8675-50fd6baecb2d",
+      "createdAt": 1778979695794,
+      "endedAt": 1778981868994,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 95,
+          "defenderTotal": 30,
+          "defenderDeadwood": 30,
+          "defenderLayoffs": 0,
+          "scores": [
+            95,
+            30
+          ],
+          "createdAt": 1778979996829
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 90,
+          "defenderTotal": 10,
+          "defenderDeadwood": 45,
+          "defenderLayoffs": 25,
+          "scores": [
+            90,
+            10
+          ],
+          "createdAt": 1778980419120
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 95,
+          "defenderTotal": 40,
+          "defenderDeadwood": 20,
+          "defenderLayoffs": 0,
+          "scores": [
+            40,
+            95
+          ],
+          "createdAt": 1778980766422
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 65,
+          "defenderTotal": 15,
+          "defenderDeadwood": 30,
+          "defenderLayoffs": 0,
+          "scores": [
+            15,
+            65
+          ],
+          "createdAt": 1778981145729
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 50,
+          "defenderTotal": 20,
+          "defenderDeadwood": 45,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            20
+          ],
+          "createdAt": 1778981504535
+        },
+        {
+          "index": 6,
+          "ginnerIndex": 1,
+          "ginnerTotal": 90,
+          "defenderTotal": 30,
+          "defenderDeadwood": 30,
+          "defenderLayoffs": 0,
+          "scores": [
+            30,
+            90
+          ],
+          "createdAt": 1778981868994
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "6982db94-d36c-4972-922a-38a970822062",
+      "createdAt": 1778913903206,
+      "endedAt": 1778915588834,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 75,
+          "defenderTotal": 85,
+          "defenderDeadwood": 5,
+          "defenderLayoffs": 0,
+          "scores": [
+            85,
+            75
+          ],
+          "createdAt": 1778914185861
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 95,
+          "defenderTotal": 50,
+          "defenderDeadwood": 25,
+          "defenderLayoffs": 0,
+          "scores": [
+            95,
+            50
+          ],
+          "createdAt": 1778914650498
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 60,
+          "defenderTotal": -5,
+          "defenderDeadwood": 50,
+          "defenderLayoffs": 0,
+          "scores": [
+            -5,
+            60
+          ],
+          "createdAt": 1778915009654
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 65,
+          "defenderTotal": 40,
+          "defenderDeadwood": 35,
+          "defenderLayoffs": 10,
+          "scores": [
+            65,
+            40
+          ],
+          "createdAt": 1778915312438
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 75,
+          "defenderTotal": 65,
+          "defenderDeadwood": 5,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            75
+          ],
+          "createdAt": 1778915588834
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "3c9d9484-197c-431f-9f85-7ff3ac79f6e1",
+      "createdAt": 1778906920554,
+      "endedAt": 1778908857837,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 100,
+          "defenderTotal": 90,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 15,
+          "scores": [
+            90,
+            100
+          ],
+          "createdAt": 1778907355126
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 50,
+          "defenderTotal": -80,
+          "defenderDeadwood": 80,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            -80
+          ],
+          "createdAt": 1778907611741
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 50,
+          "defenderDeadwood": 10,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            50
+          ],
+          "createdAt": 1778907899786
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 75,
+          "defenderTotal": 40,
+          "defenderDeadwood": 25,
+          "defenderLayoffs": 0,
+          "scores": [
+            40,
+            75
+          ],
+          "createdAt": 1778908245623
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 65,
+          "defenderTotal": 15,
+          "defenderDeadwood": 35,
+          "defenderLayoffs": 0,
+          "scores": [
+            15,
+            65
+          ],
+          "createdAt": 1778908558240
+        },
+        {
+          "index": 6,
+          "ginnerIndex": 0,
+          "ginnerTotal": 90,
+          "defenderTotal": 15,
+          "defenderDeadwood": 35,
+          "defenderLayoffs": 0,
+          "scores": [
+            90,
+            15
+          ],
+          "createdAt": 1778908857836
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 1
+    },
+    {
+      "id": "b3604443-4fbd-4349-a3df-bc6ba38429eb",
+      "createdAt": 1778891850914,
+      "endedAt": 1778893793572,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 65,
+          "defenderTotal": 40,
+          "defenderDeadwood": 20,
+          "defenderLayoffs": 0,
+          "scores": [
+            40,
+            65
+          ],
+          "createdAt": 1778892096227
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 105,
+          "defenderTotal": 30,
+          "defenderDeadwood": 30,
+          "defenderLayoffs": 0,
+          "scores": [
+            105,
+            30
+          ],
+          "createdAt": 1778892428797
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 90,
+          "defenderTotal": -15,
+          "defenderDeadwood": 45,
+          "defenderLayoffs": 0,
+          "scores": [
+            -15,
+            90
+          ],
+          "createdAt": 1778892801812
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 50,
+          "defenderTotal": 40,
+          "defenderDeadwood": 20,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            40
+          ],
+          "createdAt": 1778893068867
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 65,
+          "defenderTotal": 45,
+          "defenderDeadwood": 20,
+          "defenderLayoffs": 10,
+          "scores": [
+            65,
+            45
+          ],
+          "createdAt": 1778893483452
+        },
+        {
+          "index": 6,
+          "ginnerIndex": 1,
+          "ginnerTotal": 60,
+          "defenderTotal": 45,
+          "defenderDeadwood": 20,
+          "defenderLayoffs": 10,
+          "scores": [
+            45,
+            60
+          ],
+          "createdAt": 1778893793571
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "9bcd264b-8a97-4b1a-98e8-e5ed5017fba0",
+      "createdAt": 1778816213536,
+      "endedAt": 1778817620088,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 90,
+          "defenderTotal": 55,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 10,
+          "scores": [
+            55,
+            90
+          ],
+          "createdAt": 1778816595891
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 45,
+          "defenderDeadwood": 20,
+          "defenderLayoffs": 0,
+          "scores": [
+            45,
+            80
+          ],
+          "createdAt": 1778816872166
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 50,
+          "defenderDeadwood": 10,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            80
+          ],
+          "createdAt": 1778817226920
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 55,
+          "defenderDeadwood": 20,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            55
+          ],
+          "createdAt": 1778817620088
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 1
+    },
+    {
+      "id": "04cd5443-fae7-40a7-97cb-93f439165246",
+      "createdAt": 1778805629640,
+      "endedAt": 1778806688551,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 95,
+          "defenderTotal": 20,
+          "defenderDeadwood": 25,
+          "defenderLayoffs": 0,
+          "scores": [
+            20,
+            95
+          ],
+          "createdAt": 1778805649516
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 70,
+          "defenderTotal": 80,
+          "defenderDeadwood": 5,
+          "defenderLayoffs": 0,
+          "scores": [
+            70,
+            80
+          ],
+          "createdAt": 1778806118085
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 90,
+          "defenderTotal": 20,
+          "defenderDeadwood": 35,
+          "defenderLayoffs": 0,
+          "scores": [
+            20,
+            90
+          ],
+          "createdAt": 1778806390079
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 100,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 10,
+          "scores": [
+            100,
+            80
+          ],
+          "createdAt": 1778806688551
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "9fda105f-b2af-4072-a8a1-a0b0e4463970",
+      "createdAt": 1778739977268,
+      "endedAt": 1778741352513,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 65,
+          "defenderTotal": 15,
+          "defenderDeadwood": 30,
+          "defenderLayoffs": 15,
+          "scores": [
+            15,
+            65
+          ],
+          "createdAt": 1778740160704
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 60,
+          "defenderTotal": -5,
+          "defenderDeadwood": 40,
+          "defenderLayoffs": 0,
+          "scores": [
+            -5,
+            60
+          ],
+          "createdAt": 1778740443747
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 75,
+          "defenderTotal": 5,
+          "defenderDeadwood": 40,
+          "defenderLayoffs": 0,
+          "scores": [
+            5,
+            75
+          ],
+          "createdAt": 1778740768804
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 60,
+          "defenderTotal": 25,
+          "defenderDeadwood": 20,
+          "defenderLayoffs": 0,
+          "scores": [
+            25,
+            60
+          ],
+          "createdAt": 1778741046549
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 60,
+          "defenderTotal": -50,
+          "defenderDeadwood": 70,
+          "defenderLayoffs": 0,
+          "scores": [
+            -50,
+            60
+          ],
+          "createdAt": 1778741352513
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "e6e3cf95-444d-6304-83ad-797f40ff1f91",
+      "createdAt": 1778513417065,
+      "endedAt": 1778513777065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 95,
+          "defenderTotal": 20,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            95,
+            20
+          ],
+          "createdAt": 1778513417065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 75,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            75,
+            80
+          ],
+          "createdAt": 1778513447065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 70,
+          "defenderTotal": 0,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            0,
+            70
+          ],
+          "createdAt": 1778513477065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 100,
+          "defenderTotal": 60,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            60,
+            100
+          ],
+          "createdAt": 1778513507065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 15,
+          "defenderTotal": 5,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            15,
+            5
+          ],
+          "createdAt": 1778513537065
+        },
+        {
+          "index": 6,
+          "ginnerIndex": 1,
+          "ginnerTotal": 90,
+          "defenderTotal": 15,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            15,
+            90
+          ],
+          "createdAt": 1778513567065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "114d7925-1382-4562-60e8-86d03b03cd47",
+      "createdAt": 1778509817065,
+      "endedAt": 1778510117065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 75,
+          "defenderTotal": 65,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            75
+          ],
+          "createdAt": 1778509817065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 95,
+          "defenderTotal": 45,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            45,
+            95
+          ],
+          "createdAt": 1778509847065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 85,
+          "defenderTotal": 50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            85
+          ],
+          "createdAt": 1778509877065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 90,
+          "defenderTotal": -10,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            90,
+            -10
+          ],
+          "createdAt": 1778509907065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 85,
+          "defenderTotal": 20,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            20,
+            85
+          ],
+          "createdAt": 1778509937065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "d1b100ee-8116-7287-628e-bba40d3bbf91",
+      "createdAt": 1778506217065,
+      "endedAt": 1778506517065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 70,
+          "defenderTotal": 65,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            70
+          ],
+          "createdAt": 1778506217065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 75,
+          "defenderTotal": 45,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            45,
+            75
+          ],
+          "createdAt": 1778506247065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 100,
+          "defenderTotal": 70,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            100,
+            70
+          ],
+          "createdAt": 1778506277065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 65,
+          "defenderTotal": 50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            50
+          ],
+          "createdAt": 1778506307065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 100,
+          "defenderTotal": 55,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            55,
+            100
+          ],
+          "createdAt": 1778506337065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "86d55936-d54e-0aa2-e7db-a363f2d24a87",
+      "createdAt": 1778502617065,
+      "endedAt": 1778502857065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 90,
+          "defenderTotal": 25,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            90,
+            25
+          ],
+          "createdAt": 1778502617065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 70,
+          "defenderTotal": 10,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            70,
+            10
+          ],
+          "createdAt": 1778502647065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 105,
+          "defenderTotal": 60,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            60,
+            105
+          ],
+          "createdAt": 1778502677065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 100,
+          "defenderTotal": 25,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            100,
+            25
+          ],
+          "createdAt": 1778502707065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "29fb6971-8a01-0c32-9e31-3e9a2da142d5",
+      "createdAt": 1778499017065,
+      "endedAt": 1778499317065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 70,
+          "defenderTotal": 0,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            70,
+            0
+          ],
+          "createdAt": 1778499017065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 70,
+          "defenderTotal": 50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            70
+          ],
+          "createdAt": 1778499047065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 65,
+          "defenderTotal": -10,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            -10
+          ],
+          "createdAt": 1778499077065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 110,
+          "defenderTotal": 10,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            110,
+            10
+          ],
+          "createdAt": 1778499107065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 60,
+          "defenderTotal": 50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            60
+          ],
+          "createdAt": 1778499137065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "b24b3cf2-3d41-2bca-e480-deda98cade4c",
+      "createdAt": 1778495417065,
+      "endedAt": 1778495777065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 65,
+          "defenderTotal": 25,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            25
+          ],
+          "createdAt": 1778495417065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 20,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            20
+          ],
+          "createdAt": 1778495447065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 20,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            20,
+            80
+          ],
+          "createdAt": 1778495477065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 20,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            20,
+            80
+          ],
+          "createdAt": 1778495507065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 70,
+          "defenderTotal": 70,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            70,
+            70
+          ],
+          "createdAt": 1778495537065
+        },
+        {
+          "index": 6,
+          "ginnerIndex": 1,
+          "ginnerTotal": 75,
+          "defenderTotal": 85,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            85,
+            75
+          ],
+          "createdAt": 1778495567065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "173ee5af-c58d-7fe7-e6c3-877102a711d6",
+      "createdAt": 1778491817065,
+      "endedAt": 1778492057065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 20,
+          "defenderTotal": -40,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            -40,
+            20
+          ],
+          "createdAt": 1778491817065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 115,
+          "defenderTotal": 100,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            100,
+            115
+          ],
+          "createdAt": 1778491847065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 65,
+          "defenderTotal": 20,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            20,
+            65
+          ],
+          "createdAt": 1778491877065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 105,
+          "defenderTotal": 90,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            90,
+            105
+          ],
+          "createdAt": 1778491907065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "f7c143f6-85ff-6e24-ef59-84fd817c069b",
+      "createdAt": 1778488217065,
+      "endedAt": 1778488517065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 45,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            45,
+            80
+          ],
+          "createdAt": 1778488217065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 110,
+          "defenderTotal": 30,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            30,
+            110
+          ],
+          "createdAt": 1778488247065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 75,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            75,
+            80
+          ],
+          "createdAt": 1778488277065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 5,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            5
+          ],
+          "createdAt": 1778488307065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 75,
+          "defenderTotal": 75,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            75,
+            75
+          ],
+          "createdAt": 1778488337065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "48c08e29-c4f8-477b-67d7-d3c1ebac18c5",
+      "createdAt": 1778484617065,
+      "endedAt": 1778484917065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 85,
+          "defenderTotal": -5,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            -5,
+            85
+          ],
+          "createdAt": 1778484617065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 15,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            15
+          ],
+          "createdAt": 1778484647065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 70,
+          "defenderTotal": 40,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            40,
+            70
+          ],
+          "createdAt": 1778484677065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 70,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            70
+          ],
+          "createdAt": 1778484707065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 110,
+          "defenderTotal": 0,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            110,
+            0
+          ],
+          "createdAt": 1778484737065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "6a74f346-2097-719f-b096-5fbb2a06adb1",
+      "createdAt": 1778481017065,
+      "endedAt": 1778481317065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 85,
+          "defenderTotal": 5,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            5,
+            85
+          ],
+          "createdAt": 1778481017065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 55,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            55,
+            80
+          ],
+          "createdAt": 1778481047065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 75,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            75
+          ],
+          "createdAt": 1778481077065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 100,
+          "defenderTotal": -25,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            100,
+            -25
+          ],
+          "createdAt": 1778481107065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 75,
+          "defenderTotal": 65,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            75,
+            65
+          ],
+          "createdAt": 1778481137065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "1b133e5d-f224-56bc-b9b9-04c55a77a62d",
+      "createdAt": 1778477417065,
+      "endedAt": 1778477777065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 20,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            20
+          ],
+          "createdAt": 1778477417065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 40,
+          "defenderTotal": -40,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            -40,
+            40
+          ],
+          "createdAt": 1778477447065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 105,
+          "defenderTotal": 100,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            100,
+            105
+          ],
+          "createdAt": 1778477477065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 75,
+          "defenderTotal": 50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            75
+          ],
+          "createdAt": 1778477507065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 90,
+          "defenderTotal": 45,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            90,
+            45
+          ],
+          "createdAt": 1778477537065
+        },
+        {
+          "index": 6,
+          "ginnerIndex": 1,
+          "ginnerTotal": 65,
+          "defenderTotal": 25,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            25,
+            65
+          ],
+          "createdAt": 1778477567065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "eeb3bec4-64c1-4b25-fe2f-d7b97dfd9eb3",
+      "createdAt": 1778473817065,
+      "endedAt": 1778474117065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 75,
+          "defenderTotal": 45,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            75,
+            45
+          ],
+          "createdAt": 1778473817065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 85,
+          "defenderTotal": -90,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            85,
+            -90
+          ],
+          "createdAt": 1778473847065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 65,
+          "defenderTotal": 15,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            15
+          ],
+          "createdAt": 1778473877065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 50,
+          "defenderTotal": 5,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            5
+          ],
+          "createdAt": 1778473907065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 85,
+          "defenderTotal": 5,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            85,
+            5
+          ],
+          "createdAt": 1778473937065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "48fc8274-c2b1-2856-673b-4d855d565dd0",
+      "createdAt": 1778470217065,
+      "endedAt": 1778470577065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 50,
+          "defenderTotal": 5,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            5
+          ],
+          "createdAt": 1778470217065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 75,
+          "defenderTotal": 0,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            75,
+            0
+          ],
+          "createdAt": 1778470247065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 45,
+          "defenderTotal": 35,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            45,
+            35
+          ],
+          "createdAt": 1778470277065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 120,
+          "defenderTotal": 35,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            120,
+            35
+          ],
+          "createdAt": 1778470307065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 55,
+          "defenderTotal": -50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            -50,
+            55
+          ],
+          "createdAt": 1778470337065
+        },
+        {
+          "index": 6,
+          "ginnerIndex": 1,
+          "ginnerTotal": 70,
+          "defenderTotal": 60,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            60,
+            70
+          ],
+          "createdAt": 1778470367065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "75800899-2d6d-47c0-11ee-d654e9c72bd6",
+      "createdAt": 1778466617065,
+      "endedAt": 1778466917065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 85,
+          "defenderTotal": 30,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            30,
+            85
+          ],
+          "createdAt": 1778466617065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 20,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            20
+          ],
+          "createdAt": 1778466647065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 85,
+          "defenderTotal": 5,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            5,
+            85
+          ],
+          "createdAt": 1778466677065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 100,
+          "defenderTotal": 75,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            100,
+            75
+          ],
+          "createdAt": 1778466707065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 55,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            55,
+            80
+          ],
+          "createdAt": 1778466737065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "1f774b9d-0713-2b4c-f657-4912072c0741",
+      "createdAt": 1778463017065,
+      "endedAt": 1778463257065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 60,
+          "defenderTotal": 85,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            85,
+            60
+          ],
+          "createdAt": 1778463017065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 80,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            80
+          ],
+          "createdAt": 1778463047065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 65,
+          "defenderTotal": -55,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            -55,
+            65
+          ],
+          "createdAt": 1778463077065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 95,
+          "defenderTotal": 35,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            35,
+            95
+          ],
+          "createdAt": 1778463107065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "800eb86f-0d79-c935-24e6-e396b471fa44",
+      "createdAt": 1778459417065,
+      "endedAt": 1778459717065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 85,
+          "defenderTotal": 40,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            85,
+            40
+          ],
+          "createdAt": 1778459417065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 105,
+          "defenderTotal": -30,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            -30,
+            105
+          ],
+          "createdAt": 1778459447065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 105,
+          "defenderTotal": 50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            105,
+            50
+          ],
+          "createdAt": 1778459477065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 70,
+          "defenderTotal": 35,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            35,
+            70
+          ],
+          "createdAt": 1778459507065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 50,
+          "defenderTotal": 35,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            35
+          ],
+          "createdAt": 1778459537065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "1d4f7add-c043-9737-1411-270448b6366f",
+      "createdAt": 1778455817065,
+      "endedAt": 1778456177065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 60,
+          "defenderTotal": -35,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            -35,
+            60
+          ],
+          "createdAt": 1778455817065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 65,
+          "defenderTotal": 35,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            35,
+            65
+          ],
+          "createdAt": 1778455847065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 70,
+          "defenderTotal": 5,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            70,
+            5
+          ],
+          "createdAt": 1778455877065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 55,
+          "defenderTotal": 50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            55,
+            50
+          ],
+          "createdAt": 1778455907065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 85,
+          "defenderTotal": 65,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            85,
+            65
+          ],
+          "createdAt": 1778455937065
+        },
+        {
+          "index": 6,
+          "ginnerIndex": 0,
+          "ginnerTotal": 95,
+          "defenderTotal": -10,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            95,
+            -10
+          ],
+          "createdAt": 1778455967065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "295e9690-d306-d000-393d-58a098e3be0a",
+      "createdAt": 1778452217065,
+      "endedAt": 1778452517065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 95,
+          "defenderTotal": 60,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            60,
+            95
+          ],
+          "createdAt": 1778452217065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 65,
+          "defenderTotal": 0,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            0
+          ],
+          "createdAt": 1778452247065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 115,
+          "defenderTotal": 55,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            55,
+            115
+          ],
+          "createdAt": 1778452277065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 85,
+          "defenderTotal": 50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            85
+          ],
+          "createdAt": 1778452307065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 95,
+          "defenderTotal": 80,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            95
+          ],
+          "createdAt": 1778452337065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 1
+    },
+    {
+      "id": "782b080e-cdec-d43a-d5fa-8457cdba55ef",
+      "createdAt": 1778448617065,
+      "endedAt": 1778449037065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 20,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            20,
+            80
+          ],
+          "createdAt": 1778448617065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 90,
+          "defenderTotal": 15,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            90,
+            15
+          ],
+          "createdAt": 1778448647065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 50,
+          "defenderTotal": 15,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            15
+          ],
+          "createdAt": 1778448677065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 5,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            5
+          ],
+          "createdAt": 1778448707065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 50,
+          "defenderTotal": -15,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            -15,
+            50
+          ],
+          "createdAt": 1778448737065
+        },
+        {
+          "index": 6,
+          "ginnerIndex": 1,
+          "ginnerTotal": 100,
+          "defenderTotal": 10,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            10,
+            100
+          ],
+          "createdAt": 1778448767065
+        },
+        {
+          "index": 7,
+          "ginnerIndex": 1,
+          "ginnerTotal": 110,
+          "defenderTotal": 0,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            0,
+            110
+          ],
+          "createdAt": 1778448797065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "e080206c-1a87-ed45-0a56-ed6cccbb61f9",
+      "createdAt": 1778445017065,
+      "endedAt": 1778445317065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 100,
+          "defenderTotal": 85,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            85,
+            100
+          ],
+          "createdAt": 1778445017065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 120,
+          "defenderTotal": 5,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            5,
+            120
+          ],
+          "createdAt": 1778445047065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 95,
+          "defenderTotal": 20,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            95,
+            20
+          ],
+          "createdAt": 1778445077065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 0,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            0
+          ],
+          "createdAt": 1778445107065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 50,
+          "defenderTotal": 20,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            20
+          ],
+          "createdAt": 1778445137065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "12d98f9d-9b3e-4eb0-b6f0-c29c0c1bd7c4",
+      "createdAt": 1778441417065,
+      "endedAt": 1778441777065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 65,
+          "defenderTotal": 30,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            30,
+            65
+          ],
+          "createdAt": 1778441417065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 55,
+          "defenderTotal": 45,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            45,
+            55
+          ],
+          "createdAt": 1778441447065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 95,
+          "defenderTotal": -10,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            95,
+            -10
+          ],
+          "createdAt": 1778441477065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 75,
+          "defenderTotal": 55,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            55,
+            75
+          ],
+          "createdAt": 1778441507065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 55,
+          "defenderTotal": 25,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            25,
+            55
+          ],
+          "createdAt": 1778441537065
+        },
+        {
+          "index": 6,
+          "ginnerIndex": 0,
+          "ginnerTotal": 120,
+          "defenderTotal": 10,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            120,
+            10
+          ],
+          "createdAt": 1778441567065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "89d01b6e-6cc4-dc0e-6479-a3a1104694be",
+      "createdAt": 1778437817065,
+      "endedAt": 1778438057065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 70,
+          "defenderTotal": -5,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            70,
+            -5
+          ],
+          "createdAt": 1778437817065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 65,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            65
+          ],
+          "createdAt": 1778437847065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 70,
+          "defenderTotal": 65,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            70,
+            65
+          ],
+          "createdAt": 1778437877065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 100,
+          "defenderTotal": 30,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            100,
+            30
+          ],
+          "createdAt": 1778437907065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 1
+    },
+    {
+      "id": "29153bbb-48b2-40fa-ec66-c33d6a835ea3",
+      "createdAt": 1778434217065,
+      "endedAt": 1778434517065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 70,
+          "defenderTotal": 85,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            70,
+            85
+          ],
+          "createdAt": 1778434217065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 90,
+          "defenderTotal": 30,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            90,
+            30
+          ],
+          "createdAt": 1778434247065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 65,
+          "defenderTotal": 20,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            20
+          ],
+          "createdAt": 1778434277065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            80
+          ],
+          "createdAt": 1778434307065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 85,
+          "defenderTotal": 35,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            35,
+            85
+          ],
+          "createdAt": 1778434337065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 1
+    },
+    {
+      "id": "52ab3b48-889c-3ff4-ab00-4ed11ad8c653",
+      "createdAt": 1778430617065,
+      "endedAt": 1778430977065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 95,
+          "defenderTotal": -5,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            -5,
+            95
+          ],
+          "createdAt": 1778430617065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 65,
+          "defenderTotal": -30,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            -30,
+            65
+          ],
+          "createdAt": 1778430647065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 135,
+          "defenderTotal": 10,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            135,
+            10
+          ],
+          "createdAt": 1778430677065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 95,
+          "defenderTotal": 40,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            95,
+            40
+          ],
+          "createdAt": 1778430707065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 15,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            15
+          ],
+          "createdAt": 1778430737065
+        },
+        {
+          "index": 6,
+          "ginnerIndex": 0,
+          "ginnerTotal": 55,
+          "defenderTotal": 55,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            55,
+            55
+          ],
+          "createdAt": 1778430767065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 1
+    },
+    {
+      "id": "57a1959a-8eaf-56b6-de29-5b6506ef42c1",
+      "createdAt": 1778427017065,
+      "endedAt": 1778427317065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 55,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            55
+          ],
+          "createdAt": 1778427017065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 65,
+          "defenderTotal": 30,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            30,
+            65
+          ],
+          "createdAt": 1778427047065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 70,
+          "defenderTotal": 65,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            70
+          ],
+          "createdAt": 1778427077065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 85,
+          "defenderTotal": 45,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            45,
+            85
+          ],
+          "createdAt": 1778427107065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 90,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            90,
+            80
+          ],
+          "createdAt": 1778427137065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "f6ab2da9-b04f-ae7c-8813-4de40e0d026d",
+      "createdAt": 1778423417065,
+      "endedAt": 1778423657065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 65,
+          "defenderTotal": 50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            50
+          ],
+          "createdAt": 1778423417065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 85,
+          "defenderTotal": 60,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            85,
+            60
+          ],
+          "createdAt": 1778423447065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 95,
+          "defenderTotal": 70,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            95,
+            70
+          ],
+          "createdAt": 1778423477065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 65,
+          "defenderTotal": 15,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            15
+          ],
+          "createdAt": 1778423507065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "f968d8fe-a756-5abc-7ee0-b69786eb9693",
+      "createdAt": 1778419817065,
+      "endedAt": 1778420177065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 55,
+          "defenderTotal": 80,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            55,
+            80
+          ],
+          "createdAt": 1778419817065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 90,
+          "defenderTotal": 5,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            90,
+            5
+          ],
+          "createdAt": 1778419847065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 95,
+          "defenderTotal": 50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            95
+          ],
+          "createdAt": 1778419877065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 50,
+          "defenderTotal": 10,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            10,
+            50
+          ],
+          "createdAt": 1778419907065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 20,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            20
+          ],
+          "createdAt": 1778419937065
+        },
+        {
+          "index": 6,
+          "ginnerIndex": 0,
+          "ginnerTotal": 70,
+          "defenderTotal": 50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            70,
+            50
+          ],
+          "createdAt": 1778419967065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "7811b85e-8580-16d4-7e2f-8b89c7e9aba9",
+      "createdAt": 1778416217065,
+      "endedAt": 1778416577065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 55,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            55
+          ],
+          "createdAt": 1778416217065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 55,
+          "defenderTotal": 70,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            55,
+            70
+          ],
+          "createdAt": 1778416247065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 70,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            70,
+            80
+          ],
+          "createdAt": 1778416277065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 75,
+          "defenderTotal": 65,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            75
+          ],
+          "createdAt": 1778416307065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 95,
+          "defenderTotal": 85,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            95,
+            85
+          ],
+          "createdAt": 1778416337065
+        },
+        {
+          "index": 6,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 40,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            40
+          ],
+          "createdAt": 1778416367065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 1
+    },
+    {
+      "id": "a07f0bc9-2330-6a80-2fa6-8db6d624c217",
+      "createdAt": 1778412617065,
+      "endedAt": 1778412917065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 85,
+          "defenderTotal": 75,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            75,
+            85
+          ],
+          "createdAt": 1778412617065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 25,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            25,
+            80
+          ],
+          "createdAt": 1778412647065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 65,
+          "defenderTotal": 60,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            60
+          ],
+          "createdAt": 1778412677065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 95,
+          "defenderTotal": 15,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            95,
+            15
+          ],
+          "createdAt": 1778412707065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 85,
+          "defenderTotal": 5,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            85,
+            5
+          ],
+          "createdAt": 1778412737065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "e53004ec-5df5-1a1b-abde-cc94aee00a61",
+      "createdAt": 1778409017065,
+      "endedAt": 1778409257065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 90,
+          "defenderTotal": 55,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            90,
+            55
+          ],
+          "createdAt": 1778409017065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 30,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            30
+          ],
+          "createdAt": 1778409047065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 105,
+          "defenderTotal": 90,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            105,
+            90
+          ],
+          "createdAt": 1778409077065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 65,
+          "defenderTotal": 25,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            25,
+            65
+          ],
+          "createdAt": 1778409107065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "ec6a462d-1a66-8d15-c239-85a7782752b7",
+      "createdAt": 1778405417065,
+      "endedAt": 1778405657065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 40,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            40,
+            80
+          ],
+          "createdAt": 1778405417065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 115,
+          "defenderTotal": 40,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            40,
+            115
+          ],
+          "createdAt": 1778405447065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 50,
+          "defenderTotal": 15,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            15,
+            50
+          ],
+          "createdAt": 1778405477065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 100,
+          "defenderTotal": 20,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            20,
+            100
+          ],
+          "createdAt": 1778405507065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "a5bed2c9-ede3-277a-5aa1-41e729243d7b",
+      "createdAt": 1778401817065,
+      "endedAt": 1778402117065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 65,
+          "defenderTotal": 25,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            25,
+            65
+          ],
+          "createdAt": 1778401817065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 70,
+          "defenderTotal": 20,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            20,
+            70
+          ],
+          "createdAt": 1778401847065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 60,
+          "defenderTotal": 0,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            0,
+            60
+          ],
+          "createdAt": 1778401877065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 100,
+          "defenderTotal": 70,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            70,
+            100
+          ],
+          "createdAt": 1778401907065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 100,
+          "defenderTotal": 50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            100
+          ],
+          "createdAt": 1778401937065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "c6c3acdd-13d5-10a4-c486-b0cd8deb0120",
+      "createdAt": 1778398217065,
+      "endedAt": 1778398517065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 85,
+          "defenderTotal": 50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            85,
+            50
+          ],
+          "createdAt": 1778398217065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 70,
+          "defenderTotal": 65,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            70
+          ],
+          "createdAt": 1778398247065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 0,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            0
+          ],
+          "createdAt": 1778398277065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 100,
+          "defenderTotal": 55,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            55,
+            100
+          ],
+          "createdAt": 1778398307065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 15,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            15
+          ],
+          "createdAt": 1778398337065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 1
+    },
+    {
+      "id": "c1505cdb-116e-d83f-8755-8d32038915a0",
+      "createdAt": 1778394617065,
+      "endedAt": 1778394917065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 105,
+          "defenderTotal": 85,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            85,
+            105
+          ],
+          "createdAt": 1778394617065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 55,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            55,
+            80
+          ],
+          "createdAt": 1778394647065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 75,
+          "defenderTotal": 30,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            75,
+            30
+          ],
+          "createdAt": 1778394677065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 30,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            30
+          ],
+          "createdAt": 1778394707065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 75,
+          "defenderTotal": 35,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            75,
+            35
+          ],
+          "createdAt": 1778394737065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 1
+    },
+    {
+      "id": "1beca08f-8fe8-40c9-4253-e76309285f1c",
+      "createdAt": 1778391017065,
+      "endedAt": 1778391377065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 70,
+          "defenderTotal": -30,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            -30,
+            70
+          ],
+          "createdAt": 1778391017065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 55,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            55
+          ],
+          "createdAt": 1778391047065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 70,
+          "defenderTotal": 70,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            70,
+            70
+          ],
+          "createdAt": 1778391077065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 55,
+          "defenderTotal": -30,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            55,
+            -30
+          ],
+          "createdAt": 1778391107065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 75,
+          "defenderTotal": -55,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            75,
+            -55
+          ],
+          "createdAt": 1778391137065
+        },
+        {
+          "index": 6,
+          "ginnerIndex": 0,
+          "ginnerTotal": 100,
+          "defenderTotal": -30,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            100,
+            -30
+          ],
+          "createdAt": 1778391167065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "e402b49f-47af-e295-a6c0-32d32eb2d4db",
+      "createdAt": 1778387417065,
+      "endedAt": 1778387777065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 85,
+          "defenderTotal": 35,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            85,
+            35
+          ],
+          "createdAt": 1778387417065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 75,
+          "defenderTotal": 5,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            75,
+            5
+          ],
+          "createdAt": 1778387447065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 45,
+          "defenderTotal": 75,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            45,
+            75
+          ],
+          "createdAt": 1778387477065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 70,
+          "defenderTotal": -75,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            -75,
+            70
+          ],
+          "createdAt": 1778387507065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 75,
+          "defenderTotal": -40,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            -40,
+            75
+          ],
+          "createdAt": 1778387537065
+        },
+        {
+          "index": 6,
+          "ginnerIndex": 1,
+          "ginnerTotal": 65,
+          "defenderTotal": 60,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            60,
+            65
+          ],
+          "createdAt": 1778387567065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "feae2e35-b68e-b941-2cc4-eaafe0aba9a2",
+      "createdAt": 1778383817065,
+      "endedAt": 1778384117065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 85,
+          "defenderTotal": 70,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            85,
+            70
+          ],
+          "createdAt": 1778383817065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 65,
+          "defenderTotal": 40,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            40
+          ],
+          "createdAt": 1778383847065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 65,
+          "defenderTotal": 20,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            20,
+            65
+          ],
+          "createdAt": 1778383877065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 35,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            35
+          ],
+          "createdAt": 1778383907065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 95,
+          "defenderTotal": 25,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            25,
+            95
+          ],
+          "createdAt": 1778383937065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "0d47d47b-00b6-c57c-36e2-cb16a74e8dcc",
+      "createdAt": 1778380217065,
+      "endedAt": 1778380517065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 30,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            30,
+            80
+          ],
+          "createdAt": 1778380217065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 85,
+          "defenderTotal": 60,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            60,
+            85
+          ],
+          "createdAt": 1778380247065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 65,
+          "defenderTotal": 10,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            10
+          ],
+          "createdAt": 1778380277065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 65,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            80
+          ],
+          "createdAt": 1778380307065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 100,
+          "defenderTotal": -15,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            100,
+            -15
+          ],
+          "createdAt": 1778380337065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "1ea70c5c-a0aa-e16c-428d-5f36c86c42cd",
+      "createdAt": 1778376617065,
+      "endedAt": 1778376917065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 90,
+          "defenderTotal": 40,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            90,
+            40
+          ],
+          "createdAt": 1778376617065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 50,
+          "defenderTotal": 30,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            30
+          ],
+          "createdAt": 1778376647065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 85,
+          "defenderTotal": 35,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            35,
+            85
+          ],
+          "createdAt": 1778376677065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 105,
+          "defenderTotal": -25,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            105,
+            -25
+          ],
+          "createdAt": 1778376707065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 95,
+          "defenderTotal": 50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            95,
+            50
+          ],
+          "createdAt": 1778376737065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "24fc2613-702f-1db1-48e1-aefa02b5dc4c",
+      "createdAt": 1778373017065,
+      "endedAt": 1778373257065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 90,
+          "defenderTotal": 25,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            90,
+            25
+          ],
+          "createdAt": 1778373017065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 75,
+          "defenderTotal": 55,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            55,
+            75
+          ],
+          "createdAt": 1778373047065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 65,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            65
+          ],
+          "createdAt": 1778373077065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 85,
+          "defenderTotal": -70,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            85,
+            -70
+          ],
+          "createdAt": 1778373107065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "a70855b1-7f5e-b24f-4622-450016914f28",
+      "createdAt": 1778369417065,
+      "endedAt": 1778369777065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 70,
+          "defenderTotal": -35,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            -35,
+            70
+          ],
+          "createdAt": 1778369417065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 60,
+          "defenderTotal": 5,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            60,
+            5
+          ],
+          "createdAt": 1778369447065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 100,
+          "defenderTotal": 100,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            100,
+            100
+          ],
+          "createdAt": 1778369477065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 65,
+          "defenderTotal": 65,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            65
+          ],
+          "createdAt": 1778369507065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 60,
+          "defenderTotal": 35,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            60,
+            35
+          ],
+          "createdAt": 1778369537065
+        },
+        {
+          "index": 6,
+          "ginnerIndex": 1,
+          "ginnerTotal": 90,
+          "defenderTotal": 45,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            45,
+            90
+          ],
+          "createdAt": 1778369567065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "a2c7baee-4e37-9aff-be24-212b07ec39fd",
+      "createdAt": 1778365817065,
+      "endedAt": 1778366237065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 65,
+          "defenderTotal": -50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            -50,
+            65
+          ],
+          "createdAt": 1778365817065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": -15,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            -15
+          ],
+          "createdAt": 1778365847065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 65,
+          "defenderTotal": 35,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            35
+          ],
+          "createdAt": 1778365877065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 85,
+          "defenderTotal": 5,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            5,
+            85
+          ],
+          "createdAt": 1778365907065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 75,
+          "defenderTotal": 30,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            75,
+            30
+          ],
+          "createdAt": 1778365937065
+        },
+        {
+          "index": 6,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": -15,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            -15,
+            80
+          ],
+          "createdAt": 1778365967065
+        },
+        {
+          "index": 7,
+          "ginnerIndex": 1,
+          "ginnerTotal": 70,
+          "defenderTotal": 65,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            70
+          ],
+          "createdAt": 1778365997065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "cf2f1f44-28fd-afca-2355-63733b4d80ad",
+      "createdAt": 1778362217065,
+      "endedAt": 1778362457065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 5,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            5,
+            80
+          ],
+          "createdAt": 1778362217065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 75,
+          "defenderTotal": 50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            75
+          ],
+          "createdAt": 1778362247065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            80
+          ],
+          "createdAt": 1778362277065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 90,
+          "defenderTotal": -20,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            -20,
+            90
+          ],
+          "createdAt": 1778362307065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "282d4589-5475-4969-59e6-6df7e8902d83",
+      "createdAt": 1778358617065,
+      "endedAt": 1778358917065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 50,
+          "defenderTotal": 0,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            0
+          ],
+          "createdAt": 1778358617065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 70,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            70
+          ],
+          "createdAt": 1778358647065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 95,
+          "defenderTotal": 65,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            95
+          ],
+          "createdAt": 1778358677065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 105,
+          "defenderTotal": -35,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            -35,
+            105
+          ],
+          "createdAt": 1778358707065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 85,
+          "defenderTotal": 60,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            60,
+            85
+          ],
+          "createdAt": 1778358737065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "1097e421-4212-1d0f-b4b4-05861630e2f6",
+      "createdAt": 1778355017065,
+      "endedAt": 1778355317065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 60,
+          "defenderTotal": 30,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            30,
+            60
+          ],
+          "createdAt": 1778355017065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 65,
+          "defenderTotal": 10,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            10
+          ],
+          "createdAt": 1778355047065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 85,
+          "defenderTotal": 75,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            85,
+            75
+          ],
+          "createdAt": 1778355077065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 65,
+          "defenderTotal": 0,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            0
+          ],
+          "createdAt": 1778355107065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 0,
+          "ginnerTotal": 80,
+          "defenderTotal": 55,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            55
+          ],
+          "createdAt": 1778355137065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "bf9d1fcf-c941-ae37-a6fe-f98e917a4ed6",
+      "createdAt": 1778351417065,
+      "endedAt": 1778351657065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 70,
+          "defenderTotal": 30,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            30,
+            70
+          ],
+          "createdAt": 1778351417065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 60,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            60,
+            80
+          ],
+          "createdAt": 1778351447065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 80,
+          "defenderTotal": 55,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            55,
+            80
+          ],
+          "createdAt": 1778351477065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 130,
+          "defenderTotal": 85,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            85,
+            130
+          ],
+          "createdAt": 1778351507065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "205a5847-f0a5-3fa9-7f80-cf31753398b7",
+      "createdAt": 1778347817065,
+      "endedAt": 1778348117065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 105,
+          "defenderTotal": 50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            105
+          ],
+          "createdAt": 1778347817065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 75,
+          "defenderTotal": 65,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            75
+          ],
+          "createdAt": 1778347847065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 75,
+          "defenderTotal": 70,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            70,
+            75
+          ],
+          "createdAt": 1778347877065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 70,
+          "defenderTotal": -10,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            70,
+            -10
+          ],
+          "createdAt": 1778347907065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 75,
+          "defenderTotal": 70,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            70,
+            75
+          ],
+          "createdAt": 1778347937065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "63919232-e564-60af-82ad-d9c99f81e2d7",
+      "createdAt": 1778344217065,
+      "endedAt": 1778344517065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 0,
+          "ginnerTotal": 70,
+          "defenderTotal": -10,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            70,
+            -10
+          ],
+          "createdAt": 1778344217065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 60,
+          "defenderTotal": 0,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            60,
+            0
+          ],
+          "createdAt": 1778344247065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 75,
+          "defenderTotal": -35,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            75,
+            -35
+          ],
+          "createdAt": 1778344277065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 90,
+          "defenderTotal": 0,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            90,
+            0
+          ],
+          "createdAt": 1778344307065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 65,
+          "defenderTotal": 55,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            55,
+            65
+          ],
+          "createdAt": 1778344337065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "161f0368-4dd9-533d-6634-5c9ee270317c",
+      "createdAt": 1778340617065,
+      "endedAt": 1778340857065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 30,
+          "defenderTotal": -5,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            -5,
+            30
+          ],
+          "createdAt": 1778340617065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 120,
+          "defenderTotal": 55,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            55,
+            120
+          ],
+          "createdAt": 1778340647065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 105,
+          "defenderTotal": 105,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            105,
+            105
+          ],
+          "createdAt": 1778340677065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 65,
+          "defenderTotal": 40,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            40,
+            65
+          ],
+          "createdAt": 1778340707065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 1
+    },
+    {
+      "id": "e582a0e5-2ffb-b01a-b66e-d120590d0800",
+      "createdAt": 1778337017065,
+      "endedAt": 1778337257065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 75,
+          "defenderTotal": 80,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            80,
+            75
+          ],
+          "createdAt": 1778337017065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 50,
+          "defenderTotal": -55,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            -55
+          ],
+          "createdAt": 1778337047065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 100,
+          "defenderTotal": 65,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            100,
+            65
+          ],
+          "createdAt": 1778337077065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 95,
+          "defenderTotal": 45,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            95,
+            45
+          ],
+          "createdAt": 1778337107065
+        }
+      ],
+      "winner": 0,
+      "firstDealerIndex": 1
+    },
+    {
+      "id": "1557d4dc-4235-7b30-1b3f-743a9be3a028",
+      "createdAt": 1778333417065,
+      "endedAt": 1778333717065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 65,
+          "defenderTotal": -10,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            -10,
+            65
+          ],
+          "createdAt": 1778333417065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 0,
+          "ginnerTotal": 90,
+          "defenderTotal": 50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            90,
+            50
+          ],
+          "createdAt": 1778333447065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 0,
+          "ginnerTotal": 65,
+          "defenderTotal": 45,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            45
+          ],
+          "createdAt": 1778333477065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 1,
+          "ginnerTotal": 95,
+          "defenderTotal": 40,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            40,
+            95
+          ],
+          "createdAt": 1778333507065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 65,
+          "defenderTotal": 20,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            20,
+            65
+          ],
+          "createdAt": 1778333537065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 0
+    },
+    {
+      "id": "b34cc16a-07de-4801-6de5-f094a9cde1da",
+      "createdAt": 1778329817065,
+      "endedAt": 1778330237065,
+      "players": [
+        "Kirsty",
+        "Rusty"
+      ],
+      "targetScore": 300,
+      "hands": [
+        {
+          "index": 1,
+          "ginnerIndex": 1,
+          "ginnerTotal": 65,
+          "defenderTotal": 60,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            60,
+            65
+          ],
+          "createdAt": 1778329817065
+        },
+        {
+          "index": 2,
+          "ginnerIndex": 1,
+          "ginnerTotal": 55,
+          "defenderTotal": -20,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            -20,
+            55
+          ],
+          "createdAt": 1778329847065
+        },
+        {
+          "index": 3,
+          "ginnerIndex": 1,
+          "ginnerTotal": 105,
+          "defenderTotal": 5,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            5,
+            105
+          ],
+          "createdAt": 1778329877065
+        },
+        {
+          "index": 4,
+          "ginnerIndex": 0,
+          "ginnerTotal": 65,
+          "defenderTotal": -65,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            -65
+          ],
+          "createdAt": 1778329907065
+        },
+        {
+          "index": 5,
+          "ginnerIndex": 1,
+          "ginnerTotal": 55,
+          "defenderTotal": 50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            55
+          ],
+          "createdAt": 1778329937065
+        },
+        {
+          "index": 6,
+          "ginnerIndex": 1,
+          "ginnerTotal": 70,
+          "defenderTotal": 65,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            65,
+            70
+          ],
+          "createdAt": 1778329967065
+        },
+        {
+          "index": 7,
+          "ginnerIndex": 1,
+          "ginnerTotal": 85,
+          "defenderTotal": 50,
+          "defenderDeadwood": 0,
+          "defenderLayoffs": 0,
+          "scores": [
+            50,
+            85
+          ],
+          "createdAt": 1778329997065
+        }
+      ],
+      "winner": 1,
+      "firstDealerIndex": 1
+    }
+  ]
+}

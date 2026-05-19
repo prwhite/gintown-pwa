@@ -169,11 +169,15 @@ on IDB for the initial paint. `/stats` would be a fine prerender too
 **if** the crawler reached it; we list it explicitly in
 `svelte.config.js`'s `prerender.entries`.
 
-## 15. `static/_test-seed.json` is intentional but untracked
+## 15. `static/_test-seed.json` is the committed test fixture
 
-A tiny ad-hoc test bundle the user uses during local dev. Lives in
-`static/` so the dev server serves it, but is gitignored implicitly by
-the leading underscore convention + not being staged. Don't commit it.
+A history bundle (durable `gintown-history` format) used to exercise the
+stats/import paths during local dev. Lives in `static/` so the dev server
+serves it at `/_test-seed.json`. **It is committed** — it's central to
+testing and needs to be present on any machine the project is cloned to.
+(Earlier this was deliberately untracked; that was reversed once it became
+the canonical test dataset rather than a throwaway.) Keep it in the
+durable bundle shape; the in-app importer only accepts that format.
 
 ## 16. Intentionally out of scope
 

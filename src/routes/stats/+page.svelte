@@ -313,11 +313,11 @@
 
   <!-- ============= Hand streaks ============= -->
   {@const hsk = handStreakBins(stats)}
-  {#if hsk.labels.length > 0}
-    <section class="section">
-      <h2>Hand streaks</h2>
-      <p class="note">Run lengths of consecutive hands ginned by the same player within a match (streaks of 1 ignored).</p>
-      <div class="card">
+  <section class="section">
+    <h2>Hand streaks</h2>
+    <p class="note">Run lengths of consecutive hands ginned by the same player within a match (streaks of 1 ignored).</p>
+    <div class="card">
+      <div class="chart-slot">
         <BarChart
           labels={hsk.labels}
           datasets={[
@@ -325,9 +325,12 @@
             { label: stats.pair[1], color: C_P2, data: hsk.p2 }
           ]}
         />
+        {#if hsk.labels.length === 0}
+          <span class="empty-overlay">No multi-hand streaks in this range</span>
+        {/if}
       </div>
-    </section>
-  {/if}
+    </div>
+  </section>
 
   <!-- ============= Game length ============= -->
   {@const glb = gameLengthBins(stats)}
@@ -418,18 +421,22 @@
   </section>
 
   <!-- ============= Deadwood & layoffs ============= -->
-  {#if stats.deadwoodGameCount > 0}
-    {@const dwd = dwBins(stats.p1Deadwood, stats.p2Deadwood, 5)}
-    {@const lof = dwBins(stats.p1Layoffs, stats.p2Layoffs, 5, 5)}
-    <section class="section">
-      <h2>Deadwood &amp; layoffs</h2>
+  {@const dwd = dwBins(stats.p1Deadwood, stats.p2Deadwood, 5)}
+  {@const lof = dwBins(stats.p1Layoffs, stats.p2Layoffs, 5, 5)}
+  <section class="section">
+    <h2>Deadwood &amp; layoffs</h2>
+    {#if stats.deadwoodGameCount > 0}
       <p class="note">
         Defender-side only. Games with no recorded deadwood/layoff data (e.g.
         pre-app history) are excluded — {stats.deadwoodGameCount} game{stats.deadwoodGameCount === 1 ? '' : 's'},
         {stats.defendedHands} defended hand{stats.defendedHands === 1 ? '' : 's'}.
       </p>
-      <div class="card">
-        <h3>Deadwood distribution</h3>
+    {:else}
+      <p class="note">No recorded deadwood/layoff data in this range.</p>
+    {/if}
+    <div class="card">
+      <h3>Deadwood distribution</h3>
+      <div class="chart-slot">
         <BarChart
           labels={dwd.labels}
           datasets={[
@@ -437,22 +444,29 @@
             { label: stats.pair[1], color: C_P2, data: dwd.p2 }
           ]}
         />
+        {#if dwd.labels.length === 0}
+          <span class="empty-overlay">No data in this range</span>
+        {/if}
       </div>
-      {#if lof.labels.length > 0}
-        <div class="card">
-          <h3>Layoffs distribution</h3>
-          <p class="note" style="margin-bottom: 6px;">Excludes hands with no layoffs.</p>
-          <BarChart
-            labels={lof.labels}
-            datasets={[
-              { label: stats.pair[0], color: C_P1, data: lof.p1 },
-              { label: stats.pair[1], color: C_P2, data: lof.p2 }
-            ]}
-          />
-        </div>
-      {/if}
-      <div class="card">
-        <h3>Per-player summary (when defending)</h3>
+    </div>
+    <div class="card">
+      <h3>Layoffs distribution</h3>
+      <p class="note" style="margin-bottom: 6px;">Excludes hands with no layoffs.</p>
+      <div class="chart-slot">
+        <BarChart
+          labels={lof.labels}
+          datasets={[
+            { label: stats.pair[0], color: C_P1, data: lof.p1 },
+            { label: stats.pair[1], color: C_P2, data: lof.p2 }
+          ]}
+        />
+        {#if lof.labels.length === 0}
+          <span class="empty-overlay">No layoffs in this range</span>
+        {/if}
+      </div>
+    </div>
+    <div class="card">
+      <h3>Per-player summary (when defending)</h3>
         <table class="stats-table">
           <thead><tr><th>Player</th><th>Metric</th><th>n</th><th>Mean</th><th>Median</th></tr></thead>
           <tbody>
@@ -492,7 +506,6 @@
         </p>
       </div>
     </section>
-  {/if}
 
   <!-- ============= Comebacks ============= -->
   <section class="section">
@@ -678,6 +691,32 @@
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: var(--radius-md);
     margin-bottom: 10px;
+  }
+
+  /* Conditional sections render their chart even with no data (the chart
+     keeps a constant aspect/height), with a centred caption layered on
+     top so the section's height is identical empty or full — switching
+     time ranges never reflows the page. */
+  .chart-slot {
+    position: relative;
+  }
+  .empty-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 16px;
+    font-size: 12px;
+    font-style: italic;
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+  /* Comebacks is the last section; reserve a floor so an empty/short list
+     doesn't make the page collapse and lose scroll position on switch. */
+  .comebacks {
+    min-height: 140px;
   }
 
   .card-grid {
