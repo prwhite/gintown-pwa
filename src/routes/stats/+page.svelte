@@ -353,7 +353,6 @@
             { label: stats.pair[0] + ' won', color: C_P1, data: glb.p1 },
             { label: stats.pair[1] + ' won', color: C_P2, data: glb.p2 }
           ]}
-          stacked
         />
       </div>
     </div>
