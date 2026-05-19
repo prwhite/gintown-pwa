@@ -255,7 +255,6 @@
           { label: stats.pair[0] + ' wins', color: C_P1, data: mbins.p1 },
           { label: stats.pair[1] + ' wins', color: C_P2, data: mbins.p2 }
         ]}
-        labelEvery={2}
       />
     </div>
     <div class="card">
@@ -266,7 +265,6 @@
           { label: 'Margin', color: (v) => (v >= 0 ? C_P1 : C_P2), data: mLine.data }
         ]}
         showLegend={false}
-        labelEvery={Math.max(1, Math.ceil(mLine.labels.length / 8))}
       />
     </div>
   </section>
@@ -282,7 +280,6 @@
           { label: stats.pair[0], color: C_P1, data: hsbins.p1 },
           { label: stats.pair[1], color: C_P2, data: hsbins.p2 }
         ]}
-        labelEvery={2}
       />
     </div>
     <div class="card">
@@ -438,7 +435,6 @@
             { label: stats.pair[0], color: C_P1, data: dwd.p1 },
             { label: stats.pair[1], color: C_P2, data: dwd.p2 }
           ]}
-          labelEvery={2}
         />
       </div>
       {#if lof.labels.length > 0}
@@ -451,7 +447,6 @@
               { label: stats.pair[0], color: C_P1, data: lof.p1 },
               { label: stats.pair[1], color: C_P2, data: lof.p2 }
             ]}
-            labelEvery={2}
           />
         </div>
       {/if}

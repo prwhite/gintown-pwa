@@ -23,9 +23,6 @@
     stacked?: boolean;
     showLegend?: boolean;
     height?: number;
-    /** Render every Nth category label (default 1 = all). Useful when bucket
-        labels are wider than their bucket and would overlap. */
-    labelEvery?: number;
   }
 
   let {
@@ -34,8 +31,7 @@
     orientation = 'vertical',
     stacked = false,
     showLegend = true,
-    height = 220,
-    labelEvery = 1
+    height = 220
   }: Props = $props();
 
   function barColor(ds: Dataset, value: number, idx: number): string {
@@ -122,6 +118,20 @@
   }
 
   let vGroupWidth = $derived(labels.length ? chartW / labels.length : 0);
+
+  // Auto x-label elision. Everything here is in viewBox units, which scale
+  // uniformly with the rendered SVG (labels live inside it), so this is
+  // resolution-independent. Show the most labels that fit without the
+  // widest one colliding with its neighbour.
+  const LABEL_CHAR_W = 6; // ~0.6em advance for 10px SF Mono / Menlo
+  const LABEL_GAP = 8; // minimum blank gap between two shown labels
+  let maxLabelChars = $derived(labels.reduce((m, l) => Math.max(m, l.length), 1));
+  let labelStep = $derived(
+    Math.max(
+      1,
+      Math.ceil((maxLabelChars * LABEL_CHAR_W + LABEL_GAP) / Math.max(1, vGroupWidth))
+    )
+  );
 
   // ---- Horizontal layout ----
   const hPadding = { top: 4, right: 12, bottom: 24, left: 110 };
@@ -211,7 +221,7 @@
         {/if}
 
         <!-- category label (every Nth to avoid overlap when buckets are narrow) -->
-        {#if gi % labelEvery === 0}
+        {#if gi % labelStep === 0}
           <text
             class="axis-text"
             x={groupX + vGroupWidth / 2}
