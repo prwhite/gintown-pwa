@@ -142,12 +142,15 @@
     return { labels, p1, p2 };
   }
 
-  function dwBins(p1: number[], p2: number[], step: number) {
+  // `startLo` lets the layoffs chart skip the [0, step) bucket — 0 layoffs
+  // is so common it would dwarf every other bar.
+  function dwBins(p1: number[], p2: number[], step: number, startLo = 0) {
     const all = [...p1, ...p2];
     if (all.length === 0) return { labels: [], p1: [], p2: [] };
     const hi = Math.floor(Math.max(...all) / step) * step + step;
-    const b1 = histogram(p1, 0, hi, step);
-    const b2 = histogram(p2, 0, hi, step);
+    if (hi <= startLo) return { labels: [], p1: [], p2: [] };
+    const b1 = histogram(p1, startLo, hi, step);
+    const b2 = histogram(p2, startLo, hi, step);
     return {
       labels: b1.map((b) => b.label),
       p1: b1.map((b) => b.count),
@@ -419,7 +422,7 @@
   <!-- ============= Deadwood & layoffs ============= -->
   {#if stats.deadwoodGameCount > 0}
     {@const dwd = dwBins(stats.p1Deadwood, stats.p2Deadwood, 5)}
-    {@const lof = dwBins(stats.p1Layoffs, stats.p2Layoffs, 5)}
+    {@const lof = dwBins(stats.p1Layoffs, stats.p2Layoffs, 5, 5)}
     <section class="section">
       <h2>Deadwood &amp; layoffs</h2>
       <p class="note">
@@ -439,18 +442,21 @@
           labelEvery={2}
         />
       </div>
-      <div class="card">
-        <h3>Layoffs distribution</h3>
-        <BarChart
-          labels={lof.labels}
-          datasets={[
-            { label: stats.pair[0], color: C_P1, data: lof.p1 },
-            { label: stats.pair[1], color: C_P2, data: lof.p2 }
-          ]}
-          height={240}
-          labelEvery={2}
-        />
-      </div>
+      {#if lof.labels.length > 0}
+        <div class="card">
+          <h3>Layoffs distribution</h3>
+          <p class="note" style="margin-bottom: 6px;">Excludes hands with no layoffs.</p>
+          <BarChart
+            labels={lof.labels}
+            datasets={[
+              { label: stats.pair[0], color: C_P1, data: lof.p1 },
+              { label: stats.pair[1], color: C_P2, data: lof.p2 }
+            ]}
+            height={240}
+            labelEvery={2}
+          />
+        </div>
+      {/if}
       <div class="card">
         <h3>Per-player summary (when defending)</h3>
         <table class="stats-table">
