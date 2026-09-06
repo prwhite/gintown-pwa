@@ -10,9 +10,11 @@
     showIndex?: boolean;
     /** If provided, show a "•" prefix on the player at this index — the dealer of this hand. */
     dealerIndex?: 0 | 1;
+    /** Show player names above the scores. Off on the live game view (sides are already labelled). */
+    showNames?: boolean;
   }
 
-  let { hand, players, onDelete, showIndex = true, dealerIndex }: Props = $props();
+  let { hand, players, onDelete, showIndex = true, dealerIndex, showNames = true }: Props = $props();
 
   function fmt(n: number): string {
     return n > 0 ? `+${n}` : String(n);
@@ -30,10 +32,13 @@
       {@const isDefender = !isGinner}
       {@const isDealer = dealerIndex === i}
       <div class="player">
-        <div class="name" class:winner={isGinner}>
-          {#if isDealer}<span class="dealer-dot" aria-label="dealer">•</span>{/if}{players[i]}
-        </div>
+        {#if showNames}
+          <div class="name" class:winner={isGinner}>
+            {#if isDealer}<span class="dealer-dot" aria-label="dealer">•</span>{/if}{players[i]}
+          </div>
+        {/if}
         <div class="score-wrap">
+          {#if !showNames && isDealer}<span class="dealer-dot" aria-label="dealer">•</span>{/if}
           <span
             class="score"
             class:pos={hand.scores[i] > 0}

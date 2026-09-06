@@ -60,9 +60,6 @@
   function playerMax(i: 0 | 1): number {
     return isGinner(i) ? RANGES.ginnerTotal.max : RANGES.defenderTotal.max;
   }
-  function playerDefault(i: 0 | 1): number {
-    return isGinner(i) ? DEFAULTS.ginnerTotal : DEFAULTS.defenderTotal;
-  }
 
   function pickGinner(i: 0 | 1) {
     if (i === ginnerIndex) return;
@@ -143,6 +140,7 @@
               players={game.players}
               onDelete={() => deleteHand(hand.index)}
               showIndex={false}
+              showNames={false}
               dealerIndex={dealerIndexFor(game.firstDealerIndex, hand.index)}
             />
           </li>
@@ -163,7 +161,6 @@
     {#each [0, 1] as i (i)}
       {@const leading = totals[i] > totals[1 - i] && totals[i] !== totals[1 - i]}
       <div class="total">
-        <div class="name">{game.players[i]}</div>
         <div
           class="score"
           class:score-tick={i === 0 ? tick0 : tick1}
@@ -199,7 +196,6 @@
           onChange={(n) => setPlayerTotal(i as 0 | 1, n)}
           min={playerMin(i as 0 | 1)}
           max={playerMax(i as 0 | 1)}
-          resetTo={playerDefault(i as 0 | 1)}
           size="narrow"
           tone="positive"
         />
@@ -214,7 +210,6 @@
           onChange={(n) => (defenderDeadwood = n)}
           min={RANGES.defenderDeadwood.min}
           max={RANGES.defenderDeadwood.max}
-          resetTo={DEFAULTS.defenderDeadwood}
           size="compact"
         />
       </div>
@@ -228,7 +223,6 @@
           onChange={(n) => (defenderLayoffs = n)}
           min={RANGES.defenderLayoffs.min}
           max={RANGES.defenderLayoffs.max}
-          resetTo={DEFAULTS.defenderLayoffs}
           size="compact"
         />
       </div>
@@ -315,14 +309,6 @@
     text-align: center;
   }
 
-  .total .name {
-    font-size: 11px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 2px;
-  }
-
   .streak {
     text-align: center;
     font-size: 14px;
@@ -342,7 +328,7 @@
 
   .total .score {
     font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-    font-size: 42px;
+    font-size: 63px;
     font-weight: 700;
     line-height: 1;
   }
@@ -409,7 +395,7 @@
     background: rgba(255, 255, 255, 0.04);
     border: 2px solid rgba(255, 255, 255, 0.1);
     color: var(--text);
-    font-size: 14px;
+    font-size: 21px;
     font-weight: 600;
     transition: all 0.15s;
     touch-action: manipulation;

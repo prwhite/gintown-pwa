@@ -29,6 +29,22 @@
   let holdTimer: ReturnType<typeof setTimeout> | null = null;
   let repeatTimer: ReturnType<typeof setInterval> | null = null;
 
+  // Long-press → drag. After HOLD_MS the press is "armed": a stationary hold
+  // auto-repeats as before, but moving the finger vertically switches to drag
+  // mode, where every DRAG_PX of travel is one step (up = increase). Pointer
+  // capture keeps the gesture on the button; touch-action:none keeps the page
+  // from scrolling under it.
+  const HOLD_MS = 500;
+  const REPEAT_MS = 100;
+  const DRAG_PX = 12;
+  const DRAG_SLOP = 8;
+
+  let armed = $state(false);
+  let dragging = $state(false);
+  let pointerId: number | null = null;
+  let startY = 0;
+  let dragBase = 0;
+
   function clamp(n: number) {
     return Math.max(min, Math.min(max, n));
   }
@@ -38,18 +54,43 @@
     if (next !== value) onChange(next);
   }
 
-  function startHold(direction: -1 | 1) {
+  function onDown(e: PointerEvent, direction: -1 | 1) {
+    if (pointerId !== null) return;
+    pointerId = e.pointerId;
+    startY = e.clientY;
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
     bump(direction);
     holdTimer = setTimeout(() => {
-      repeatTimer = setInterval(() => bump(direction), 100);
-    }, 500);
+      armed = true;
+      repeatTimer = setInterval(() => bump(direction), REPEAT_MS);
+    }, HOLD_MS);
   }
 
-  function endHold() {
+  function onMove(e: PointerEvent) {
+    if (e.pointerId !== pointerId || !armed) return;
+    const dy = startY - e.clientY; // up = positive
+    if (!dragging) {
+      if (Math.abs(dy) < DRAG_SLOP) return;
+      dragging = true;
+      if (repeatTimer) clearInterval(repeatTimer);
+      repeatTimer = null;
+      startY = e.clientY;
+      dragBase = value;
+      return;
+    }
+    const next = clamp(dragBase + Math.round(dy / DRAG_PX) * step);
+    if (next !== value) onChange(next);
+  }
+
+  function onUp(e: PointerEvent) {
+    if (e.pointerId !== pointerId) return;
     if (holdTimer) clearTimeout(holdTimer);
     if (repeatTimer) clearInterval(repeatTimer);
     holdTimer = null;
     repeatTimer = null;
+    pointerId = null;
+    armed = false;
+    dragging = false;
   }
 
   function reset() {
@@ -71,10 +112,13 @@
       class="bump"
       disabled={atMin}
       aria-label="Decrease {label ?? ''}"
-      onpointerdown={() => startHold(-1)}
-      onpointerup={endHold}
-      onpointercancel={endHold}
-      onpointerleave={endHold}
+      class:armed
+      class:dragging
+      onpointerdown={(e) => onDown(e, -1)}
+      onpointermove={onMove}
+      onpointerup={onUp}
+      onpointercancel={onUp}
+      oncontextmenu={(e) => e.preventDefault()}
     >−{step}</button>
 
     <div class="value" class:positive={tone === 'positive'} aria-live="polite">{value}</div>
@@ -84,10 +128,13 @@
       class="bump"
       disabled={atMax}
       aria-label="Increase {label ?? ''}"
-      onpointerdown={() => startHold(1)}
-      onpointerup={endHold}
-      onpointercancel={endHold}
-      onpointerleave={endHold}
+      class:armed
+      class:dragging
+      onpointerdown={(e) => onDown(e, 1)}
+      onpointermove={onMove}
+      onpointerup={onUp}
+      onpointercancel={onUp}
+      oncontextmenu={(e) => e.preventDefault()}
     >+{step}</button>
   </div>
   {#if resetTo !== undefined}
@@ -128,8 +175,16 @@
     color: var(--text);
     font-weight: 700;
     user-select: none;
-    touch-action: manipulation;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    touch-action: none;
     padding: 0;
+  }
+
+  .bump.armed:not(:disabled) {
+    background: var(--accent);
+    color: white;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
   }
 
   .bump:hover:not(:disabled) {
@@ -168,32 +223,43 @@
     font-size: 26px;
   }
 
-  /* narrow: two-up side-by-side score stepper */
-  .narrow .row {
-    grid-template-columns: 48px 1fr 48px;
+  /* narrow + compact: stacked — value on top, wide tall bump buttons below so
+     a thumb on a button never covers the readout. */
+  .narrow .row,
+  .compact .row {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
     gap: 4px;
-    padding: 3px;
+    padding: 4px;
   }
-  .narrow .bump {
-    height: 38px;
-    font-size: 13px;
+  .narrow .value,
+  .compact .value {
+    grid-column: 1 / -1;
+    grid-row: 1;
   }
-  .narrow .value {
-    font-size: 22px;
+  .narrow .bump,
+  .compact .bump {
+    grid-row: 2;
   }
 
-  /* compact: smallest, for posterity metadata */
-  .compact .row {
-    grid-template-columns: 48px 1fr 48px;
-    gap: 4px;
-    padding: 3px;
+  /* narrow: two-up score stepper */
+  .narrow .bump {
+    height: 52px;
+    font-size: 15px;
   }
+  .narrow .value {
+    font-size: 30px;
+    line-height: 1.1;
+  }
+
+  /* compact: for posterity metadata */
   .compact .bump {
-    height: 32px;
-    font-size: 12px;
+    height: 46px;
+    font-size: 14px;
   }
   .compact .value {
-    font-size: 16px;
+    font-size: 22px;
+    line-height: 1.1;
   }
 
   .reset {
